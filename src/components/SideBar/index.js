@@ -3,7 +3,6 @@ import React from "react";
 //Icons
 import logo from "../../assets/img/logo.svg";
 import balance from "../../assets/img/balance.svg";
-import logout from "../../assets/img/logout.svg";
 
 //Style
 import "./SideBar.scss";
@@ -11,6 +10,9 @@ import { NavLink } from "react-router-dom";
 
 //Router
 import { router } from "../../utils/router";
+
+//Components
+import UserInfoBlock from "@components/UI/UserInfoBlock";
 
 const Sidebar = () => {
     return (
@@ -170,21 +172,13 @@ const Sidebar = () => {
                     </NavLink>
                 </nav>
             </div>
-            <div className="sidebar__account">
-                <div className="sidebar__account__information">
-                    <img
-                        src="https://cdn.dribbble.com/users/24078/screenshots/15522433/media/e92e58ec9d338a234945ae3d3ffd5be3.jpg?compress=1&resize=400x300"
-                        alt="logo"
-                    />
-                    <div className="sidebar__account__information__desc">
-                        <span>Artem Konkin</span>
-                        <p>temakonkin@gmail.com</p>
-                    </div>
-                </div>
-                <div className="sidebar__account__logout">
-                    <img src={logout} alt="logout" />
-                </div>
-            </div>
+            <UserInfoBlock
+                className="sidebar__account"
+                name="Artem Konkin"
+                email="temakonkin@gmail.com"
+                isLogout
+                logo="https://cdn.dribbble.com/users/24078/screenshots/15522433/media/e92e58ec9d338a234945ae3d3ffd5be3.jpg?compress=1&resize=400x300"
+            />
         </div>
     );
 };

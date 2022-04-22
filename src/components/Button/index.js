@@ -1,10 +1,23 @@
 import React from "react";
 
-const Button = ({ children, className, onClick }) => {
+//Styles
+import "./Button.scss";
+
+const Button = ({
+    children,
+    onClick,
+    theme = "usually",
+    className,
+    disabled = false,
+}) => {
     return (
-        <div className={`button ${className}`} onClick={onClick}>
+        <button
+            className={`button ${className} ${disabled && "disabled"} ${theme}`}
+            onClick={onClick}
+            disabled={disabled}
+        >
             {children}
-        </div>
+        </button>
     );
 };
 
