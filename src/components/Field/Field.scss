@@ -1,0 +1,29 @@
+.field {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+
+    gap: 8px;
+
+    label {
+        font-size: 12px;
+    }
+
+    input {
+        padding: 16px;
+        border: 1px solid transparent;
+
+        font-size: 14px;
+
+        box-sizing: border-box;
+        box-shadow: inset 0px -1px 0px #CCD4D8;
+        outline: none;
+
+        transition: all 0.5s ease;
+
+        &:focus {
+            border: 1px solid #7972F3;;
+            box-shadow: none;
+        }
+    }
+}

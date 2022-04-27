@@ -7,14 +7,16 @@ const Button = ({
     children,
     onClick,
     theme = "usually",
-    className,
+    className = "",
     disabled = false,
+    type = "",
 }) => {
     return (
         <button
             className={`button ${className} ${disabled && "disabled"} ${theme}`}
             onClick={onClick}
             disabled={disabled}
+            type={type}
         >
             {children}
         </button>

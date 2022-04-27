@@ -13,11 +13,11 @@ import { usePageTitle } from "@hooks/useTitle";
 //Style
 import "./MainLayout.scss";
 
-const MainLayout = () => {
+const MainLayout = ({ children, ...props }) => {
     const { rename } = usePageTitle();
 
     useEffect(() => {
-        rename("");
+        rename(props.title);
     }, []);
 
     return (
@@ -27,9 +27,7 @@ const MainLayout = () => {
             <div className="mainlayout__group">
                 <Sidebar />
 
-                <div className="mainlayout__group__content">
-                    <AppRoutes />
-                </div>
+                <div className="mainlayout__group__content">{children}</div>
             </div>
         </div>
     );

@@ -6,7 +6,7 @@ export const UserData = [
         userLost: 823,
     },
     {
-        label: "hehehe",
+        label: "Aigerim",
         id: 2,
         year: 2017,
         userGain: 45677,

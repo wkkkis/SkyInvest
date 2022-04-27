@@ -1,14 +1,6 @@
-import React, { useEffect } from "react";
-//Hooks
-import { usePageTitle } from "@hooks/useTitle";
+import React from "react";
 
-const Payments = ({ title }) => {
-    const { rename } = usePageTitle();
-
-    useEffect(() => {
-        rename(title);
-    }, []);
-
+const Payments = () => {
     return <div>Payments</div>;
 };
 

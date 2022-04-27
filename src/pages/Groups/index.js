@@ -1,15 +1,6 @@
-import React, { useEffect } from "react";
-
-//Hooks
-import { usePageTitle } from "@hooks/useTitle";
+import React from "react";
 
 const Groups = ({ title }) => {
-    const { rename } = usePageTitle();
-
-    useEffect(() => {
-        rename(title);
-    }, []);
-
     return <div>Groups</div>;
 };
 

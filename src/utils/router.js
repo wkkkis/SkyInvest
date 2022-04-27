@@ -7,4 +7,6 @@ export const router = {
     history: "/history",
     security: "/security",
     profile: "/profile",
+    login: "/login",
+    signin: "/signin",
 };

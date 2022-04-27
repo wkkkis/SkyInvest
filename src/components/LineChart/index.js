@@ -14,7 +14,7 @@ const LineChart = () => {
                 data: UserData.map((data) => data.userGain),
                 backgroundColor: (context) => {
                     const ctx = context.chart.ctx;
-                    const gradient = ctx.createLinearGradient(0, 0, 0, 300);
+                    const gradient = ctx.createLinearGradient(0, 0, 20, 200);
                     gradient.addColorStop(0, "#9D69F8");
                     gradient.addColorStop(1, "#FFFFFF00");
                     return gradient;

@@ -10,9 +10,15 @@ import History from "@pages/History";
 import Payments from "@pages/Payments";
 import MyCopy from "@pages/MyCopy";
 import Security from "@pages/Security";
+import Login from "@pages/Login";
+import Signin from "@pages/Signin";
 
 // utils
 import { router } from "@utils/router";
+
+//Layouts
+import MainLayout from "@layouts/MainLayout";
+import AuthLayout from "@layouts/AuthLayout";
 
 const allRoutes = [
     {
@@ -63,6 +69,19 @@ const allRoutes = [
         layout: "main",
         title: "Прафиль",
     },
+    {
+        url: router.login,
+        component: Login,
+        layout: "auth",
+        title: "Авторизация",
+    },
+    {
+        url: router.signin,
+        component: Signin,
+        layout: "auth",
+        title: "Авторизация",
+    },
+    {},
 ];
 
 const AppRoutes = () => {
@@ -70,10 +89,22 @@ const AppRoutes = () => {
         <Routes>
             {allRoutes.map((route) => {
                 let routeInner;
+                let props = route;
 
                 switch (route.layout) {
                     case "main":
-                        routeInner = <route.component {...route} />;
+                        routeInner = (
+                            <MainLayout {...props}>
+                                <route.component />
+                            </MainLayout>
+                        );
+                        break;
+                    case "auth":
+                        routeInner = (
+                            <AuthLayout {...props}>
+                                <route.component />
+                            </AuthLayout>
+                        );
                         break;
                     default:
                         break;

@@ -1,0 +1,15 @@
+.signin {
+    padding: 24px;
+
+    box-sizing: border-box;
+    border-radius: 8px;
+    
+    border: 1px solid #F0F0F0;
+
+    background: #FBFBFB;
+    
+    &__button {
+        padding: 15px;
+        font-size: 14px;
+    }
+}

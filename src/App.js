@@ -2,12 +2,15 @@ import React from "react";
 
 //Style
 import "./App.scss";
-import MainLayout from "@layouts/MainLayout";
+
+//Layouts
+// import MainLayout from "@layouts/MainLayout";
+import AppRoutes from "./routes";
 
 const App = () => {
     return (
         <div className="App">
-            <MainLayout />
+            <AppRoutes />
         </div>
     );
 };

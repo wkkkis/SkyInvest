@@ -1,16 +1,15 @@
-import React, { useEffect } from "react";
+import React from "react";
 
-//Hooks
-import { usePageTitle } from "@hooks/useTitle";
+//Component
 import CardInfo from "@components/CardInfo";
 import Select from "@components/Select";
-import UserInfoBlock from "../../components/UI/UserInfoBlock";
-import InfoBlock from "../../components/UI/InfoBlock";
+import UserInfoBlock from "@components/UI/UserInfoBlock";
+import InfoBlock from "@components/UI/InfoBlock";
+import Button from "@components/Button";
+import LineChart from "@components/LineChart";
 
 //Styles
 import "./DashBoard.scss";
-import Button from "../../components/Button";
-import LineChart from "../../components/LineChart";
 
 const mockData = {
     userinfo: [
@@ -27,13 +26,7 @@ const mockData = {
     ],
 };
 
-const DashBoard = ({ title }) => {
-    const { rename } = usePageTitle();
-
-    useEffect(() => {
-        rename(title);
-    }, []);
-
+const DashBoard = () => {
     return (
         <div className="main">
             <div className="main__header">
