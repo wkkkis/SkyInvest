@@ -10,13 +10,17 @@ const UserInfoBlock = ({
     logo = "",
     onClick = "",
     isLogout = false,
+    order,
     name,
     email,
     className,
+    handleChange,
 }) => {
     return (
         <div className={`userinfoblock ${className}`} onClick={onClick}>
-            <div className="userinfoblock__information">
+            <div
+                className={`userinfoblock__information ${order ? "order" : ""}`}
+            >
                 <img src={logo} alt="logo" />
                 <div className="userinfoblock__information__desc">
                     <span>{name}</span>
@@ -24,7 +28,7 @@ const UserInfoBlock = ({
                 </div>
             </div>
             {isLogout ? (
-                <div className="userinfoblock__logout">
+                <div onClick={handleChange} className="userinfoblock__logout">
                     <img src={logout} alt="logout" />
                 </div>
             ) : null}

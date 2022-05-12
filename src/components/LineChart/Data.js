@@ -1,33 +1,23 @@
-export const UserData = [
+export const data = [
     {
-        id: 1,
-        year: 2016,
-        userGain: 80000,
-        userLost: 823,
+        "Уровень ROI": 2000,
     },
     {
-        label: "Aigerim",
-        id: 2,
-        year: 2017,
-        userGain: 45677,
-        userLost: 345,
+        "Уровень ROI": 4000,
     },
     {
-        id: 3,
-        year: 2018,
-        userGain: 78888,
-        userLost: 555,
+        "Уровень ROI": 5000,
     },
     {
-        id: 4,
-        year: 2019,
-        userGain: 90000,
-        userLost: 4555,
+        "Уровень ROI": 8780,
     },
     {
-        id: 5,
-        year: 2020,
-        userGain: 4300,
-        userLost: 234,
+        "Уровень ROI": 9890,
+    },
+    {
+        "Уровень ROI": 11390,
+    },
+    {
+        "Уровень ROI": 3490,
     },
 ];

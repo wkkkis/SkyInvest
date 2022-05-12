@@ -1,10 +1,21 @@
 import React from "react";
-import SigninForm from "../../components/SigninForm";
+
+//Form
+import { SigninForm } from "@components/Forms";
+import Footer from "@components/Footer";
+
+//Icons
+import back from "@assets/img/authbackground.jpg";
 
 const Signin = () => {
     return (
-        <div>
-            <SigninForm />
+        <div className="main_auth">
+            <div className="main_auth__content">
+                <SigninForm />
+                <img src={back} alt="" />
+            </div>
+
+            <Footer />
         </div>
     );
 };

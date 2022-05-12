@@ -1,47 +1,67 @@
-import React, { useState } from "react";
+import React from "react";
 
 //Chart
-import { Line } from "react-chartjs-2";
-import { Chart as ChartJS } from "chart.js/auto";
-import { UserData } from "./Data";
+import { AreaChart, Area, Tooltip, ResponsiveContainer } from "recharts";
+
+//Data
+import { data } from "./Data";
+
+//Styles
+import "./LineChart.scss";
 
 const LineChart = () => {
-    const [userData, setUserData] = useState({
-        labels: UserData.map((data) => data.year),
-        datasets: [
-            {
-                label: "",
-                data: UserData.map((data) => data.userGain),
-                backgroundColor: (context) => {
-                    const ctx = context.chart.ctx;
-                    const gradient = ctx.createLinearGradient(0, 0, 20, 200);
-                    gradient.addColorStop(0, "#9D69F8");
-                    gradient.addColorStop(1, "#FFFFFF00");
-                    return gradient;
-                },
-                borderColor: "transparent",
-                borderWidth: 3,
-                tension: 0.3,
-                fill: "start",
-                pointRadius: 7,
-                pointBackgroundColor: "#9E68F8",
-            },
-        ],
-    });
-
-    const options = {
-        plugins: {
-            legend: {
-                labels: {
-                    display: false,
-                },
-            },
-        },
-    };
-
     return (
-        <div>
-            <Line data={userData} options={options} />
+        <div className="transactions">
+            <div className="transactions__topblock">
+                <div className="transactions__topblock__left">
+                    <span>100%</span>
+                    <span>0%</span>
+                </div>
+                <div className="transactions__topblock__graph">
+                    <ResponsiveContainer width="100%" height="100%">
+                        <AreaChart
+                            width={500}
+                            height={400}
+                            data={data}
+                            margin={{
+                                top: 10,
+                            }}
+                        >
+                            <defs>
+                                <linearGradient
+                                    id="colorview"
+                                    x1="0"
+                                    y1="0"
+                                    x2="0"
+                                    y2="1"
+                                >
+                                    <stop
+                                        offset="30%"
+                                        stopColor="#9D69F8"
+                                        stopOpacity={1}
+                                    />
+                                    <stop
+                                        offset="85%"
+                                        stopColor="#fff"
+                                        stopOpacity={0.2}
+                                    />
+                                </linearGradient>
+                            </defs>
+                            <Tooltip cursor={false} className="tooltip" />
+                            <Area
+                                type="monotone"
+                                dataKey="Уровень ROI"
+                                stroke="transparent"
+                                fill="url(#colorview)"
+                            />
+                        </AreaChart>
+                    </ResponsiveContainer>
+                </div>
+            </div>
+            <div className="transactions__bottomblock">
+                <span>15.08.2022</span>
+                <span>15.08.2022</span>
+            </div>
         </div>
     );
 };

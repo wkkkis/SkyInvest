@@ -1,0 +1,54 @@
+.main {
+
+    &__header {
+
+        &__info_group {
+            display: flex;
+            justify-content: end;
+        }
+    }
+
+    &__group_content {
+
+        width: 100%;
+
+        display: flex;
+        flex-wrap: wrap;
+        gap: 16px;
+
+        &__card {
+            width: 40%;
+            flex-grow: 1;
+
+            &__content {
+                display: flex;
+                flex-direction: column;
+                gap: 16px;
+            }
+
+            &__title {
+                font-weight: bold;
+            }
+
+            &__desc {
+                opacity: 0.5;
+                font-weight: 400;
+                font-size: 14px;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 650px) {
+    
+    .main {
+
+        &__group_content {
+            flex-direction: column;
+
+            &__card {
+                width: 100%;
+            }
+        }
+    }
+}

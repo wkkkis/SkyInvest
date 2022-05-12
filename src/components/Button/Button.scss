@@ -17,6 +17,7 @@
 .aftersubmit {
     border: 2px dashed #6C767B;
     color: #7972F3;
+    background: white;
 
     font-weight: 600;
 
@@ -34,18 +35,40 @@
 
 .disabled {
     opacity: 0.3;
+    border: 2px dashed #6C767B !important;
 
     &:hover {
         background: #F2F2F2 !important;
-        color: #7972F3 !important;
-        border: 2px dashed #6C767B !important;
     }
 }
 
-.usually {
+.whitebg {
     border: none;
+    background-color: white;
 
     &:hover {
         background: #c7c7c7;
     }
+}
+
+.transparent {
+    border: none;
+    background: transparent;
+
+    &:hover {
+        background: white;
+    }
+}
+
+.usually {
+    border: 2px dashed transparent;
+
+    &:hover {
+        background: #c7c7c7;
+    }
+}
+
+.red {
+    border: 2px solid #E52626;
+    background: #E52626;
 }

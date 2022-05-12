@@ -2,11 +2,6 @@ import React, { useEffect } from "react";
 
 //Components
 import Header from "@components/Header";
-import Sidebar from "@components/SideBar";
-
-//Router
-import AppRoutes from "../../routes";
-
 //Hooks
 import { usePageTitle } from "@hooks/useTitle";
 
@@ -18,17 +13,15 @@ const MainLayout = ({ children, ...props }) => {
 
     useEffect(() => {
         rename(props.title);
-    }, []);
+    }, [document.title]);
 
     return (
         <div className="mainlayout">
             <Header />
 
-            <div className="mainlayout__group">
-                <Sidebar />
+            <div className="mainlayout__content">{children}</div>
 
-                <div className="mainlayout__group__content">{children}</div>
-            </div>
+            <div className="mainlayout__modal"></div>
         </div>
     );
 };

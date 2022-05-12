@@ -1,7 +1,14 @@
 import React from "react";
 
 //Components
-import LoginForm from "@components/LoginForm";
+import { LoginForm } from "@components/Forms";
+import Footer from "../../components/Footer";
+
+//Icons
+import back from "@assets/img/authbackground.jpg";
+
+//Styles
+import "./Login.scss";
 
 const Login = () => {
     const fetchLoginData = (data) => {
@@ -9,11 +16,13 @@ const Login = () => {
     };
 
     return (
-        <div className="main">
-            <div className="main__content">
+        <div className="main_auth">
+            <div className="main_auth__content">
                 <LoginForm />
+                <img src={back} alt="" />
             </div>
-            <div className="main__footer"></div>
+
+            <Footer />
         </div>
     );
 };

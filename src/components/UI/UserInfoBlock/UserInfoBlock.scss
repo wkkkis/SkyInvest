@@ -28,6 +28,13 @@
         }
     }
 
+    .order {
+
+        img {
+            order: 1;
+        }
+    }
+
     &__logout {
         cursor: pointer;
     }

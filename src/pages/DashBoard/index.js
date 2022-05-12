@@ -7,9 +7,16 @@ import UserInfoBlock from "@components/UI/UserInfoBlock";
 import InfoBlock from "@components/UI/InfoBlock";
 import Button from "@components/Button";
 import LineChart from "@components/LineChart";
+import CryptoPick from "@components/CryptoPick";
+
+//Icon
+import arrowTop from "@assets/img/arrowTop.svg";
+import btcIcon from "@assets/img/btc.svg";
+import usdtIcon from "@assets/img/usdt.svg";
 
 //Styles
 import "./DashBoard.scss";
+import { useNavigate } from "react-router";
 
 const mockData = {
     userinfo: [
@@ -31,6 +38,7 @@ const DashBoard = () => {
         <div className="main">
             <div className="main__header">
                 <div className="main__header__title">
+                    <div className="main__header__title__back"></div>
                     <svg
                         width="14"
                         height="13"
@@ -47,17 +55,30 @@ const DashBoard = () => {
                     <span>Dasboard</span>
                 </div>
                 <div className="main__header__info_group">
-                    <Select />
+                    <span className="f12">Показать время</span>
+                    <Select defaultOption="За 24 часа">
+                        <li>За 24 часа</li>
+                        <li>За 7 дней</li>
+                        <li>За Месяц</li>
+                    </Select>
                 </div>
             </div>
-            <div className="main__content">
-                <div className="main__content__actives">
+            <div className="main__dashboard_content">
+                <div className="main__dashboard_content__actives">
                     <UserInfoBlock
                         email="temakonkin@gmail.com"
                         name="Artem Konkin"
                         logo="https://cdn.dribbble.com/users/24078/screenshots/15522433/media/e92e58ec9d338a234945ae3d3ffd5be3.jpg?compress=1&resize=400x300"
                     />
-                    <div className="main__content__actives__profit">
+                    <div className="main__dashboard_content__actives__time">
+                        <span className="f12">Показать время</span>
+                        <Select defaultOption="За 24 часа">
+                            <li>За 24 часа</li>
+                            <li>За 7 дней</li>
+                            <li>За Месяц</li>
+                        </Select>
+                    </div>
+                    <div className="main__dashboard_content__actives__profit">
                         <InfoBlock
                             label="Уровень ROI"
                             value="+ 23.31 %"
@@ -74,7 +95,7 @@ const DashBoard = () => {
                         />
                     </div>
                 </div>
-                <div className="main__content__userinfo">
+                <div className="main__dashboard_content__userinfo">
                     {mockData.userinfo.map((e) => (
                         <InfoBlock
                             label={e.label}
@@ -84,15 +105,15 @@ const DashBoard = () => {
                         />
                     ))}
                 </div>
-                <div className="main__content__chart">
+                <div className="main__dashboard_content__chart">
                     <LineChart />
                     <LineChart />
                 </div>
-                <div className="main__content__mycopy">
-                    <div className="main__content__mycopy__title">
+                <div className="main__dashboard_content__mycopy">
+                    <div className="main__dashboard_content__mycopy__title">
                         <span>Последние копирования</span>
                     </div>
-                    <div className="main__content__mycopy__content">
+                    <div className="main__dashboard_content__mycopy__content">
                         {mockData.mycopy.map((e) => (
                             <CardInfo
                                 className="content__card"
@@ -125,6 +146,25 @@ const DashBoard = () => {
                                         vWeigth="700"
                                         opactityLabel
                                     />
+                                </div>
+                                <div className="content__card__traid_cryptobtn">
+                                    <Button theme="whitebg">
+                                        <img src={arrowTop} alt="arrow" />
+                                        <span>Long</span>
+                                    </Button>
+                                    <Button theme="transparent">
+                                        <img src={usdtIcon} alt="arrow" />
+                                        <span>Long</span>
+                                    </Button>
+                                    <Button theme="whitebg">
+                                        <img src={usdtIcon} alt="arrow" />
+                                        <span>Long</span>
+                                    </Button>
+                                </div>
+                                <div className="content__card__cryptobtn">
+                                    <CryptoPick />
+                                    <CryptoPick />
+                                    <CryptoPick />
                                 </div>
                                 <Button theme="aftersubmit">Отписаться</Button>
                             </CardInfo>

@@ -24,8 +24,6 @@ const AuthLayout = ({ children, ...props }) => {
                 <div className="authlayout__content__block">{children}</div>
                 <div className="authlayout__content__beautyblock"></div>
             </div>
-
-            <div className="authlayout__footer"></div>
         </div>
     );
 };

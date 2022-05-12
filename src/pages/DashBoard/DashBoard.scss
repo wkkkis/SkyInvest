@@ -1,12 +1,14 @@
 .main {
 
-    &__content {
+    &__dashboard_content {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
 
         &__actives {
-            display: grid;
-            grid-template-columns: 50% 50%;
-
-            padding: 24px 0;
+            display: flex;
+            justify-content: space-between;
+            gap: 16px;
 
             .userinfoblock {
 
@@ -28,12 +30,21 @@
             }
 
             &__profit {
+                width: 40%;
+
                 display: flex;
                 gap: 10px;
 
                 .infoblock {
                     align-items: center;
                 }
+            }
+
+            &__time {
+                display: none;
+
+                flex-direction: column;
+                gap: 8px;
             }
         }
 
@@ -43,8 +54,8 @@
         }
 
         &__chart {
-            display: grid;
-            grid-template-columns: 50% 50%;
+            display: flex;
+            gap: 24px;
         }
 
         &__mycopy {
@@ -67,7 +78,85 @@
                         width: 100%;
                         display: flex;
                     }
+
+                    &__traid_cryptobtn {
+                        display: flex;
+                        flex-wrap: nowrap;
+                        gap: 10px;
+
+                        width: 50%;
+
+                        .button {
+                            display: flex;
+                            align-items: center;
+                            gap: 4px;
+
+                            font-size: 12px;
+                            font-weight: 400;
+
+                            img {
+                                width: 14px;
+                                height: 14px;
+                            }
+
+                            padding: 2px;
+
+                            span {
+                                opacity: 0.5;
+                            }
+                        }
+                    }
+
+                    &__cryptobtn {
+                        display: flex;
+                        justify-content: space-between;
+                        gap: 15px;
+
+                        padding: 8px 0 8px 0;
+                    }
                 }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 650px) {
+
+    .main {
+
+        &__dashboard_content {
+
+            &__actives {
+                flex-direction: column;
+
+                &__profit {
+                    width: 100%;
+                }
+
+                &__time {
+                    display: flex;
+                }
+            }
+
+            &__userinfo {
+                flex-wrap: wrap;
+                
+                .infoblock {
+                    width: 40%;
+                    flex-grow: 1;
+                }
+            }
+
+            &__mycopy {
+
+                &__content {
+                    display: flex;
+                    flex-direction: column;
+                }
+            }
+
+            &__chart {
+                flex-direction: column;
             }
         }
     }
