@@ -1,13 +1,14 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { NavLink } from "react-router-dom";
+import { useNavigate } from "react-router";
 
 //Components
 import MenuToggle from "@components/MenuToggle";
 import UserInfoBlock from "@components/UI/UserInfoBlock";
 
 //Router
-import { router } from "../../utils/router";
+import router from "@utils/router";
 
 //Icons
 import plus from "@assets/img/plus.svg";
@@ -45,6 +46,7 @@ const headerRoutes = [
 
 const DropMenu = () => {
     const [isOpen, setOpen] = useState(false);
+    const navigate = useNavigate();
 
     const toggleMenu = () => {
         setOpen(!isOpen);
@@ -81,6 +83,7 @@ const DropMenu = () => {
             >
                 <div className="hamburger_menu__container__nav_links">
                     <UserInfoBlock
+                        onClick={() => navigate(router.profile)}
                         order={true}
                         email="temakonkin@gmail.com"
                         name="Artem Konkin"

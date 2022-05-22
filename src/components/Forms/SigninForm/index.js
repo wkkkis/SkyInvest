@@ -19,7 +19,7 @@ import SpinnerLoad from "@components/SpinnerLoad";
 import "../Forms.scss";
 import Checkbox from "../../Checkbox";
 
-const SigninForm = () => {
+const SigninForm = ({ fetchData }) => {
     const navigate = useNavigate();
     const [loaded, setLoaded] = useState(true);
     const {
@@ -36,7 +36,7 @@ const SigninForm = () => {
     const onSubmitHandler = async (data) => {
         setLoaded(false);
 
-        console.log(data);
+        fetchData(data);
 
         setLoaded(true);
     };

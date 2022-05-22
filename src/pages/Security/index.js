@@ -6,7 +6,7 @@ import {
     GoogleAuthEdit,
     TwoAuthFactor,
     GoogleAuthSuccess,
-} from "../../components/SecurityComponents";
+} from "@components/SecurityComponents";
 
 //Styles
 import "./Security.scss";

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 //Router
-import { router } from "@utils/router";
+import router from "@utils/router";
 
 //Layouts
 import ProfileLayout from "@layouts/ProfileLayout";

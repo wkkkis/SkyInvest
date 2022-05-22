@@ -15,7 +15,7 @@ import Button from "@components/Button";
 import "./Footer.scss";
 
 //Router
-import { router } from "../../utils/router";
+import router from "@utils/router";
 
 const headerRoutes = {
     firstUl: [

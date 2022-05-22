@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router";
 
 //Form
 import { useForm } from "react-hook-form";
@@ -16,8 +15,7 @@ import Select from "@components/Select";
 import "../Forms.scss";
 import "./CashForm.scss";
 
-const CashForm = () => {
-    const navigate = useNavigate();
+const CashForm = ({ fetchData }) => {
     const [valute, setValute] = useState("USD");
     const [loaded, setLoaded] = useState(true);
     const {
@@ -42,7 +40,7 @@ const CashForm = () => {
     const onSubmitHandler = async (data) => {
         setLoaded(false);
 
-        console.log(data);
+        fetchData(data);
 
         setLoaded(true);
     };

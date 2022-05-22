@@ -14,16 +14,16 @@ import key from "@assets/img/keyactive.svg";
 //Components
 import Button from "@components/Button";
 import SpinnerLoad from "@components/SpinnerLoad";
-import Checkbox from "../../Checkbox";
+import Checkbox from "@components/Checkbox";
 
 //Styles
 import "../Forms.scss";
 
 //Router
-import { router } from "@utils/router";
+import router from "@utils/router";
 import { Link } from "react-router-dom";
 
-const LoginForm = (loginFunc) => {
+const LoginForm = ({ fetchData }) => {
     const navigate = useNavigate();
     const [loaded, setLoaded] = useState(true);
     const {
@@ -40,7 +40,7 @@ const LoginForm = (loginFunc) => {
     const onSubmitHandler = async (data) => {
         setLoaded(false);
 
-        console.log(data);
+        fetchData(data);
 
         setLoaded(true);
     };

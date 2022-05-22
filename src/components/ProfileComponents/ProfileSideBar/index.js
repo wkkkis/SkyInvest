@@ -3,10 +3,10 @@ import { useLocation } from "react-router";
 import { Link, useSearchParams } from "react-router-dom";
 
 //Router
-import { router } from "../../../utils/router";
+import router from "@utils/router";
 
 //Modals
-import { LogOutModal } from "@components/Modals";
+import LogoutModal from "@components/Modals/LogoutModal";
 
 //Styles
 import "./ProfileSideBar.scss";
@@ -99,7 +99,7 @@ const SideBar = () => {
                     Выйти
                 </button>
             </nav>
-            {logout ? <LogOutModal handleChange={handleChange} /> : null}
+            {logout ? <LogoutModal handleChange={handleChange} /> : null}
         </div>
     );
 };

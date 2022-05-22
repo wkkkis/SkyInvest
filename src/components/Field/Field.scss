@@ -3,6 +3,8 @@
     flex-direction: column;
     justify-content: flex-start;
 
+    position: relative;
+
     gap: 8px;
     
     label {
@@ -26,5 +28,13 @@
             border: 1px solid #7972F3;;
             box-shadow: none;
         }
+    }
+
+    svg {
+        position: absolute;
+        bottom: 18px;
+        right: 16px;
+
+        cursor: pointer;
     }
 }

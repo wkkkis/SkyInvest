@@ -8,8 +8,8 @@ const Map = () => {
         <GoogleMap
             defaultZoom={12}
             defaultCenter={{
-                lat: 42.843131,
-                lng: 74.6327141,
+                lat: 42.8719304,
+                lng: 74.6114867,
             }}
         />
     );

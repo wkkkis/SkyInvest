@@ -8,7 +8,7 @@ import "./UserInfoBlock.scss";
 
 const UserInfoBlock = ({
     logo = "",
-    onClick = "",
+    onClick,
     isLogout = false,
     order,
     name,
@@ -16,8 +16,12 @@ const UserInfoBlock = ({
     className,
     handleChange,
 }) => {
+    const onHandleClick = () => {
+        onClick();
+    };
+
     return (
-        <div className={`userinfoblock ${className}`} onClick={onClick}>
+        <div className={`userinfoblock ${className}`} onClick={onHandleClick}>
             <div
                 className={`userinfoblock__information ${order ? "order" : ""}`}
             >

@@ -3,7 +3,7 @@ import { useLocation } from "react-router";
 import { Link, useSearchParams } from "react-router-dom";
 
 //Router
-import { router } from "../../../utils/router";
+import router from "@utils/router";
 
 //Styles
 import "./HistorySideBar.scss";

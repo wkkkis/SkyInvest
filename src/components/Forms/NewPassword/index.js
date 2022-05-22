@@ -22,7 +22,7 @@ import "../Forms.scss";
 //Router
 import { router } from "@utils/router";
 
-const NewPassword = (loginFunc) => {
+const NewPassword = ({ fetchData }) => {
     const navigate = useNavigate();
     const [loaded, setLoaded] = useState(true);
     const {
@@ -39,7 +39,7 @@ const NewPassword = (loginFunc) => {
     const onSubmitHandler = async (data) => {
         setLoaded(false);
 
-        console.log(data);
+        fetchData(data);
 
         setLoaded(true);
     };

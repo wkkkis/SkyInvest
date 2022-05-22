@@ -12,24 +12,24 @@ import Security from "@pages/Security";
 import Investor from "@pages/Investor";
 
 //Auth
-import Login from "@pages/Login";
-import Signin from "@pages/Signin";
-import ResetPassword from "@pages/ResetPassword";
-import ConfirmPassword from "@pages/ConfirmPassword";
+import Login from "@pages/MainPages/Login";
+import Signin from "@pages/MainPages/Signin";
+import ResetPassword from "@pages/MainPages/ResetPassword";
+import ConfirmPassword from "@pages/MainPages/ConfirmPassword";
 
 //Main
-import Main from "@pages/Main";
-import About from "@pages/About";
-import TradeGroup from "@pages/TradeGroup";
-import CopyTrade from "@pages/CopyTrade";
-import FAQ from "@pages/FAQ";
-import Contacts from "@pages/Contacts";
+import Main from "@pages/MainPages/Main";
+import About from "@pages/MainPages/About";
+import TradeGroup from "@pages/MainPages/TradeGroup";
+import CopyTrade from "@pages/MainPages/CopyTrade";
+import FAQ from "@pages/MainPages/FAQ";
+import Contacts from "@pages/MainPages/Contacts";
 
 //404
 import Page404 from "@pages/404";
 
 // utils
-import { router } from "@utils/router";
+import router from "@utils/router";
 
 export const allRoutes = [
     {

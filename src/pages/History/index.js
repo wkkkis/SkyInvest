@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router";
 
 //Router
-import { router } from "@utils/router";
+import router from "@utils/router";
 
 //Layouts
 import HistoryLayout from "@layouts/HistoryLayout";

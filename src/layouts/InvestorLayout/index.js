@@ -3,7 +3,7 @@ import { useLocation, useNavigate } from "react-router";
 
 //Components
 import Header from "@components/Header";
-import Sidebar from "@components/SideBar";
+import Sidebar from "@components/InvestorComponents/SideBar";
 
 //Hooks
 import { usePageTitle } from "@hooks/useTitle";

@@ -1,5 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import { useNavigate } from "react-router";
 
 //Image
 import logo from "@assets/img/logo.svg";
@@ -7,11 +8,13 @@ import plus from "@assets/img/plus.svg";
 import arrow from "@assets/img/selectArrow.svg";
 
 //Router
-import { router } from "../../utils/router";
+import router from "@utils/router";
 
 //Style
 import "./Header.scss";
-import UserInfoBlock from "../UI/UserInfoBlock";
+
+//Components
+import UserInfoBlock from "@components/UI/UserInfoBlock";
 import DropMenu from "@components/DropMenu";
 
 const headerRoutes = [
@@ -42,6 +45,8 @@ const headerRoutes = [
 ];
 
 const Header = () => {
+    const navigate = useNavigate();
+
     return (
         <div className="header">
             <div className="header__logo">
@@ -62,6 +67,7 @@ const Header = () => {
                     order={true}
                     email="temakonkin@gmail.com"
                     name="Artem Konkin"
+                    onClick={() => navigate(router.dashboard)}
                     logo="https://cdn.dribbble.com/users/24078/screenshots/15522433/media/e92e58ec9d338a234945ae3d3ffd5be3.jpg?compress=1&resize=400x300"
                 />
                 <div className="header__userblock__theme">
