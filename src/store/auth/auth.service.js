@@ -14,7 +14,7 @@ const register = async (userData) => {
 };
 
 const login = async (userData) => {
-    const res = await instance.post(`${API_URL}/login`, userData);
+    const res = await instance.post(`${API_URL}login/`, userData);
 
     if (res.data) {
         localStorage.setItem("login", res);

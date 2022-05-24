@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 
 //Icons
 import logo from "@assets/img/logo.svg";
@@ -42,6 +43,8 @@ import Footer from "@components/Footer";
 import "./Main.scss";
 import { useNavigate } from "react-router";
 import router from "../../../utils/router";
+import Slider from "../../../components/Slider";
+import useSlider from "../../../hooks/useSlider";
 
 const mockData = {
     trade: [
@@ -260,38 +263,104 @@ const Main = () => {
     return (
         <div className="main main_page">
             <div className="main__intro">
-                <div className="main__intro__welcome">
-                    <span>Добро пожаловать в</span>
-                    <img src={logo} alt="logo" />
-                </div>
-                <div className="main__intro__content">
-                    <img src={moment} alt="moment" />
+                <Slider>
+                    <div className="intro-item">
+                        <div className="main__intro__welcome">
+                            <span>Добро пожаловать в</span>
+                            <img src={logo} alt="logo" />
+                        </div>
+                        <div className="main__intro__content">
+                            <img src={moment} alt="moment" />
 
-                    <div className="main__intro__content__desc">
-                        <p>
-                            Стратегии доверительного управления денежными
-                            средствами позволяют гибко реагировать на изменения
-                            рынка и дают больше возможностей повысить доходность
-                            вложений.
-                        </p>
-                        <p>
-                            Воспользуйтесь услугой доверительного управления
-                            активами, если не готовы тратить много времени на
-                            инвестирование, хотите снизить риски и добиться
-                            большей отдачи от вложений.
-                        </p>
+                            <div className="main__intro__content__desc">
+                                <p>
+                                    Стратегии доверительного управления
+                                    денежными средствами позволяют гибко
+                                    реагировать на изменения рынка и дают больше
+                                    возможностей повысить доходность вложений.
+                                </p>
+                                <p>
+                                    Воспользуйтесь услугой доверительного
+                                    управления активами, если не готовы тратить
+                                    много времени на инвестирование, хотите
+                                    снизить риски и добиться большей отдачи от
+                                    вложений.
+                                </p>
+                            </div>
+
+                            <Button
+                                theme="beforesubmit"
+                                onClick={() => navigate(router.dashboard)}
+                            >
+                                приступить к инвестированию
+                            </Button>
+                        </div>
                     </div>
+                    <div className="intro-item">
+                        <div className="main__intro__welcome">
+                            <span>Добро пожаловать в</span>
+                            <img src={logo} alt="logo" />
+                        </div>
+                        <div className="main__intro__content">
+                            <img src={moment} alt="moment" />
 
-                    <Button
-                        theme="beforesubmit"
-                        onClick={() => navigate(router.dashboard)}
-                    >
-                        приступить к инвестированию
-                    </Button>
-                </div>
-                <div className="main__intro__slidebar">
-                    <img src={slidebar} alt="slide" />
-                </div>
+                            <div className="main__intro__content__desc">
+                                <p>
+                                    Стратегии доверительного управления
+                                    денежными средствами позволяют гибко
+                                    реагировать на изменения рынка и дают больше
+                                    возможностей повысить доходность вложений.
+                                </p>
+                                <p>
+                                    Воспользуйтесь услугой доверительного
+                                    управления активами, если не готовы тратить
+                                    много времени на инвестирование, хотите
+                                    снизить риски и добиться большей отдачи от
+                                    вложений.
+                                </p>
+                            </div>
+
+                            <Button
+                                theme="beforesubmit"
+                                onClick={() => navigate(router.dashboard)}
+                            >
+                                приступить к инвестированию
+                            </Button>
+                        </div>
+                    </div>
+                    <div className="intro-item">
+                        <div className="main__intro__welcome">
+                            <span>Добро пожаловать в</span>
+                            <img src={logo} alt="logo" />
+                        </div>
+                        <div className="main__intro__content">
+                            <img src={moment} alt="moment" />
+
+                            <div className="main__intro__content__desc">
+                                <p>
+                                    Стратегии доверительного управления
+                                    денежными средствами позволяют гибко
+                                    реагировать на изменения рынка и дают больше
+                                    возможностей повысить доходность вложений.
+                                </p>
+                                <p>
+                                    Воспользуйтесь услугой доверительного
+                                    управления активами, если не готовы тратить
+                                    много времени на инвестирование, хотите
+                                    снизить риски и добиться большей отдачи от
+                                    вложений.
+                                </p>
+                            </div>
+
+                            <Button
+                                theme="beforesubmit"
+                                onClick={() => navigate(router.dashboard)}
+                            >
+                                приступить к инвестированию
+                            </Button>
+                        </div>
+                    </div>
+                </Slider>
             </div>
 
             <div className="main__content">
@@ -305,29 +374,66 @@ const Main = () => {
                     </div>
                     <div className="main__content__instruct__block">
                         <div className="main__content__instruct__block__gide">
-                            <span>Гайд для начинающих</span>
-                            <p>
-                                Торговля фьючерсами на первый взгляд может
-                                напугать новичка сложной терминологией и
-                                запутанными схемами. Напрасно — это
-                                увлекательная и прибыльная альтернатива скучным
-                                и банальным способам заработать на сбережениях
-                                (например, банковским вкладам).
-                            </p>
-                            <p>
-                                Фьючерсы неизменно остаются интересным
-                                инвесторам инструментом благодаря многообразию
-                                стратегий и ликвидности. Тем не менее, частные
-                                инвесторы уделяют этому инструменту незаслуженно
-                                мало внимания.{" "}
-                            </p>
-                            <Button
-                                theme="beforesubmit"
-                                onClick={() => navigate(router.dashboard)}
-                            >
-                                ИНвестировать
-                            </Button>
-                            <img src={slidebar} alt="slide" />
+                            <Slider>
+                                <div className="gide-item">
+                                    <span>Гайд для начинающих</span>
+                                    <p>
+                                        Торговля фьючерсами на первый взгляд
+                                        может напугать новичка сложной
+                                        терминологией и запутанными схемами.
+                                        Напрасно — это увлекательная и
+                                        прибыльная альтернатива скучным и
+                                        банальным способам заработать на
+                                        сбережениях (например, банковским
+                                        вкладам).
+                                    </p>
+                                    <p>
+                                        Фьючерсы неизменно остаются интересным
+                                        инвесторам инструментом благодаря
+                                        многообразию стратегий и ликвидности.
+                                        Тем не менее, частные инвесторы уделяют
+                                        этому инструменту незаслуженно мало
+                                        внимания.{" "}
+                                    </p>
+                                    <Button
+                                        theme="beforesubmit"
+                                        onClick={() =>
+                                            navigate(router.dashboard)
+                                        }
+                                    >
+                                        ИНвестировать
+                                    </Button>
+                                </div>
+                                <div className="gide-item">
+                                    <span>Гайд для начинающих</span>
+                                    <p>
+                                        Торговля фьючерсами на первый взгляд
+                                        может напугать новичка сложной
+                                        терминологией и запутанными схемами.
+                                        Напрасно — это увлекательная и
+                                        прибыльная альтернатива скучным и
+                                        банальным способам заработать на
+                                        сбережениях (например, банковским
+                                        вкладам).
+                                    </p>
+                                    <p>
+                                        Фьючерсы неизменно остаются интересным
+                                        инвесторам инструментом благодаря
+                                        многообразию стратегий и ликвидности.
+                                        Тем не менее, частные инвесторы уделяют
+                                        этому инструменту незаслуженно мало
+                                        внимания.{" "}
+                                    </p>
+                                    <Button
+                                        theme="beforesubmit"
+                                        onClick={() =>
+                                            navigate(router.dashboard)
+                                        }
+                                    >
+                                        ИНвестировать
+                                    </Button>
+                                </div>
+                            </Slider>
                         </div>
                         <div className="main__content__instruct__block__video">
                             <img src={play} alt="play" />
@@ -353,81 +459,174 @@ const Main = () => {
                         </p>
                     </div>
                     <div className="main__content__traider__content">
-                        {mockData.trade.map((e) => (
-                            <CardInfo
-                                key={e.name}
-                                className="content__card"
-                                name={e.name}
-                                email={e.email}
-                                rating={e.rating}
-                                logo="https://cdn.dribbble.com/users/24078/screenshots/15522433/media/e92e58ec9d338a234945ae3d3ffd5be3.jpg?compress=1&resize=400x300"
-                            >
-                                <div className="content__card__profit">
-                                    <InfoBlock
-                                        label={"Уровень ROI"}
-                                        value="+ 23.31 %"
-                                        fontSize="12"
-                                        color="green"
-                                        vWeigth="700"
-                                        opactityLabel
-                                    />
-                                    <InfoBlock
-                                        label={"Профит"}
-                                        value="+ 23.31 %"
-                                        fontSize="12"
-                                        color="green"
-                                        vWeigth="700"
-                                        opactityLabel
-                                    />
-                                    <InfoBlock
-                                        label={"Уровень MDD"}
-                                        value="+ 23.31 %"
-                                        fontSize="12"
-                                        vWeigth="700"
-                                        opactityLabel
-                                    />
-                                </div>
-                                <div className="content__card__traid_cryptobtn">
-                                    <Button theme="whitebg">
-                                        <img src={arrowTop} alt="arrow" />
-                                        <span>Long</span>
-                                    </Button>
-                                    <Button theme="transparent">
-                                        <img src={usdtIcon} alt="arrow" />
-                                        <span>Long</span>
-                                    </Button>
-                                    <Button theme="whitebg">
-                                        <img src={usdtIcon} alt="arrow" />
-                                        <span>Long</span>
-                                    </Button>
-                                </div>
-                                <div className="content__card__cryptobtn">
-                                    <CryptoPick />
-                                    <CryptoPick />
-                                    <CryptoPick />
-                                </div>
-                                <div className="content__card__price_btn">
-                                    <div className="content__card__price_btn__price">
-                                        <span>Цена</span>
-                                        <span>{e.price} $</span>
-                                    </div>
-                                    <Button
-                                        theme={
-                                            e.copy
-                                                ? "aftersubmit"
-                                                : "beforesubmit"
-                                        }
+                        <Slider>
+                            <div className="traider-item">
+                                {mockData.trade.map((e) => (
+                                    <CardInfo
+                                        key={e.name}
+                                        className="content__card"
+                                        name={e.name}
+                                        email={e.email}
+                                        rating={e.rating}
+                                        logo="https://cdn.dribbble.com/users/24078/screenshots/15522433/media/e92e58ec9d338a234945ae3d3ffd5be3.jpg?compress=1&resize=400x300"
                                     >
-                                        {e.copy
-                                            ? "Уведомить о свободном месте"
-                                            : "Копировать"}
-                                    </Button>
-                                </div>
-                            </CardInfo>
-                        ))}
-                    </div>
-                    <div className="main__content__traider__slide">
-                        <img src={slidebar} alt="slide" />
+                                        <div className="content__card__profit">
+                                            <InfoBlock
+                                                label={"Уровень ROI"}
+                                                value="+ 23.31 %"
+                                                fontSize="12"
+                                                color="green"
+                                                vWeigth="700"
+                                                opactityLabel
+                                            />
+                                            <InfoBlock
+                                                label={"Профит"}
+                                                value="+ 23.31 %"
+                                                fontSize="12"
+                                                color="green"
+                                                vWeigth="700"
+                                                opactityLabel
+                                            />
+                                            <InfoBlock
+                                                label={"Уровень MDD"}
+                                                value="+ 23.31 %"
+                                                fontSize="12"
+                                                vWeigth="700"
+                                                opactityLabel
+                                            />
+                                        </div>
+                                        <div className="content__card__traid_cryptobtn">
+                                            <Button theme="whitebg">
+                                                <img
+                                                    src={arrowTop}
+                                                    alt="arrow"
+                                                />
+                                                <span>Long</span>
+                                            </Button>
+                                            <Button theme="transparent">
+                                                <img
+                                                    src={usdtIcon}
+                                                    alt="arrow"
+                                                />
+                                                <span>Long</span>
+                                            </Button>
+                                            <Button theme="whitebg">
+                                                <img
+                                                    src={usdtIcon}
+                                                    alt="arrow"
+                                                />
+                                                <span>Long</span>
+                                            </Button>
+                                        </div>
+                                        <div className="content__card__cryptobtn">
+                                            <CryptoPick />
+                                            <CryptoPick />
+                                            <CryptoPick />
+                                        </div>
+                                        <div className="content__card__price_btn">
+                                            <div className="content__card__price_btn__price">
+                                                <span>Цена</span>
+                                                <span>{e.price} $</span>
+                                            </div>
+                                            <Button
+                                                theme={
+                                                    e.copy
+                                                        ? "aftersubmit"
+                                                        : "beforesubmit"
+                                                }
+                                            >
+                                                {e.copy
+                                                    ? "Уведомить о свободном месте"
+                                                    : "Копировать"}
+                                            </Button>
+                                        </div>
+                                    </CardInfo>
+                                ))}
+                            </div>
+                            <div className="traider-item">
+                                {mockData.trade.map((e) => (
+                                    <CardInfo
+                                        key={e.name}
+                                        className="content__card"
+                                        name={e.name}
+                                        email={e.email}
+                                        rating={e.rating}
+                                        logo="https://cdn.dribbble.com/users/24078/screenshots/15522433/media/e92e58ec9d338a234945ae3d3ffd5be3.jpg?compress=1&resize=400x300"
+                                    >
+                                        <div className="content__card__profit">
+                                            <InfoBlock
+                                                label={"Уровень ROI"}
+                                                value="+ 23.31 %"
+                                                fontSize="12"
+                                                color="green"
+                                                vWeigth="700"
+                                                opactityLabel
+                                            />
+                                            <InfoBlock
+                                                label={"Профит"}
+                                                value="+ 23.31 %"
+                                                fontSize="12"
+                                                color="green"
+                                                vWeigth="700"
+                                                opactityLabel
+                                            />
+                                            <InfoBlock
+                                                label={"Уровень MDD"}
+                                                value="+ 23.31 %"
+                                                fontSize="12"
+                                                vWeigth="700"
+                                                opactityLabel
+                                            />
+                                        </div>
+                                        <div className="content__card__traid_cryptobtn">
+                                            <Button theme="whitebg">
+                                                <img
+                                                    src={arrowTop}
+                                                    alt="arrow"
+                                                />
+                                                <span>Long</span>
+                                            </Button>
+                                            <Button theme="transparent">
+                                                <img
+                                                    src={usdtIcon}
+                                                    alt="arrow"
+                                                />
+                                                <span>Long</span>
+                                            </Button>
+                                            <Button theme="whitebg">
+                                                <img
+                                                    src={usdtIcon}
+                                                    alt="arrow"
+                                                />
+                                                <span>Long</span>
+                                            </Button>
+                                        </div>
+                                        <div className="content__card__cryptobtn">
+                                            <CryptoPick />
+                                            <CryptoPick />
+                                            <CryptoPick />
+                                        </div>
+                                        <div className="content__card__price_btn">
+                                            <div className="content__card__price_btn__price">
+                                                <span>Цена</span>
+                                                <span>{e.price} $</span>
+                                            </div>
+                                            <Button
+                                                theme={
+                                                    e.copy
+                                                        ? "aftersubmit"
+                                                        : "beforesubmit"
+                                                }
+                                            >
+                                                {e.copy
+                                                    ? "Уведомить о свободном месте"
+                                                    : "Копировать"}
+                                            </Button>
+                                        </div>
+                                    </CardInfo>
+                                ))}
+                            </div>
+                        </Slider>
                     </div>
                 </div>
 
@@ -449,52 +648,104 @@ const Main = () => {
                         </p>
                     </div>
                     <div className="main__content__groups__content">
-                        {mockData.mygroup.map((e) => (
-                            <CardInfo
-                                key={e.name}
-                                className="main__content__groups__content__card"
-                                name={e.name}
-                                email={e.email}
-                                rating={e.rating}
-                                logo="https://cdn.dribbble.com/users/24078/screenshots/15522433/media/e92e58ec9d338a234945ae3d3ffd5be3.jpg?compress=1&resize=400x300"
-                            >
-                                <div className="main__group_content__card__title">
-                                    <span>Название группы</span>
-                                </div>
-                                <div className="main__group_content__card__desc">
-                                    <p>
-                                        Внеси свой первый депозит на Bitget и
-                                        получи +5% кешбэка на счет USDT-M.
-                                        Макс.выплата торгового бонуса составляет
-                                        до 100$.
-                                    </p>
-                                </div>
-                                <Button>ПОКАЗАТЬ ВСЕ</Button>
-                                <div className="main__group_content__card__linebar">
-                                    <ProgressBar
-                                        completed={e.completed}
-                                        from={e.from}
-                                        to={e.to}
-                                        start="2019-06-11T00:00"
-                                        end="2019-06-11T00:00"
-                                    />
-                                </div>
-                                <Button
-                                    className="main__group_content__card__btn"
-                                    disabld={e.started}
-                                    theme={
-                                        e.started ? "disabled" : "beforesubmit"
-                                    }
-                                >
-                                    {e.started
-                                        ? "Группа старотовала"
-                                        : "Вступить в группу"}
-                                </Button>
-                            </CardInfo>
-                        ))}
-                    </div>
-                    <div className="main__content__groups__slide">
-                        <img src={slidebar} alt="slide" />
+                        <Slider>
+                            <div className="groups-item">
+                                {mockData.mygroup.map((e) => (
+                                    <CardInfo
+                                        key={e.name}
+                                        className="main__content__groups__content__card"
+                                        name={e.name}
+                                        email={e.email}
+                                        rating={e.rating}
+                                        logo="https://cdn.dribbble.com/users/24078/screenshots/15522433/media/e92e58ec9d338a234945ae3d3ffd5be3.jpg?compress=1&resize=400x300"
+                                    >
+                                        <div className="main__group_content__card__title">
+                                            <span>Название группы</span>
+                                        </div>
+                                        <div className="main__group_content__card__desc">
+                                            <p>
+                                                Внеси свой первый депозит на
+                                                Bitget и получи +5% кешбэка на
+                                                счет USDT-M. Макс.выплата
+                                                торгового бонуса составляет до
+                                                100$.
+                                            </p>
+                                        </div>
+                                        <Button>ПОКАЗАТЬ ВСЕ</Button>
+                                        <div className="main__group_content__card__linebar">
+                                            <ProgressBar
+                                                completed={e.completed}
+                                                from={e.from}
+                                                to={e.to}
+                                                start="2019-06-11T00:00"
+                                                end="2019-06-11T00:00"
+                                            />
+                                        </div>
+                                        <Button
+                                            className="main__group_content__card__btn"
+                                            disabld={e.started}
+                                            theme={
+                                                e.started
+                                                    ? "disabled"
+                                                    : "beforesubmit"
+                                            }
+                                        >
+                                            {e.started
+                                                ? "Группа старотовала"
+                                                : "Вступить в группу"}
+                                        </Button>
+                                    </CardInfo>
+                                ))}
+                            </div>
+                            <div className="groups-item">
+                                {mockData.mygroup.map((e) => (
+                                    <CardInfo
+                                        key={e.name}
+                                        className="main__content__groups__content__card"
+                                        name={e.name}
+                                        email={e.email}
+                                        rating={e.rating}
+                                        logo="https://cdn.dribbble.com/users/24078/screenshots/15522433/media/e92e58ec9d338a234945ae3d3ffd5be3.jpg?compress=1&resize=400x300"
+                                    >
+                                        <div className="main__group_content__card__title">
+                                            <span>Название группы</span>
+                                        </div>
+                                        <div className="main__group_content__card__desc">
+                                            <p>
+                                                Внеси свой первый депозит на
+                                                Bitget и получи +5% кешбэка на
+                                                счет USDT-M. Макс.выплата
+                                                торгового бонуса составляет до
+                                                100$.
+                                            </p>
+                                        </div>
+                                        <Button>ПОКАЗАТЬ ВСЕ</Button>
+                                        <div className="main__group_content__card__linebar">
+                                            <ProgressBar
+                                                completed={e.completed}
+                                                from={e.from}
+                                                to={e.to}
+                                                start="2019-06-11T00:00"
+                                                end="2019-06-11T00:00"
+                                            />
+                                        </div>
+                                        <Button
+                                            className="main__group_content__card__btn"
+                                            disabld={e.started}
+                                            theme={
+                                                e.started
+                                                    ? "disabled"
+                                                    : "beforesubmit"
+                                            }
+                                        >
+                                            {e.started
+                                                ? "Группа старотовала"
+                                                : "Вступить в группу"}
+                                        </Button>
+                                    </CardInfo>
+                                ))}
+                            </div>
+                        </Slider>
                     </div>
                 </div>
 

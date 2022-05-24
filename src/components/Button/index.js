@@ -4,6 +4,7 @@ import React from "react";
 import "./Button.scss";
 
 const Button = ({
+    ref,
     children,
     onClick,
     theme = "usually",
@@ -13,6 +14,7 @@ const Button = ({
 }) => {
     return (
         <button
+            ref={ref}
             className={`button ${className} ${disabled && "disabled"} ${theme}`}
             onClick={onClick}
             disabled={disabled}

@@ -10,6 +10,8 @@ const Field = ({
     onFocus,
     value,
     onChange,
+    name,
+    classNames,
     type,
     ...props
 }) => {
@@ -20,9 +22,10 @@ const Field = ({
     };
 
     return (
-        <div className={`field ${type}`}>
+        <div className={`field ${type} ${classNames}`}>
             <label>{label}</label>
             <input
+                name={name}
                 placeholder={placeholder}
                 type={!passwordVisible ? type : "text"}
                 onClick={onClick}

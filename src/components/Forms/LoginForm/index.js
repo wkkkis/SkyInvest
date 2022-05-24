@@ -92,7 +92,7 @@ const LoginForm = ({ fetchData }) => {
                 )}
                 <Field
                     label="Пароль"
-                    {...register("password1", {
+                    {...register("password", {
                         required: true,
                         maxLength: 50,
                     })}

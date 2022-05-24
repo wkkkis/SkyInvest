@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 //Form
 import { SigninForm } from "@components/Forms";
@@ -8,21 +8,26 @@ import { useNavigate } from "react-router";
 
 //Icons
 import back from "@assets/img/authbackground.jpg";
-import { regiter } from "../../../store/auth/auth.api";
 
 //Functions
+import { regiter } from "../../../store/auth/auth.api";
+import CompletedModal from "../../../components/Modals/CompletedModal";
 
 const Signin = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const [completed, setCompleted] = useState(false);
 
-    const { user, messages, isAuth } = useSelector((state) => state.auth);
+    const { isAuth, activeted } = useSelector((state) => state.auth);
 
     useEffect(() => {
+        if (activeted) {
+            setCompleted(true);
+        }
         if (isAuth) {
             navigate("/");
         }
-    }, [user, messages, navigate, dispatch]);
+    }, [isAuth, activeted, navigate, dispatch]);
 
     const signinhandler = (data) => {
         dispatch(regiter(data));
@@ -34,6 +39,9 @@ const Signin = () => {
                 <SigninForm fetchData={signinhandler} />
                 <img src={back} alt="" />
             </div>
+            {completed ? (
+                <CompletedModal handleChange={() => setCompleted(false)} />
+            ) : null}
 
             <Footer />
         </div>

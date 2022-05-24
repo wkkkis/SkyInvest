@@ -20,3 +20,12 @@ export const dateFormatter = (date) => {
     }
     return `${dd}.${mm}.${yyyy}`;
 };
+
+export const checkIfFirstLetterInLowerCase = (text) => {
+    const firstChar = text.charAt(0);
+    if (firstChar === firstChar.toLowerCase()) {
+        return true;
+    } else {
+        return false;
+    }
+};

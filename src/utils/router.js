@@ -18,7 +18,7 @@ const router = {
     login: "/login",
     signin: "/signin",
     reset_password: "/reset-password",
-    confirm_password: "/confirm-password",
+    confirm_password: "/confirm-password/:",
     main: "/",
     about: "/about",
     trade_group: "/trade-group",

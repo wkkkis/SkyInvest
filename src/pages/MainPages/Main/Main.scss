@@ -17,9 +17,6 @@
         display: flex;
         align-items: center;
 
-        padding: 180px 40px;
-        box-sizing: border-box;
-
         background-image: url("../../../assets/img/mainBack.svg");
         background-position: right;
         background-repeat: no-repeat;
@@ -27,10 +24,22 @@
 
         width: 100%;
 
+        .intro-item {
+            padding: 150px 40px;
+            box-sizing: border-box;
+
+            width: 100%;
+        }
+
+        .slider__dots {
+            bottom: 40px;
+            left: 40px;
+        }
+
         &__welcome {
             position: absolute;
             top: 40px;
-            left: 40px;
+            left: 40;
 
             background: #FCFCFC;
             border-radius: 8px;
@@ -57,7 +66,9 @@
             flex-direction: column;
             gap: 24px;
 
-            width: 70%;
+            width: 100%;
+
+            padding-right: 50%;
 
             img {
                 width: 90%;
@@ -138,48 +149,56 @@
     
             &__block {
                 display: flex;
+                gap: 16px;
     
                 &__gide {
                     width: 40%;
     
                     position: relative;
     
-                    display: flex;
-                    flex-direction: column;
-                    gap: 10px;
-    
-                    padding: 16px;
-                    box-sizing: border-box;
-    
-                    span {
-                        font-weight: 700;
-                        font-size: 24px;  
-                        line-height: 29px;  
-    
-                        opacity: 0.8;
-                    }
-    
-                    p {
-                        font-weight: 400;
-                        font-size: 12px;
-                        line-height: 17px;
-    
-                        opacity: 0.8;
-                    }
-    
-                    img {
-                        width: 50%;
-                        margin-top: 50px;
-                    }
-    
-                    .button {
+                    .gide-item {
+                        display: flex;
+                        flex-direction: column;
+                        gap: 10px;
+        
                         padding: 16px;
-                        text-transform: uppercase;
-                        width: 35%;
-    
-                        font-weight: 700;
-    
+                        padding-bottom: 32px;
+                        box-sizing: border-box;
+
+                        background: #FBFBFB;
                         border-radius: 8px;
+                        
+                        span {
+                            font-weight: 700;
+                            font-size: 24px;  
+                            line-height: 29px;  
+        
+                            opacity: 0.8;
+                        }
+        
+                        p {
+                            font-weight: 400;
+                            font-size: 12px;
+                            line-height: 17px;
+        
+                            opacity: 0.8;
+                        }
+        
+                        img {
+                            width: 50%;
+                            margin-top: 50px;
+                        }
+        
+                        .button {
+                            display: inline-block;
+                            padding: 16px;
+                            text-transform: uppercase;
+                            width: 50%;
+        
+                            font-weight: 700;
+        
+                            border-radius: 8px;
+                        }
                     }
                 }
     
@@ -243,6 +262,20 @@
                 display: flex;
                 gap: 16px;
                 flex-wrap: wrap;
+
+                .slider__dots {
+                    bottom: -40px;
+                    left: 0;
+
+                    display: flex;
+                    justify-content: center
+                }
+                
+                .traider-item {
+                    display: flex;
+                    gap: 16px;
+                    flex-wrap: wrap;
+                }
 
                 .content__card {
                     width: 30%;
@@ -395,15 +428,24 @@
                 opacity: 0.8;
             }
 
-            &__slide {
-                display: flex;
-                justify-content: center;
-            }
-
             &__content {
                 display: flex;
                 gap: 16px;
                 flex-wrap: wrap;
+
+                .slider__dots {
+                    bottom: -40px;
+                    left: 0;
+
+                    display: flex;
+                    justify-content: center
+                }
+                
+                .groups-item {
+                    display: flex;
+                    gap: 16px;
+                    flex-wrap: wrap;
+                }
 
                 &__card {
                     width: 30%;
@@ -665,7 +707,10 @@
         padding: 16px;
 
         &__intro {
-            padding: 180px 16px;
+            
+            .intro-item {
+                padding: 180px 16px;
+            }
         }
 
         &__content {
@@ -674,13 +719,12 @@
     }
 }
 
-
 @media screen and (max-width: 650px) {
 
     .main {
 
         &__intro {
-            background-position: center;
+            background-position: center;            
 
             &__content {
                 width: 100%;
@@ -700,6 +744,11 @@
 
                     &__gide {
                         align-items: flex-start;
+                        width: 100%;
+
+                        .gide-item {
+                            width: 100%;
+                        }
 
                         .button {
                             width: auto;
@@ -756,8 +805,6 @@
                     flex-direction: column;
 
                     &__gide {
-                        width: 100%;
-
                         img {
                             width: 20%;
                         }

@@ -9,16 +9,20 @@ import back from "@assets/img/authbackground.jpg";
 
 //Styles
 import "./Login.scss";
+import { useDispatch } from "react-redux";
+import { login } from "../../../store/auth/auth.api";
 
 const Login = () => {
+    const dispatch = useDispatch();
+
     const fetchLoginData = (data) => {
-        console.log(data);
+        dispatch(login(data));
     };
 
     return (
         <div className="main_auth">
             <div className="main_auth__content">
-                <LoginForm />
+                <LoginForm fetchData={fetchLoginData} />
                 <img src={back} alt="" />
             </div>
 

@@ -5,6 +5,7 @@ let initialState = {
     user: null,
     isAuth: false,
     messages: null,
+    activeted: false,
 };
 
 const authReducer = (state = initialState, action) => {
@@ -24,6 +25,11 @@ const authReducer = (state = initialState, action) => {
                 ...state,
                 messages: action.error,
             };
+        case "ACTIVETED":
+            return {
+                ...state,
+                activeted: true,
+            };
         default:
             return state;
     }
@@ -39,6 +45,7 @@ export const actions = {
         payload: { userId: null, user: null, isAuth: false },
     }),
     errorMessage: (error) => ({ type: "ERROR_MESSAGE", error }),
+    userNeedActive: () => ({ type: "ACTIVETED" }),
 };
 
 export const login = (email, password) => async (dispatch) => {
@@ -54,17 +61,9 @@ export const login = (email, password) => async (dispatch) => {
 };
 
 export const regiter = (data) => async (dispatch) => {
-    const obj = {
-        email: "ishakishmahametov123@gmail.com",
-        password: "12345678",
-        phone_number: "996500100805",
-        first_name: "Ishamahametov",
-        last_name: "Iskhak",
-    };
-    let response = await authService.register(obj);
-    if (response.data) {
-        // dispatch(actions.getDataUser())
-        console.log(response.data);
+    let response = await authService.register(data);
+    if (response) {
+        dispatch(actions.userNeedActive());
     }
 };
 

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { useNavigate } from "react-router";
 
 //Form
@@ -18,9 +18,21 @@ import SpinnerLoad from "@components/SpinnerLoad";
 //Styles
 import "../Forms.scss";
 import Checkbox from "../../Checkbox";
+import { useValidator } from "../../../hooks/useValidator";
 
 const SigninForm = ({ fetchData }) => {
     const navigate = useNavigate();
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
+    const [firstName, setFirstName] = useState("");
+    const [secondName, setSecondName] = useState("");
+    const [phone, setPhone] = useState("+7");
+    const {
+        setError,
+        errorData: { fields, error },
+        ...validator
+    } = useValidator();
     const [loaded, setLoaded] = useState(true);
     const {
         register,
@@ -33,77 +45,43 @@ const SigninForm = ({ fetchData }) => {
         setValue(ev.currentTarget.name, ev.currentTarget.value);
     };
 
-    const onSubmitHandler = async (data) => {
+    let btnRef = useRef([]);
+
+    const registerHandler = async (e) => {
+        e.preventDefault();
+
+        if (!validator.isPhoneValid(phone)) {
+            return;
+        }
+        if (!validator.isEmailValid(email)) {
+            return;
+        }
+        if (!validator.isFirstNameValid(firstName)) {
+            return;
+        }
+        if (!validator.isSecondNameValid(secondName)) {
+            return;
+        }
+        if (!validator.isPasswordValid(password, 8)) {
+            return;
+        }
+        if (!validator.isPasswordConfirmValid(password, 8, confirmPassword)) {
+            return;
+        }
+
+        const body = {
+            email,
+            password,
+            first_name: firstName,
+            last_name: secondName,
+            phone_number: phone,
+        };
+
         setLoaded(false);
 
-        fetchData(data);
+        fetchData(body);
 
         setLoaded(true);
-    };
-
-    const showFioError = () => {
-        switch (errors.fio && errors.fio.type) {
-            case "minLength":
-                return "Введите больше 1 символа";
-            case "maxLength":
-                return "Введите меньше 50 символов";
-            case "required":
-                return "Поле обязательно";
-            default:
-                return null;
-        }
-    };
-
-    const showEmailError = () => {
-        switch (errors.email && errors.email.type) {
-            case "minLength":
-                return "Введите больше 1 символа";
-            case "maxLength":
-                return "Введите меньше 50 символов";
-            case "required":
-                return "Поле обязательно";
-            default:
-                return null;
-        }
-    };
-
-    const showPhoneError = () => {
-        switch (errors.telephone && errors.telephone.type) {
-            case "minLength":
-                return "Введите больше 1 символа";
-            case "maxLength":
-                return "Введите меньше 50 символов";
-            case "required":
-                return "Поле обязательно";
-            default:
-                return null;
-        }
-    };
-
-    const showPasswordError = () => {
-        switch (errors.password && errors.password.type) {
-            case "minLength":
-                return "Введите больше 1 символа";
-            case "maxLength":
-                return "Введите меньше 50 символов";
-            case "required":
-                return "Поле обязательно";
-            default:
-                return null;
-        }
-    };
-
-    const showConfirmError = () => {
-        switch (errors.confirm && errors.confirm.type) {
-            case "minLength":
-                return "Введите больше 1 символа";
-            case "maxLength":
-                return "Введите меньше 50 символов";
-            case "required":
-                return "Поле обязательно";
-            default:
-                return null;
-        }
     };
 
     return (
@@ -113,68 +91,93 @@ const SigninForm = ({ fetchData }) => {
                 <img src={logo} alt="logo" />
             </div>
             <form
-                onSubmit={handleSubmit(onSubmitHandler)}
+                onSubmit={(e) => registerHandler(e)}
                 noValidate
                 autoComplete="off"
             >
                 <Field
-                    label="ФИО"
-                    {...register("fio", { required: true, maxLength: 50 })}
-                    onChange={onChangeHandler}
+                    name="first_name"
+                    label="Имя"
+                    classNames={`${fields.firstName && "error"}`}
+                    onChange={(e) => {
+                        validator.isFirstNameValid(e.target.value);
+                        setFirstName(e.target.value);
+                    }}
                 />
-                {errors.fio && (
-                    <span className="form__error">{showFioError()}</span>
+                {fields.firstName && (
+                    <span className="form__error">{error}</span>
                 )}
                 <Field
+                    name="last_name"
+                    label="Фамилия"
+                    classNames={`${fields.secondName && "error"}`}
+                    onChange={(e) => {
+                        validator.isSecondNameValid(e.target.value);
+                        setSecondName(e.target.value);
+                    }}
+                />
+                {fields.secondName && (
+                    <span className="form__error">{error}</span>
+                )}
+                <Field
+                    name="email"
                     label="Email"
-                    {...register("email", { required: true, maxLength: 50 })}
-                    onChange={onChangeHandler}
+                    classNames={`${fields.email && "error"}`}
+                    onChange={(e) => {
+                        validator.isEmailValid(e.target.value);
+                        setEmail(e.target.value);
+                    }}
                 />
-                {errors.email && (
-                    <span className="form__error">{showEmailError()}</span>
-                )}
+                {fields.email && <span className="form__error">{error}</span>}
                 <Field
+                    name="phone"
                     label="Телефон"
-                    {...register("telephone", {
-                        required: true,
-                        maxLength: 50,
-                    })}
-                    onChange={onChangeHandler}
+                    classNames={`${fields.phone && "error"}`}
+                    onChange={(e) => {
+                        validator.isPhoneValid(e.target.value);
+                        setPhone(e.target.value);
+                    }}
                 />
-                {errors.telephone && (
-                    <span className="form__error">{showPhoneError()}</span>
-                )}
+                {fields.phone && <span className="form__error">{error}</span>}
                 <Field
+                    name="password"
                     label="Пароль"
-                    {...register("password1", {
-                        required: true,
-                        maxLength: 50,
-                    })}
                     type="password"
-                    onChange={onChangeHandler}
+                    classNames={`${fields.password && "error"}`}
+                    onChange={(e) => {
+                        validator.isPasswordValid(e.target.value, 4);
+                        setPassword(e.target.value);
+                    }}
                 />
-                {errors.password && (
-                    <span className="form__error">{showPasswordError()}</span>
+                {fields.password && (
+                    <span className="form__error">{error}</span>
                 )}
                 <Field
+                    name="confirm_password"
                     label="Повторите пароль"
-                    {...register("password2", {
-                        required: true,
-                        maxLength: 50,
-                    })}
                     type="password"
-                    onChange={onChangeHandler}
+                    classNames={`${fields.password_confirm && "error"}`}
+                    onChange={(e) => {
+                        validator.isPasswordConfirmValid(
+                            password,
+                            8,
+                            e.target.value
+                        );
+                        setConfirmPassword(e.target.value);
+                    }}
                 />
-                {errors.password && (
-                    <span className="form__error">{showPasswordError()}</span>
+                {fields.password_confirm && (
+                    <span className="form__error">{error}</span>
                 )}
                 <div className="form__confirm">
-                    <Checkbox {...register("confirm")} />
+                    <Checkbox />
                     <span>
                         Я принимаю условия <a href="#">соглашения</a>
                     </span>
                 </div>
                 <Button
+                    disabled={validator.hasInvalidFields()}
+                    ref={btnRef}
                     className="form__button"
                     theme={"beforesubmit"}
                     type="submit"
