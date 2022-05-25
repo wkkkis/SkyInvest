@@ -10,7 +10,7 @@ import back from "@assets/img/authbackground.jpg";
 //Styles
 import "./Login.scss";
 import { useDispatch } from "react-redux";
-import { login } from "../../../store/auth/auth.api";
+import { login } from "../../../store/user/user.api";
 
 const Login = () => {
     const dispatch = useDispatch();

@@ -170,7 +170,6 @@ const Sidebar = () => {
     const [logout, setLogout] = useState(false);
 
     const handleChange = (toggle) => {
-        console.log("logout:", toggle);
         setLogout(false);
     };
 

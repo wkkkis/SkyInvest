@@ -10,7 +10,7 @@ import { useNavigate } from "react-router";
 import back from "@assets/img/authbackground.jpg";
 
 //Functions
-import { regiter } from "../../../store/auth/auth.api";
+import { regiter } from "../../../store/user/user.api";
 import CompletedModal from "../../../components/Modals/CompletedModal";
 
 const Signin = () => {
@@ -18,16 +18,16 @@ const Signin = () => {
     const dispatch = useDispatch();
     const [completed, setCompleted] = useState(false);
 
-    const { isAuth, activeted } = useSelector((state) => state.auth);
+    const { isAuth, messages } = useSelector((state) => state.auth);
 
     useEffect(() => {
-        if (activeted) {
+        if (messages === "register_success") {
             setCompleted(true);
         }
         if (isAuth) {
             navigate("/");
         }
-    }, [isAuth, activeted, navigate, dispatch]);
+    }, [isAuth, messages, navigate, dispatch]);
 
     const signinhandler = (data) => {
         dispatch(regiter(data));

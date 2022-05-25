@@ -16,6 +16,7 @@ import Login from "@pages/MainPages/Login";
 import Signin from "@pages/MainPages/Signin";
 import ResetPassword from "@pages/MainPages/ResetPassword";
 import ConfirmPassword from "@pages/MainPages/ConfirmPassword";
+import Activation from "@pages/MainPages/Activation";
 
 //Main
 import Main from "@pages/MainPages/Main";
@@ -133,6 +134,12 @@ export const allRoutes = [
         component: ResetPassword,
         layout: "auth",
         title: "Сброс пароля",
+    },
+    {
+        url: router.activated,
+        component: Activation,
+        layout: "auth",
+        title: "Активация аккаунта",
     },
     {
         url: router.confirm_password,

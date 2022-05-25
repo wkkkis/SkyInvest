@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 //Components
 import CardInfo from "@components/CardInfo";
@@ -7,6 +7,8 @@ import ProgressBar from "@components/ProgressBar";
 
 //Styles
 import "./Groups.scss";
+import { useDispatch } from "react-redux";
+import { getMyGroups } from "../../store/user/user.api";
 
 const mockData = {
     mygroup: [
@@ -50,6 +52,12 @@ const mockData = {
 };
 
 const Groups = ({ title }) => {
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(getMyGroups());
+    }, []);
+
     return (
         <div className="main">
             <div className="main__header">

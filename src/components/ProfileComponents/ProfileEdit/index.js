@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 //Form
 import { useForm } from "react-hook-form";
@@ -11,8 +11,10 @@ import Button from "@components/Button";
 import SpinnerLoad from "@components/SpinnerLoad";
 import Select from "@components/Select";
 import UserInfoBlock from "@components/UI/UserInfoBlock";
+import { useSelector } from "react-redux";
 
 const ProfileEdit = () => {
+    const { user } = useSelector((state) => state.user);
     const [loaded, setLoaded] = useState(true);
     const {
         register,
@@ -34,7 +36,7 @@ const ProfileEdit = () => {
     };
 
     const showFioError = () => {
-        switch (errors.email && errors.email.type) {
+        switch (errors.name && errors.name.type) {
             case "minLength":
                 return "Введите больше";
             case "maxLength":
@@ -72,15 +74,15 @@ const ProfileEdit = () => {
         }
     };
 
-    return (
+    return user ? (
         <div className="main">
             <div className="main__title">
                 <span>Профиль</span>
             </div>
             <div className="main__content">
                 <UserInfoBlock
-                    email="temakonkin@gmail.com"
-                    name="Artem Konkin"
+                    email={user.email}
+                    name={`${user.first_name} ${user.last_name}`}
                     logo="https://cdn.dribbble.com/users/24078/screenshots/15522433/media/e92e58ec9d338a234945ae3d3ffd5be3.jpg?compress=1&resize=400x300"
                 />
                 <form
@@ -89,17 +91,33 @@ const ProfileEdit = () => {
                     noValidate
                     autoComplete="off"
                 >
-                    <div className="main__content__form__fio">
+                    <div className="main__content__form__name">
                         <Field
-                            label="ФИО"
-                            {...register("fio", {
+                            label="Имя"
+                            {...register("name", {
                                 required: true,
                                 minLength: 2,
                                 maxLength: 50,
                             })}
                             onChange={onChangeHandler}
                         />
-                        {errors.fio && (
+                        {errors.name && (
+                            <span className="form__error">
+                                {showFioError()}
+                            </span>
+                        )}
+                    </div>
+                    <div className="main__content__form__lastname">
+                        <Field
+                            label="Фамилия"
+                            {...register("lastname", {
+                                required: true,
+                                minLength: 2,
+                                maxLength: 50,
+                            })}
+                            onChange={onChangeHandler}
+                        />
+                        {errors.lastname && (
                             <span className="form__error">
                                 {showFioError()}
                             </span>
@@ -159,6 +177,10 @@ const ProfileEdit = () => {
                     </Button>
                 </form>
             </div>
+        </div>
+    ) : (
+        <div className="main">
+            <SpinnerLoad />
         </div>
     );
 };

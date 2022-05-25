@@ -44,7 +44,7 @@ const headerRoutes = [
     },
 ];
 
-const DropMenu = () => {
+const DropMenu = ({ user }) => {
     const [isOpen, setOpen] = useState(false);
     const navigate = useNavigate();
 
@@ -82,13 +82,15 @@ const DropMenu = () => {
                 transition={{ type: "spring", duration: 0.05 }}
             >
                 <div className="hamburger_menu__container__nav_links">
-                    <UserInfoBlock
-                        onClick={() => navigate(router.profile)}
-                        order={true}
-                        email="temakonkin@gmail.com"
-                        name="Artem Konkin"
-                        logo="https://cdn.dribbble.com/users/24078/screenshots/15522433/media/e92e58ec9d338a234945ae3d3ffd5be3.jpg?compress=1&resize=400x300"
-                    />
+                    {user ? (
+                        <UserInfoBlock
+                            onClick={() => navigate(router.profile)}
+                            order={true}
+                            email={user.email}
+                            name={`${user.first_name} ${user.last_name}`}
+                            logo="https://cdn.dribbble.com/users/24078/screenshots/15522433/media/e92e58ec9d338a234945ae3d3ffd5be3.jpg?compress=1&resize=400x300"
+                        />
+                    ) : null}
                     {headerRoutes.map(({ url, title }) => (
                         <NavLink to={url}>
                             <img src={arrow} alt="arrow" />

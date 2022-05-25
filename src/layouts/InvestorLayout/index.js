@@ -10,12 +10,21 @@ import { usePageTitle } from "@hooks/useTitle";
 
 //Style
 import "./InvestorLayout.scss";
+import { useSelector } from "react-redux";
+import router from "../../utils/router";
 
 const InvestorLayout = ({ children, ...props }) => {
     const location = useLocation();
     const navigate = useNavigate();
+    const { user } = useSelector((state) => state.user);
 
     const { rename } = usePageTitle();
+
+    useEffect(() => {
+        if (!user) {
+            navigate(router.login);
+        }
+    }, [user]);
 
     useEffect(() => {
         rename(props.title);

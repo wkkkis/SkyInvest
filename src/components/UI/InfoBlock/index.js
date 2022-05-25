@@ -1,4 +1,5 @@
 import React from "react";
+import { dateFormatter } from "../../../utils/stringHelper";
 
 //Styles
 import "./InfoBlock.scss";
@@ -12,6 +13,7 @@ const InfoBlock = ({
     lWeigth = "400",
     vWeigth = "400",
     fontSize = "14",
+    date = false,
 }) => {
     return (
         <div className={`infoblock ${fontSize && "f" + fontSize}`}>
@@ -27,7 +29,7 @@ const InfoBlock = ({
                     vWeigth && "w" + vWeigth
                 } ${opactityValue ? "opacity" : ""}`}
             >
-                <span>{value}</span>
+                <span>{date ? dateFormatter(new Date(value)) : value}</span>
             </div>
         </div>
     );

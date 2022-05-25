@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { useNavigate } from "react-router";
 
@@ -16,6 +16,8 @@ import "./Header.scss";
 //Components
 import UserInfoBlock from "@components/UI/UserInfoBlock";
 import DropMenu from "@components/DropMenu";
+import { me } from "../../store/user/user.api";
+import { useDispatch, useSelector } from "react-redux";
 
 const headerRoutes = [
     {
@@ -46,6 +48,12 @@ const headerRoutes = [
 
 const Header = () => {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const { user } = useSelector((state) => state.user);
+
+    useEffect(() => {
+        dispatch(me());
+    }, []);
 
     return (
         <div className="header">
@@ -63,13 +71,15 @@ const Header = () => {
                 ))}
             </nav>
             <div className="header__userblock">
-                <UserInfoBlock
-                    order={true}
-                    email="temakonkin@gmail.com"
-                    name="Artem Konkin"
-                    onClick={() => navigate(router.dashboard)}
-                    logo="https://cdn.dribbble.com/users/24078/screenshots/15522433/media/e92e58ec9d338a234945ae3d3ffd5be3.jpg?compress=1&resize=400x300"
-                />
+                {user ? (
+                    <UserInfoBlock
+                        order={true}
+                        email={user.email}
+                        name={`${user.first_name} ${user.last_name}`}
+                        onClick={() => navigate(router.dashboard)}
+                        logo="https://cdn.dribbble.com/users/24078/screenshots/15522433/media/e92e58ec9d338a234945ae3d3ffd5be3.jpg?compress=1&resize=400x300"
+                    />
+                ) : null}
                 <div className="header__userblock__theme">
                     <svg
                         width="16"
@@ -100,7 +110,7 @@ const Header = () => {
                 </div>
             </div>
 
-            <DropMenu />
+            <DropMenu user={user} />
         </div>
     );
 };

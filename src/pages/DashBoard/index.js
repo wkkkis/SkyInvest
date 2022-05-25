@@ -17,10 +17,12 @@ import usdtIcon from "@assets/img/usdt.svg";
 //Styles
 import "./DashBoard.scss";
 import { useNavigate } from "react-router";
+import { useSelector } from "react-redux";
+import SpinnerLoad from "../../components/SpinnerLoad";
 
 const mockData = {
     userinfo: [
-        { label: "Телефон", value: "+996 777 438 992" },
+        { label: "", value: "+996 777 438 992" },
         { label: "Email", value: "temakonkin@gmail.com" },
         { label: "Последний вход", value: "15.08.2022" },
         { label: "Дата регистрации", value: "15.08.2022" },
@@ -34,7 +36,9 @@ const mockData = {
 };
 
 const DashBoard = () => {
-    return (
+    const { user } = useSelector((state) => state.user);
+
+    return user ? (
         <div className="main">
             <div className="main__header">
                 <div className="main__header__title">
@@ -66,8 +70,8 @@ const DashBoard = () => {
             <div className="main__dashboard_content">
                 <div className="main__dashboard_content__actives">
                     <UserInfoBlock
-                        email="temakonkin@gmail.com"
-                        name="Artem Konkin"
+                        email={user.email}
+                        name={`${user.first_name} ${user.last_name}`}
                         logo="https://cdn.dribbble.com/users/24078/screenshots/15522433/media/e92e58ec9d338a234945ae3d3ffd5be3.jpg?compress=1&resize=400x300"
                     />
                     <div className="main__dashboard_content__actives__time">
@@ -81,14 +85,14 @@ const DashBoard = () => {
                     <div className="main__dashboard_content__actives__profit">
                         <InfoBlock
                             label="Уровень ROI"
-                            value="+ 23.31 %"
+                            value={`${user.roi_level} %`}
                             vWeigth="700"
                             color="green"
                             opactityLabel
                         />
                         <InfoBlock
                             label="Профит"
-                            value="+ 23.31 %"
+                            value={`${user.profit} %`}
                             vWeigth="700"
                             color="green"
                             opactityLabel
@@ -96,14 +100,32 @@ const DashBoard = () => {
                     </div>
                 </div>
                 <div className="main__dashboard_content__userinfo">
-                    {mockData.userinfo.map((e) => (
-                        <InfoBlock
-                            label={e.label}
-                            value={e.value}
-                            lWeigth="700"
-                            opactityValue
-                        />
-                    ))}
+                    <InfoBlock
+                        label={"Телефон"}
+                        value={user.phone_number}
+                        lWeigth="700"
+                        opactityValue
+                    />
+                    <InfoBlock
+                        label={"Email"}
+                        value={user.phone_number}
+                        lWeigth="700"
+                        opactityValue
+                    />
+                    <InfoBlock
+                        label={"Последний вход"}
+                        value={user.last_login}
+                        lWeigth="700"
+                        date={true}
+                        opactityValue
+                    />
+                    <InfoBlock
+                        label={"Дата регистрации"}
+                        value={user.date_joined}
+                        date={true}
+                        lWeigth="700"
+                        opactityValue
+                    />
                 </div>
                 <div className="main__dashboard_content__chart">
                     <LineChart />
@@ -172,6 +194,10 @@ const DashBoard = () => {
                     </div>
                 </div>
             </div>
+        </div>
+    ) : (
+        <div className="main">
+            <SpinnerLoad />
         </div>
     );
 };
