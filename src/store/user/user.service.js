@@ -30,7 +30,6 @@ const register = async (userData) => {
 };
 
 const login = async (userData) => {
-    debugger;
     const res = await instance.post(`${AUTH_URL}login/`, userData);
 
     return res;
@@ -43,7 +42,10 @@ const reset_password = async (userData) => {
 };
 
 const confirm_password = async (userData) => {
-    const res = await instance.post(`${AUTH_URL}confirm_password/`, userData);
+    const res = await instance.post(
+        `${AUTH_URL}reset_password_confirm/`,
+        userData
+    );
 
     return res;
 };

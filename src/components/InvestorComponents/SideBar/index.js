@@ -14,6 +14,8 @@ import router from "@utils/router";
 //Components
 import UserInfoBlock from "@components/UI/UserInfoBlock";
 import LogoutModal from "@components/Modals/LogoutModal";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router";
 
 const sideBarRouter = {
     mainLinks: [
@@ -168,9 +170,12 @@ const sideBarRouter = {
 
 const Sidebar = () => {
     const [logout, setLogout] = useState(false);
+    const navigate = useNavigate();
+    const { user } = useSelector((state) => state.user);
 
     const handleChange = (toggle) => {
         setLogout(false);
+        navigate(router.login);
     };
 
     return (
@@ -222,14 +227,15 @@ const Sidebar = () => {
                     ))}
                 </nav>
             </div>
-            <UserInfoBlock
-                className="sidebar__account"
-                name="Artem Konkin"
-                email="temakonkin@gmail.com"
-                isLogout
-                handleChange={() => setLogout(true)}
-                logo="https://cdn.dribbble.com/users/24078/screenshots/15522433/media/e92e58ec9d338a234945ae3d3ffd5be3.jpg?compress=1&resize=400x300"
-            />
+            {user ? (
+                <UserInfoBlock
+                    email={user.email}
+                    name={`${user.first_name} ${user.last_name}`}
+                    isLogout
+                    handleChange={() => setLogout(true)}
+                    logo="https://cdn.dribbble.com/users/24078/screenshots/15522433/media/e92e58ec9d338a234945ae3d3ffd5be3.jpg?compress=1&resize=400x300"
+                />
+            ) : null}
             {logout ? <LogoutModal handleChange={handleChange} /> : null}
         </div>
     );

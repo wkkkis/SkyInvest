@@ -18,7 +18,7 @@ const Signin = () => {
     const dispatch = useDispatch();
     const [completed, setCompleted] = useState(false);
 
-    const { isAuth, messages } = useSelector((state) => state.auth);
+    const { isAuth, messages } = useSelector((state) => state.user);
 
     useEffect(() => {
         if (messages === "register_success") {

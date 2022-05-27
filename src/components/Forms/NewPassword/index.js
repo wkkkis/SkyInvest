@@ -39,7 +39,9 @@ const NewPassword = ({ fetchData }) => {
     const onSubmitHandler = async (data) => {
         setLoaded(false);
 
-        fetchData(data);
+        if (data.pass1 === data.pass2) {
+            fetchData(data);
+        }
 
         setLoaded(true);
     };

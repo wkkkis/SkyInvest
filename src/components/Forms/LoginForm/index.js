@@ -23,7 +23,7 @@ import "../Forms.scss";
 import router from "@utils/router";
 import { Link } from "react-router-dom";
 
-const LoginForm = ({ fetchData }) => {
+const LoginForm = ({ fetchData, error }) => {
     const navigate = useNavigate();
     const [loaded, setLoaded] = useState(true);
     const {
@@ -102,6 +102,11 @@ const LoginForm = ({ fetchData }) => {
                 {errors.password && (
                     <span className="form__error">{showPasswordError()}</span>
                 )}
+                {error ? (
+                    <span className="form__error">
+                        Пароль или емейл введены неправильно!
+                    </span>
+                ) : null}
                 <div className="form__confirm">
                     <Checkbox {...register("confirm")} />
                     <span>
@@ -109,6 +114,7 @@ const LoginForm = ({ fetchData }) => {
                         <Link to={router.reset_password}>Забыл пароль</Link>
                     </span>
                 </div>
+
                 <Button
                     className="form__button"
                     theme={"beforesubmit"}

@@ -23,6 +23,7 @@ const userReducer = (state = initialState, action) => {
             return {
                 ...state,
                 user: action.payload,
+                messages: "",
             };
         case "SET_MESSAGE":
             return {
@@ -67,7 +68,7 @@ export const login = (data) => async (dispatch) => {
             localStorage.setItem("token", response.data.auth_token);
         }
     } catch (e) {
-        dispatch(actions.message(e));
+        dispatch(actions.message("error_login"));
     }
 };
 
@@ -78,7 +79,7 @@ export const activation = (data) => async (dispatch) => {
             dispatch(actions.message("activated"));
         }
     } catch (e) {
-        dispatch(actions.message(e));
+        dispatch(actions.message("error_activation"));
     }
 };
 
@@ -91,7 +92,7 @@ export const regiter = (data) => async (dispatch) => {
             dispatch(actions.message(response.data));
         }
     } catch (e) {
-        dispatch(actions.message(e));
+        dispatch(actions.message("error_register"));
     }
 };
 
@@ -104,7 +105,7 @@ export const me = () => async (dispatch) => {
             dispatch(actions.setDataUser(response.data));
         }
     } catch (e) {
-        dispatch(actions.message(e));
+        dispatch(actions.message("error_me"));
     }
 };
 
@@ -116,7 +117,7 @@ export const getMyGroups = () => async (dispatch) => {
             dispatch(actions.setDataGroup(response.data));
         }
     } catch (e) {
-        dispatch(actions.message(e));
+        dispatch(actions.message("error_groups"));
     }
 };
 
@@ -130,7 +131,29 @@ export const logOut = () => async (dispatch) => {
             dispatch(actions.setIsAuth(false));
         }
     } catch (e) {
-        dispatch(actions.message(e));
+        dispatch(actions.message("error_logout"));
+    }
+};
+
+export const resetPassword = (email) => async (dispatch) => {
+    try {
+        let response = await userService.reset_password(email);
+        if (response) {
+            dispatch(actions.message("reset_success"));
+        }
+    } catch (e) {
+        dispatch(actions.message("error_reset"));
+    }
+};
+
+export const confirmPassword = (data) => async (dispatch) => {
+    try {
+        let response = await userService.confirm_password(data);
+        if (response) {
+            dispatch(actions.message("confirm_password_success"));
+        }
+    } catch (e) {
+        dispatch(actions.message("error_confirm_password"));
     }
 };
 

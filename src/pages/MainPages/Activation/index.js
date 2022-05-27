@@ -22,7 +22,7 @@ const Activation = () => {
     const [uid, setUid] = useState();
     const [searchParams, setSearchParams] = useSearchParams();
 
-    const { isAuth, messages } = useSelector((state) => state.auth);
+    const { isAuth, messages } = useSelector((state) => state.user);
 
     const fetchActivatedData = () => {
         if (token && uid) {
@@ -64,7 +64,12 @@ const Activation = () => {
                 <img src={back} alt="" />
             </div>
             {completed ? (
-                <ActivationModal handleChange={activatedHandle} />
+                <ActivationModal
+                    title="Аккаунт активирован!"
+                    desc="Нажмите на кнопку продолжить чтобы войти в личный
+                кабинет"
+                    handleChange={activatedHandle}
+                />
             ) : null}
 
             <Footer />
