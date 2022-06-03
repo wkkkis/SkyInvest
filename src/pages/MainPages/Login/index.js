@@ -29,7 +29,7 @@ const Login = () => {
         setCode(token);
         const obj = {
             ...data,
-            two_fa_otp: code,
+            two_fa_otp: token,
         };
         dispatch(login(obj));
         setError("");
@@ -58,7 +58,7 @@ const Login = () => {
                 <LoginForm fetchData={fetchLoginData} error={error} />
                 <img src={back} alt="" />
             </div>
-            {error && <TwoFACode handleChange={handleOtp} />}
+            {error === "2fa_error" && <TwoFACode handleChange={handleOtp} />}
             <Footer />
         </div>
     );

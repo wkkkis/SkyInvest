@@ -645,6 +645,9 @@ const Main = () => {
                             <div className="groups-item">
                                 {mockData.mygroup.map((e, idx) => (
                                     <InvestorGroup
+                                        className={
+                                            "main__content__groups__content__card"
+                                        }
                                         key={idx}
                                         e={e}
                                         clean_group={true}
@@ -655,6 +658,9 @@ const Main = () => {
                             <div className="groups-item">
                                 {mockData.mygroup.map((e, idx) => (
                                     <InvestorGroup
+                                        className={
+                                            "main__content__groups__content__card"
+                                        }
                                         key={idx}
                                         e={e}
                                         clean_group={true}

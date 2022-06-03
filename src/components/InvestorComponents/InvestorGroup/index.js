@@ -7,7 +7,7 @@ import ProgressBar from "@components/ProgressBar";
 import { useNavigate } from "react-router";
 import router from "../../../utils/router";
 
-const InvestorGroup = ({ e, clean_group, setgroupid }) => {
+const InvestorGroup = ({ e, clean_group, setgroupid, className }) => {
     const navigate = useNavigate();
     const [readMore, setReadMore] = useState(true);
 
@@ -17,7 +17,7 @@ const InvestorGroup = ({ e, clean_group, setgroupid }) => {
 
     return (
         <CardInfo
-            className="main__group_content__card"
+            className={`${className}`}
             name={e.name}
             email={e.email}
             rating={e.rating}
