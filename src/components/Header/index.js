@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { useNavigate } from "react-router";
 
 //Image
@@ -48,17 +48,14 @@ const headerRoutes = [
 
 const Header = () => {
     const navigate = useNavigate();
-    const dispatch = useDispatch();
     const { user } = useSelector((state) => state.user);
-
-    useEffect(() => {
-        dispatch(me());
-    }, []);
 
     return (
         <div className="header">
             <div className="header__logo">
-                <img src={logo} alt="" />
+                <Link to={router.main}>
+                    <img src={logo} alt="" />
+                </Link>
             </div>
             <nav className="header__menu">
                 {headerRoutes.map((e) => (
@@ -80,7 +77,7 @@ const Header = () => {
                         logo="https://cdn.dribbble.com/users/24078/screenshots/15522433/media/e92e58ec9d338a234945ae3d3ffd5be3.jpg?compress=1&resize=400x300"
                     />
                 ) : null}
-                <div className="header__userblock__theme">
+                {/* <div className="header__userblock__theme">
                     <svg
                         width="16"
                         height="18"
@@ -107,7 +104,7 @@ const Header = () => {
                             fill="#7972F3"
                         />
                     </svg>
-                </div>
+                </div> */}
             </div>
 
             <DropMenu user={user} />

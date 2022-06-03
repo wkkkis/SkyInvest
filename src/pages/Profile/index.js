@@ -9,9 +9,11 @@ import ProfileLayout from "@layouts/ProfileLayout";
 //Styles
 import "./Profile.scss";
 import { useLocation, useNavigate } from "react-router";
+import { useSelector } from "react-redux";
 
 const Profile = () => {
     const [getTitle, setGetTitle] = useState("");
+    const { isTraider } = useSelector((state) => state.user);
 
     const location = useLocation();
     const navigate = useNavigate();
@@ -21,7 +23,11 @@ const Profile = () => {
             navigate(router.profile);
             setGetTitle("Профиль");
         } else {
-            navigate(router.investor_page);
+            if (isTraider) {
+                navigate(router.traider_page);
+            } else {
+                navigate(router.investor_page);
+            }
         }
     };
 

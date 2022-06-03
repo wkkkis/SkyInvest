@@ -70,26 +70,16 @@ const USDTForm = () => {
                 noValidate
                 autoComplete="off"
             >
-                <div className="form__valute">
-                    <Field
-                        label="Сумма пополнения"
-                        {...register("usdt", {
-                            required: true,
-                            minLength: 2,
-                            maxLength: 50,
-                        })}
-                        onChange={onChangeHandler}
-                    />
-                    <Select
-                        className="form__valute__select"
-                        defaultOption="USD"
-                        onChange={getValuteSelect}
-                    >
-                        <li>USD</li>
-                        <li>EUR</li>
-                        <li>KGZ</li>
-                    </Select>
-                </div>
+                <Field
+                    label="Сумма пополнения"
+                    type="money"
+                    {...register("usdt", {
+                        required: true,
+                        minLength: 2,
+                        maxLength: 50,
+                    })}
+                    onChange={onChangeHandler}
+                />
                 {errors.cash && (
                     <span className="form__error">{showCashError()}</span>
                 )}

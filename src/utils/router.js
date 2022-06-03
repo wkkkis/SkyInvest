@@ -1,6 +1,7 @@
 const router = {
     dashboard: "/dashboard",
     groups: "/groups",
+    group: "/groups/:id",
     mycopy: "/mycopy",
     payment: "/payments",
     cash: "/cash",
@@ -13,6 +14,8 @@ const router = {
     history_payment: "/history?type=payment",
     security: "/security",
     profile: "/profile",
+    user: "/profile/:id",
+    copy_settings: "/copy-settings",
     profile_edit: "/profile?type=user-info",
     profile_password: "/profile?type=password",
     login: "/login",
@@ -21,12 +24,14 @@ const router = {
     confirm_password: "/confirm-password",
     activated: "/activated",
     main: "/",
+    verify: "/verification",
     about: "/about",
     trade_group: "/trade-group",
     copy_trade: "/copy-trade",
     faq: "/faq",
     contacts: "/contacts",
     investor_page: "/investor",
+    traider_page: "/traider",
 };
 
 export default router;

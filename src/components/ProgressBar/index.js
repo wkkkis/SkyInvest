@@ -22,10 +22,12 @@ const ProgressBar = ({ completed, from, to, start, end }) => {
             <div className="progressbar__line">
                 <div style={styles} />
             </div>
-            <div className="progressbar__start_end">
-                <span>Начало: {dateFormatter(new Date(start))}</span>
-                <span>Конец: {dateFormatter(new Date(end))}</span>
-            </div>
+            {start && end ? (
+                <div className="progressbar__start_end">
+                    <span>Начало: {dateFormatter(new Date(start))}</span>
+                    <span>Конец: {dateFormatter(new Date(end))}</span>
+                </div>
+            ) : null}
         </div>
     );
 };

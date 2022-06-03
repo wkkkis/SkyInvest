@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 //Styles
 import "./Field.scss";
@@ -12,13 +12,37 @@ const Field = ({
     onChange,
     name,
     classNames,
+    error = "",
     type,
     ...props
 }) => {
+    const ref = useRef();
     const [passwordVisible, setPasswordVisible] = useState(true);
+    // const [valueInput, setValueInput] = useState(value);
+
+    // useEffect(() => {
+    //     if (ref.current.value) {
+    //         setValueInput(ref.current.value);
+    //         console.log(ref.current.value);
+    //     }
+    // }, [ref, valueInput]);
 
     const changeType = () => {
         setPasswordVisible(!passwordVisible);
+    };
+
+    const checkType = () => {
+        if (!passwordVisible) {
+            return type;
+        } else if (type === "user_count") {
+            return "number";
+        } else if (type === "money") {
+            return "number";
+        } else if (type === "number") {
+            return "number";
+        } else {
+            return "text";
+        }
     };
 
     return (
@@ -26,14 +50,16 @@ const Field = ({
             <label>{label}</label>
             <input
                 name={name}
+                ref={ref}
                 placeholder={placeholder}
-                type={!passwordVisible ? type : "text"}
+                type={checkType()}
                 onClick={onClick}
                 onFocus={onFocus}
                 onChange={onChange}
                 value={value}
                 {...props}
             />
+            <span>{error}</span>
             {type === "password" ? (
                 passwordVisible ? (
                     <svg
@@ -64,6 +90,37 @@ const Field = ({
                         />
                     </svg>
                 )
+            ) : type === "date" ? (
+                <svg
+                    width="13"
+                    height="15"
+                    viewBox="0 0 13 15"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                >
+                    <path
+                        opacity="0.5"
+                        d="M3 1.625C3 1.16016 3.38281 0.75 3.875 0.75C4.33984 0.75 4.75 1.16016 4.75 1.625V2.5H8.25V1.625C8.25 1.16016 8.63281 0.75 9.125 0.75C9.58984 0.75 10 1.16016 10 1.625V2.5H11.3125C12.0234 2.5 12.625 3.10156 12.625 3.8125V5.125H0.375V3.8125C0.375 3.10156 0.949219 2.5 1.6875 2.5H3V1.625ZM12.625 13.4375C12.625 14.1758 12.0234 14.75 11.3125 14.75H1.6875C0.949219 14.75 0.375 14.1758 0.375 13.4375V6H12.625V13.4375Z"
+                        fill="#0D121F"
+                    />
+                </svg>
+            ) : type === "user_count" ? (
+                <svg
+                    width="14"
+                    height="17"
+                    viewBox="0 0 14 17"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                >
+                    <path
+                        d="M7 8.5C9.1875 8.5 11 6.71875 11 4.5C11 2.3125 9.1875 0.5 7 0.5C4.78125 0.5 3 2.3125 3 4.5C3 6.71875 4.78125 8.5 7 8.5ZM7 1C8.90625 1 10.5 2.59375 10.5 4.5C10.5 6.4375 8.90625 8 7 8C5.0625 8 3.5 6.4375 3.5 4.5C3.5 2.59375 5.0625 1 7 1ZM8.5625 10H5.40625C2.40625 10 0 12.4375 0 15.4375C0 16.0312 0.46875 16.5 1.0625 16.5H12.9062C13.5 16.5 14 16.0312 14 15.4375C14 12.4375 11.5625 10 8.5625 10ZM12.9062 16H1.0625C0.75 16 0.5 15.75 0.5 15.4375C0.5 12.7188 2.6875 10.5 5.40625 10.5H8.5625C11.2812 10.5 13.5 12.7188 13.5 15.4375C13.5 15.75 13.2188 16 12.9062 16Z"
+                        fill="black"
+                    />
+                </svg>
+            ) : type === "money" ? (
+                <div className="field__money">
+                    <span>USDT</span>
+                </div>
             ) : null}
         </div>
     );

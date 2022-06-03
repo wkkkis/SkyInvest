@@ -67,9 +67,13 @@ const InsideGroupModal = ({ handleChange, info }) => {
                     onChange={(e) => rangeChange(e)}
                 />
                 <div className="modal__block__confirm">
-                    <Checkbox onChange={() => console.log("confirm")} />
+                    <Checkbox
+                        id={info}
+                        onClick={() => console.log("confirm")}
+                        label="Я принимаю условия"
+                    />
                     <span>
-                        Я принимаю условия <a href="#">соглашения</a>
+                        <a href="#">соглашения</a>
                     </span>
                 </div>
                 <div className="modal__block__btns">

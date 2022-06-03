@@ -49,26 +49,6 @@
                     }
                 }
 
-                .react-calendar {
-                    border-radius: 8px;
-                    border-color: #CCD4D8;
-
-                    font-family: 'Inter', sans-serif;
-
-                    button {
-                        border-radius: 6px;
-                    }
-
-                    &__tile--active {
-                        background: radial-gradient(100.84% 5352.77% at 0.98% 0%, #9E68F8 0%, #537BEE 100%)
-                    }
-
-                    &__tile--now {
-                        background: transparent;
-                        border: 1px dashed black;
-                    } 
-                }
-
                 &__date {
                     width: 25%;
                     position: relative;
@@ -127,6 +107,13 @@
 
         &__content {
             width: 100%;
+
+            .history_page {
+                
+                &__title {
+                    display: none;
+                }
+            }
         }
     }
 }

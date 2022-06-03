@@ -20,6 +20,10 @@
         &__desc {
             font-size: 14px;
 
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+
             span {
                 font-weight: 700;
             }

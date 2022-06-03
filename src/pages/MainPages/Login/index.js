@@ -11,21 +11,44 @@ import back from "@assets/img/authbackground.jpg";
 import "./Login.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../../../store/user/user.api";
+import TwoFACode from "../../../components/Modals/TwoFACode";
 
 const Login = () => {
     const dispatch = useDispatch();
-    const [error, setError] = useState(false);
+    const [error, setError] = useState("");
+    const [data, setData] = useState("");
+    const [code, setCode] = useState("");
     const { messages } = useSelector((state) => state.user);
 
     const fetchLoginData = (data) => {
+        setData(data);
         dispatch(login(data));
     };
 
+    const handleOtp = (token) => {
+        setCode(token);
+        const obj = {
+            ...data,
+            two_fa_otp: code,
+        };
+        dispatch(login(obj));
+        setError("");
+    };
+
     useEffect(() => {
+        console.log(messages);
         if (messages === "error_login") {
-            setError(true);
+            setError("error_login");
         } else {
-            setError(false);
+            setError("");
+        }
+
+        if (messages === "2fa_error") {
+            setError("2fa_error");
+        }
+
+        if (messages === "Unable to log in with provided credentials.") {
+            setError("error_login");
         }
     }, [messages]);
 
@@ -35,7 +58,7 @@ const Login = () => {
                 <LoginForm fetchData={fetchLoginData} error={error} />
                 <img src={back} alt="" />
             </div>
-
+            {error && <TwoFACode handleChange={handleOtp} />}
             <Footer />
         </div>
     );

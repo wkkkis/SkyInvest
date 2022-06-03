@@ -5,6 +5,7 @@ let initialState = {
     messages: null,
     groups: null,
     isAuth: false,
+    isTraider: false,
 };
 
 const userReducer = (state = initialState, action) => {
@@ -12,7 +13,7 @@ const userReducer = (state = initialState, action) => {
         case "SET_USER":
             return {
                 ...state,
-                user: action.payload,
+                ...action.payload,
             };
         case "SET_GROUP":
             return {
@@ -43,7 +44,7 @@ const userReducer = (state = initialState, action) => {
 export const actions = {
     setDataUser: (data) => ({
         type: "SET_USER",
-        payload: data,
+        payload: { user: data, isTraider: data.is_trader },
     }),
     setIsAuth: (toggle) => ({
         type: "SET_IS_AUTH",
@@ -60,6 +61,34 @@ export const actions = {
     message: (message) => ({ type: "SET_MESSAGE", payload: message }),
 };
 
+export const PaymetVisa = (data) => async (dispatch) => {
+    try {
+        let response = await userService.login(data);
+        if (response.data) {
+            dispatch(actions.setIsAuth(true));
+            localStorage.setItem("token", response.data.auth_token);
+        }
+    } catch (e) {
+        if (e.response.data.message) {
+            dispatch(actions.message(e.response.data.message[0]));
+        }
+    }
+};
+
+export const binanceApiActive = (data) => async (dispatch) => {
+    try {
+        const token = localStorage.getItem("token");
+        let response = await userService.trader_apply(token, data);
+        if (response.data) {
+            dispatch(actions.message("binance_active"));
+        }
+    } catch (e) {
+        if (e.response.data.message) {
+            dispatch(actions.message(e.response.data.message[0]));
+        }
+    }
+};
+
 export const login = (data) => async (dispatch) => {
     try {
         let response = await userService.login(data);
@@ -68,7 +97,9 @@ export const login = (data) => async (dispatch) => {
             localStorage.setItem("token", response.data.auth_token);
         }
     } catch (e) {
-        dispatch(actions.message("error_login"));
+        if (e.response.data.message) {
+            dispatch(actions.message(e.response.data.message[0]));
+        }
     }
 };
 
@@ -154,6 +185,43 @@ export const confirmPassword = (data) => async (dispatch) => {
         }
     } catch (e) {
         dispatch(actions.message("error_confirm_password"));
+    }
+};
+
+export const verification = (data) => async (dispatch) => {
+    try {
+        const token = localStorage.getItem("token");
+        let response = await userService.verification(data, token);
+        if (response) {
+            dispatch(actions.message("verification_success"));
+        }
+    } catch (e) {
+        dispatch(actions.message("error_confirm_password"));
+    }
+};
+
+export const createGroup = (data) => async (dispatch) => {
+    try {
+        const token = localStorage.getItem("token");
+        let response = await userService.createGroup(data, token);
+        if (response) {
+            dispatch(actions.message("group_create_success"));
+            dispatch(getTraiderGroup());
+        }
+    } catch (e) {
+        dispatch(actions.message("error_group_create"));
+    }
+};
+
+export const getTraiderGroup = () => async (dispatch) => {
+    try {
+        const token = localStorage.getItem("token");
+        let response = await userService.getTraiderGroup(token);
+        if (response) {
+            dispatch(actions.setDataGroup(response.data));
+        }
+    } catch (e) {
+        dispatch(actions.message("error_group"));
     }
 };
 

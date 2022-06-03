@@ -12,7 +12,9 @@ const LogoutModal = ({ handleChange }) => {
     const dispatch = useDispatch();
 
     const hadnleClick = (toggle) => {
-        dispatch(logOut());
+        if (toggle) {
+            dispatch(logOut());
+        }
         handleChange(toggle);
     };
 

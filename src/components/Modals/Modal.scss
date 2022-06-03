@@ -73,6 +73,38 @@
                 }
             }
         }
+
+        &__content {
+
+            .react-code-input {
+                width: 100%;
+
+                display: flex !important;
+                justify-content: center;
+
+                input::-webkit-outer-spin-button,
+                input::-webkit-inner-spin-button {
+                -webkit-appearance: none;
+                    margin: 0;
+                }
+
+                input[type=number] {
+                    -moz-appearance: textfield;
+                }
+
+                input {
+
+                    &:nth-child(2) {
+
+                        &::after {
+                            content: "-";
+                            padding-left: 5px;
+                            padding-right: 5px;
+                        }
+                    }
+                }
+            }
+        }
         
         &__profit {
             padding: 0;

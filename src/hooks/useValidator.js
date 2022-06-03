@@ -40,7 +40,17 @@ export const useValidator = () => {
     };
 
     const isEmailValid = (email) => {
-        return isValid(email, emailRegEx, "email", "Поле Email обязательна");
+        if (!email) {
+            setErrorFor("email", false, "Поле Email обязательна");
+            return;
+        }
+
+        return isValid(
+            email,
+            emailRegEx,
+            "email",
+            "Напишите корректно: example@gmail.com"
+        );
     };
 
     const isPhoneValid = (phone) => {

@@ -59,9 +59,15 @@ const Footer = () => {
                         <img src={logo} alt="logo" />
                     </div>
                     <div className="footer__media_auth__media__social">
-                        <img src={insta} alt="logo" />
-                        <img src={wt} alt="logo" />
-                        <img src={tg} alt="logo" />
+                        <a href="https://instagram.com" target="_blank">
+                            <img src={insta} alt="logo" />
+                        </a>
+                        <a href="https://wa.me/" target="_blank">
+                            <img src={wt} alt="logo" />
+                        </a>
+                        <a href="https://t.me/" target="_blank">
+                            <img src={tg} alt="logo" />
+                        </a>
                     </div>
                 </div>
                 <div className="footer__media_auth__auth">
@@ -127,11 +133,17 @@ const Footer = () => {
                 <div className="footer__company_desc__contacts">
                     <div className="footer__company_desc__contacts__phone">
                         <span>Телефон:</span>
-                        <p>+996 777 438 992</p>
+                        <p>
+                            <a href="tel:+996508241111">+996 777 438 992</a>
+                        </p>
                     </div>
                     <div className="footer__company_desc__contacts__email">
                         <span>Email:</span>
-                        <p>temakonkin@gmail.com</p>
+                        <p>
+                            <a href="mailto:business@netex.kg">
+                                business@netex.kg
+                            </a>
+                        </p>
                     </div>
                 </div>
             </div>

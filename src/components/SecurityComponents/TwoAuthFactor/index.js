@@ -6,14 +6,16 @@ import { useForm } from "react-hook-form";
 //Components
 import Field from "@components/Field";
 import Button from "@components/Button";
+import QRCode from "react-qr-code";
 
 //Icons
 import code from "@assets/img/chartCode.svg";
 
 //Styles
 import "./TwoAuthFactor.scss";
+import SpinnerLoad from "../../SpinnerLoad";
 
-const TwoAuthFactor = ({ handleChange }) => {
+const TwoAuthFactor = ({ handleChange, qr, code }) => {
     const [loaded, setLoaded] = useState(true);
     const {
         register,
@@ -25,7 +27,7 @@ const TwoAuthFactor = ({ handleChange }) => {
     const onSubmitHandler = async (data) => {
         setLoaded(false);
 
-        handleChange(3);
+        handleChange(data);
 
         setLoaded(true);
     };
@@ -47,7 +49,7 @@ const TwoAuthFactor = ({ handleChange }) => {
         }
     };
 
-    return (
+    return qr ? (
         <div className="googleauth_twofactor">
             <div className="googleauth_twofactor__title">
                 <span>Двухфакторная авторизация</span>
@@ -56,7 +58,7 @@ const TwoAuthFactor = ({ handleChange }) => {
                 <p>Это дополнительный уровень защиты для Вашего аккаунта.</p>
             </div>
             <div className="googleauth_twofactor__code_img">
-                <img src={code} alt="code" />
+                <QRCode value={qr} />
             </div>
             <div className="googleauth_twofactor__code_desc">
                 <p>
@@ -67,7 +69,7 @@ const TwoAuthFactor = ({ handleChange }) => {
                 </p>
             </div>
             <div className="googleauth_twofactor__code_text">
-                <span>W7QWEGGERE4QKYRTS2D</span>
+                <span>{code}</span>
             </div>
             <form
                 onSubmit={handleSubmit(onSubmitHandler)}
@@ -79,8 +81,8 @@ const TwoAuthFactor = ({ handleChange }) => {
                     label="Введите защитный код"
                     {...register("code", {
                         required: true,
-                        minLength: 8,
-                        maxLength: 50,
+                        minLength: 6,
+                        maxLength: 6,
                     })}
                     onChange={onChangeHandler}
                 />
@@ -110,6 +112,8 @@ const TwoAuthFactor = ({ handleChange }) => {
                 </Button>
             </form>
         </div>
+    ) : (
+        <SpinnerLoad />
     );
 };
 

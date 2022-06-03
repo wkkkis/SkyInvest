@@ -19,6 +19,7 @@ import SpinnerLoad from "@components/SpinnerLoad";
 import "../Forms.scss";
 import Checkbox from "../../Checkbox";
 import { useValidator } from "../../../hooks/useValidator";
+import Radio from "../../Radio";
 
 const SigninForm = ({ fetchData }) => {
     const navigate = useNavigate();
@@ -27,6 +28,8 @@ const SigninForm = ({ fetchData }) => {
     const [confirmPassword, setConfirmPassword] = useState("");
     const [firstName, setFirstName] = useState("");
     const [secondName, setSecondName] = useState("");
+    const [confirm, setConfirm] = useState(false);
+    const [role, setRole] = useState(true);
     const [phone, setPhone] = useState("+7");
     const {
         setError,
@@ -40,6 +43,14 @@ const SigninForm = ({ fetchData }) => {
         formState: { errors },
         setValue,
     } = useForm();
+
+    const handleCheckbox = () => {
+        setConfirm(!confirm);
+    };
+
+    const handleRole = (toggle) => {
+        setRole(toggle);
+    };
 
     const onChangeHandler = (ev) => {
         setValue(ev.currentTarget.name, ev.currentTarget.value);
@@ -75,6 +86,7 @@ const SigninForm = ({ fetchData }) => {
             first_name: firstName,
             last_name: secondName,
             phone_number: phone,
+            is_traider: role,
         };
 
         setLoaded(false);
@@ -95,6 +107,22 @@ const SigninForm = ({ fetchData }) => {
                 noValidate
                 autoComplete="off"
             >
+                <div className="form__confirm">
+                    <Radio
+                        id="traider_radio"
+                        group="role_change"
+                        label="Трейдер"
+                        checked={role}
+                        onClick={() => handleRole(true)}
+                    />
+                    <Radio
+                        id="investor_radio"
+                        group="role_change"
+                        label="Инвестор"
+                        checked={!role}
+                        onClick={() => handleRole(false)}
+                    />
+                </div>
                 <Field
                     name="first_name"
                     label="Имя"
@@ -170,10 +198,13 @@ const SigninForm = ({ fetchData }) => {
                     <span className="form__error">{error}</span>
                 )}
                 <div className="form__confirm">
-                    <Checkbox />
-                    <span>
-                        Я принимаю условия <a href="#">соглашения</a>
-                    </span>
+                    <Checkbox
+                        onClick={handleCheckbox}
+                        id="register_confirm"
+                        group="register_confirm"
+                        label={`Я принимаю условия`}
+                    />
+                    <a href="#">соглашения</a>
                 </div>
                 <Button
                     disabled={validator.hasInvalidFields()}

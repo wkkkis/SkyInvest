@@ -1,8 +1,29 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@300;400;600;900&family=Red+Hat+Text:wght@500&family=Roboto:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@300;400;600;900&family=Red+Hat+Text:wght@500&family=Roboto:wght@400;500;700&display=swap');
 
 *{
     padding: 0;
     margin: 0;
+}
+
+.react-calendar {
+    border-radius: 8px;
+    border-color: #CCD4D8;
+
+    font-family: 'Inter', sans-serif;
+
+    button {
+        border-radius: 6px;
+    }
+
+    &__tile--active {
+        background: radial-gradient(100.84% 5352.77% at 0.98% 0%, #9E68F8 0%, #537BEE 100%)
+    }
+
+    &__tile--now {
+        background: transparent;
+        border: 1px dashed black;
+    } 
 }
 
 .App {

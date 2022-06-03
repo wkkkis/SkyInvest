@@ -4,6 +4,7 @@ import { useLocation, useNavigate } from "react-router";
 //Components
 import Header from "@components/Header";
 import Sidebar from "@components/InvestorComponents/SideBar";
+import SidebarTraider from "@components/TraiderComponents/SideBar";
 
 //Hooks
 import { usePageTitle } from "@hooks/useTitle";
@@ -16,12 +17,13 @@ import router from "../../utils/router";
 const InvestorLayout = ({ children, ...props }) => {
     const location = useLocation();
     const navigate = useNavigate();
-    const { user } = useSelector((state) => state.user);
+    const { user, isTraider } = useSelector((state) => state.user);
 
     const { rename } = usePageTitle();
 
     useEffect(() => {
-        if (!user) {
+        const token = localStorage.getItem("token");
+        if (!user && !token) {
             navigate(router.login);
         }
     }, [user]);
@@ -30,30 +32,34 @@ const InvestorLayout = ({ children, ...props }) => {
         rename(props.title);
     }, [document.title]);
 
-    useEffect(() => {
-        if (document.body.offsetWidth <= 700) {
+    const clickOnBack = () => {
+        if (document.body.offsetWidth <= 1115) {
             document.addEventListener("click", (e) => {
                 if (e.target.classList[0] === "main__header__title__back") {
-                    navigate("/investor");
+                    if (user) {
+                        if (isTraider) {
+                            navigate(router.traider_page);
+                        } else {
+                            navigate(router.investor_page);
+                        }
+                    }
                 }
             });
-        } else if (location.pathname === "/investor") {
-            navigate(-1);
+        } else if (location.pathname) {
+            if (location.pathname === router.investor_page) {
+                navigate(router.dashboard);
+            } else if (location.pathname === router.traider_page) {
+                navigate(router.dashboard);
+            }
         }
+    };
+
+    useEffect(() => {
+        clickOnBack();
     }, [location.search]);
 
     useEffect(() => {
-        window.addEventListener("resize", () => {
-            if (document.body.offsetWidth <= 700) {
-                document.addEventListener("click", (e) => {
-                    if (e.target.classList[0] === "main__header__title__back") {
-                        navigate("/investor");
-                    }
-                });
-            } else if (location.pathname === "/investor") {
-                navigate(-1);
-            }
-        });
+        clickOnBack();
     }, []);
 
     return (
@@ -61,7 +67,7 @@ const InvestorLayout = ({ children, ...props }) => {
             <Header />
 
             <div className="investorlayout__group">
-                <Sidebar />
+                {isTraider ? <SidebarTraider /> : <Sidebar />}
 
                 <div className="investorlayout__group__content">{children}</div>
             </div>

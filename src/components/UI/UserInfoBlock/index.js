@@ -11,6 +11,7 @@ const UserInfoBlock = ({
     onClick,
     isLogout = false,
     order,
+    id,
     name,
     email,
     className,

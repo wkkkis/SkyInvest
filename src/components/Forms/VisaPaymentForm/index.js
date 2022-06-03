@@ -112,76 +112,19 @@ const VisaPaymentForm = () => {
                 noValidate
                 autoComplete="off"
             >
-                <div className="form__valute">
-                    <Field
-                        label="Сумма пополнения"
-                        {...register("cash", {
-                            required: true,
-                            minLength: 2,
-                            maxLength: 50,
-                        })}
-                        onChange={onChangeHandler}
-                    />
-                    <Select
-                        className="form__valute__select"
-                        defaultOption="USD"
-                        onChange={getValuteSelect}
-                    >
-                        <li>USD</li>
-                        <li>EUR</li>
-                        <li>KGZ</li>
-                    </Select>
-                </div>
-                {errors.cash && (
-                    <span className="form__error">{showCashError()}</span>
-                )}
-                <p className="opacity f12">ДАННЫЕ КАРТЫ</p>
                 <Field
-                    label="Номер карты"
-                    {...register("card_num", {
+                    label="Сумма пополнения"
+                    type="money"
+                    {...register("cash", {
                         required: true,
-                        minLength: 16,
+                        minLength: 2,
                         maxLength: 50,
                     })}
                     onChange={onChangeHandler}
                 />
-                {errors.card_num && (
-                    <span className="form__error">{showCardNumError()}</span>
+                {errors.cash && (
+                    <span className="form__error">{showCashError()}</span>
                 )}
-                <Field
-                    label="ФИО на карте"
-                    {...register("fio", {
-                        required: true,
-                        maxLength: 200,
-                    })}
-                    onChange={onChangeHandler}
-                />
-                {errors.fio && (
-                    <span className="form__error">{showFioError()}</span>
-                )}
-                <div className="form__date_cvv">
-                    <Field
-                        label="Дата"
-                        {...register("date", {
-                            required: true,
-                            maxLength: 50,
-                        })}
-                        placeholder="mm/yyyy"
-                        onChange={onChangeHandler}
-                    />
-                    <Field
-                        label="CVV"
-                        {...register("cvv", {
-                            required: true,
-                            maxLength: 50,
-                        })}
-                        type="password"
-                        onChange={onChangeHandler}
-                    />
-                </div>
-                {errors.cvv || errors.date ? (
-                    <span className="form__error">{showDateCvvError()}</span>
-                ) : null}
                 <Button
                     className="form__button"
                     theme={"beforesubmit"}

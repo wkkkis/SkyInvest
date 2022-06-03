@@ -9,7 +9,7 @@ import Button from "@components/Button";
 //Styles
 import "./GoogleAuthSuccess.scss";
 
-const GoogleAuthSuccess = ({ handleChange }) => {
+const GoogleAuthSuccess = ({ handleChange, removeOtp }) => {
     const onSubmit = (e) => {
         handleChange(e);
     };
@@ -47,7 +47,7 @@ const GoogleAuthSuccess = ({ handleChange }) => {
                 <span>Редактировать</span>
             </Button>
             <Button
-                onClick={() => onSubmit(1)}
+                onClick={removeOtp}
                 className="googleauth_success__button_cancel"
                 theme="red"
             >

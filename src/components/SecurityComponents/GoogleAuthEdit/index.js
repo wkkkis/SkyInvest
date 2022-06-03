@@ -10,11 +10,12 @@ import Switch from "@components/Switch";
 //Styles
 import "./GoogleAuthEdit.scss";
 
-const GoogleAuthEdit = ({ handleChange }) => {
-    const [auth, setAuth] = useState(true);
-    const [cash, setCash] = useState(true);
+const GoogleAuthEdit = ({ handleChange, authbool, cashbool }) => {
+    const [auth, setAuth] = useState(authbool);
+    const [cash, setCash] = useState(cashbool);
+
     const onSubmit = () => {
-        handleChange(3);
+        handleChange(auth, cash);
     };
 
     return (

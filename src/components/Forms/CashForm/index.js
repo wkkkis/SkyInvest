@@ -82,26 +82,16 @@ const CashForm = ({ fetchData }) => {
                 autoComplete="off"
             >
                 <div className="form__cash_fields">
-                    <div className="form__cash_fields__valute">
-                        <Field
-                            label="Сумма вывода"
-                            {...register("sum", {
-                                required: true,
-                                minLength: 2,
-                                maxLength: 50,
-                            })}
-                            onChange={onChangeHandler}
-                        />
-                        <Select
-                            className="form__cash_fields__valute__select"
-                            defaultOption="USD"
-                            onChange={getValuteSelect}
-                        >
-                            <li>USD</li>
-                            <li>EUR</li>
-                            <li>KGZ</li>
-                        </Select>
-                    </div>
+                    <Field
+                        label="Сумма вывода"
+                        type="money"
+                        {...register("sum", {
+                            required: true,
+                            minLength: 2,
+                            maxLength: 50,
+                        })}
+                        onChange={onChangeHandler}
+                    />
                     {errors.cash && (
                         <span className="form__error">{showCashError()}</span>
                     )}

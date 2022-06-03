@@ -13,6 +13,20 @@ import balance from "@assets/img/balance.svg";
 //Styles
 import "./Modal.scss";
 
+export const PareButton = () => {
+    const [active, setActive] = useState(false);
+
+    return (
+        <Button
+            theme={active ? "beforesubmit" : "aftersubmit"}
+            onClick={() => setActive(!active)}
+        >
+            <img src={balance} alt="" />
+            <span>USDTETH</span>
+        </Button>
+    );
+};
+
 const CopyTradeModal = ({ handleChange, info }) => {
     const [pareChange, setPareChange] = useState(0);
 
@@ -75,33 +89,9 @@ const CopyTradeModal = ({ handleChange, info }) => {
                 <div className="modal__block__line"></div>
                 <span className="w700 f12">Пары</span>
                 <div className="modal__block__pare">
-                    <Button
-                        theme={
-                            pareChange === 0 ? "beforesubmit" : "aftersubmit"
-                        }
-                        onClick={() => setPareChange(0)}
-                    >
-                        <img src={balance} alt="" />
-                        <span>USDTETH</span>
-                    </Button>
-                    <Button
-                        theme={
-                            pareChange === 1 ? "beforesubmit" : "aftersubmit"
-                        }
-                        onClick={() => setPareChange(1)}
-                    >
-                        <img src={balance} alt="" />
-                        <span>BTCUSDT</span>
-                    </Button>
-                    <Button
-                        theme={
-                            pareChange === 2 ? "beforesubmit" : "aftersubmit"
-                        }
-                        onClick={() => setPareChange(2)}
-                    >
-                        <img src={balance} alt="" />
-                        <span>BTCUSDT</span>
-                    </Button>
+                    {Array.from({ length: 4 }).map((e) => (
+                        <PareButton key={e} />
+                    ))}
                 </div>
                 <Button>ПОКАЗАТЬ ВСЕ</Button>
                 <span className="w700 f12">ВАША СУММА КОПИРОВАНИЯ</span>
@@ -111,9 +101,13 @@ const CopyTradeModal = ({ handleChange, info }) => {
                     onChange={(e) => rangeChange(e)}
                 />
                 <div className="modal__block__confirm">
-                    <Checkbox onChange={() => console.log("confirm")} />
+                    <Checkbox
+                        id={info}
+                        onClick={() => console.log("confirm")}
+                        label="Я принимаю условия"
+                    />
                     <span>
-                        Я принимаю условия <a href="#">соглашения</a>
+                        <a href="#">соглашения</a>
                     </span>
                 </div>
                 <div className="modal__block__btns">

@@ -48,6 +48,7 @@ const ProfileLayout = (props) => {
     }, []);
 
     const rightRender = () => {
+        renderBlock(searchParams.get("type"));
         if (document.body.offsetWidth >= 700) {
             setSidebar(true);
             setBlockrender(true);
@@ -64,7 +65,6 @@ const ProfileLayout = (props) => {
                 setBlockrender(true);
             }
         }
-        renderBlock(searchParams.get("type"));
     };
 
     const renderBlock = (type) => {

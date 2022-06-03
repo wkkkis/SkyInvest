@@ -12,6 +12,7 @@ import Footer from "@components/Footer";
 //Styles
 import "./TradeGroup.scss";
 import InsideGroupModal from "../../../components/Modals/InsideGroupModal";
+import InvestorGroup from "../../../components/InvestorComponents/InvestorGroup";
 
 const mockData = {
     mygroup: [
@@ -151,45 +152,7 @@ const TradeGroup = () => {
 
             <div className="main__trade_group">
                 {mockData.mygroup.map((e) => (
-                    <CardInfo
-                        key={e.name}
-                        className="main__trade_group__item"
-                        name={e.name}
-                        email={e.email}
-                        rating={e.rating}
-                        logo="https://cdn.dribbble.com/users/24078/screenshots/15522433/media/e92e58ec9d338a234945ae3d3ffd5be3.jpg?compress=1&resize=400x300"
-                    >
-                        <div className="main__trade_group__item__title">
-                            <span>Название группы</span>
-                        </div>
-                        <div className="main__trade_group__item__desc">
-                            <p>
-                                Внеси свой первый депозит на Bitget и получи +5%
-                                кешбэка на счет USDT-M. Макс.выплата торгового
-                                бонуса составляет до 100$.
-                            </p>
-                        </div>
-                        <Button>ПОКАЗАТЬ ВСЕ</Button>
-                        <div className="main__trade_group__item__linebar">
-                            <ProgressBar
-                                completed={e.completed}
-                                from={e.from}
-                                to={e.to}
-                                start="2019-06-11T00:00"
-                                end="2019-06-11T00:00"
-                            />
-                        </div>
-                        <Button
-                            className="main__trade_group__item__btn"
-                            onClick={() => setCopyTradeId(e.name)}
-                            disabld={e.started}
-                            theme={e.started ? "disabled" : "beforesubmit"}
-                        >
-                            {e.started
-                                ? "Группа заполнена"
-                                : "Вступить в группу"}
-                        </Button>
-                    </CardInfo>
+                    <InvestorGroup e={e} />
                 ))}
             </div>
             {copyTradeId && (

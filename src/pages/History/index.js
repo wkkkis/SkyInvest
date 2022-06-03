@@ -9,10 +9,11 @@ import HistoryLayout from "@layouts/HistoryLayout";
 
 //Styles
 import "./History.scss";
+import { useSelector } from "react-redux";
 
 const History = () => {
     const [getTitle, setGetTitle] = useState("");
-
+    const { isTraider, user } = useSelector((state) => state.user);
     const location = useLocation();
     const navigate = useNavigate();
 
@@ -21,7 +22,13 @@ const History = () => {
             navigate(router.history);
             setGetTitle("История операции");
         } else {
-            navigate(router.investor_page);
+            if (user) {
+                if (isTraider) {
+                    navigate(router.traider_page);
+                } else {
+                    navigate(router.investor_page);
+                }
+            }
         }
     };
 

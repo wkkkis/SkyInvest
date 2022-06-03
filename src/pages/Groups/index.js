@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 //Components
 import CardInfo from "@components/CardInfo";
@@ -7,30 +7,38 @@ import ProgressBar from "@components/ProgressBar";
 
 //Styles
 import "./Groups.scss";
-import { useDispatch } from "react-redux";
-import { getMyGroups } from "../../store/user/user.api";
+import { useDispatch, useSelector } from "react-redux";
+import { getMyGroups, getTraiderGroup } from "../../store/user/user.api";
+import CreateGroupSidebar from "../../components/CreateGroupSidebar";
+import TraiderGroup from "../../components/TraiderComponents/TraiderGroup";
+import InvestorGroup from "../../components/InvestorComponents/InvestorGroup";
+import { getGroups } from "../../store/group/group.api";
+import SpinnerLoad from "../../components/SpinnerLoad";
 
 const mockData = {
     mygroup: [
         {
+            id: 4,
             name: "User Name",
             email: "username@mail.com",
-            rating: "50/50",
+            rating: "0/50",
             from: "30",
             to: "50",
             completed: "50",
             started: false,
         },
         {
+            id: 3,
             name: "User Name",
             email: "username@mail.com",
-            rating: "50/50",
+            rating: "15/50",
             from: "100",
             to: "700",
             completed: "80",
             started: true,
         },
         {
+            id: 2,
             name: "User Name",
             email: "username@mail.com",
             rating: "50/50",
@@ -40,6 +48,7 @@ const mockData = {
             started: false,
         },
         {
+            id: 1,
             name: "User Name",
             email: "username@mail.com",
             rating: "50/50",
@@ -53,12 +62,22 @@ const mockData = {
 
 const Groups = ({ title }) => {
     const dispatch = useDispatch();
+    const [isOpen, setIsOpen] = useState(false);
+
+    const { isTraider, user } = useSelector((state) => state.user);
+    const { message, groups } = useSelector((state) => state.group);
 
     useEffect(() => {
-        dispatch(getMyGroups());
-    }, []);
+        if (user) {
+            if (isTraider) {
+                dispatch(getGroups());
+            } else {
+                dispatch(getMyGroups());
+            }
+        }
+    }, [user]);
 
-    return (
+    return groups ? (
         <div className="main">
             <div className="main__header">
                 <div className="main__header__title">
@@ -82,46 +101,28 @@ const Groups = ({ title }) => {
                     <span>Прибыль за 24 часа: +958 USDT</span>
                 </div>
             </div>
-            <div className="main__group_content">
-                {mockData.mygroup.map((e) => (
-                    <CardInfo
-                        className="main__group_content__card"
-                        name={e.name}
-                        email={e.email}
-                        rating={e.rating}
-                        logo="https://cdn.dribbble.com/users/24078/screenshots/15522433/media/e92e58ec9d338a234945ae3d3ffd5be3.jpg?compress=1&resize=400x300"
-                    >
-                        <div className="main__group_content__card__title">
-                            <span>Название группы</span>
-                        </div>
-                        <div className="main__group_content__card__desc">
-                            <p>
-                                Внеси свой первый депозит на Bitget и получи +5%
-                                кешбэка на счет USDT-M. Макс.выплата торгового
-                                бонуса составляет до 100$.
-                            </p>
-                        </div>
-                        <Button>ПОКАЗАТЬ ВСЕ</Button>
-                        <div className="main__group_content__card__linebar">
-                            <ProgressBar
-                                completed={e.completed}
-                                from={e.from}
-                                to={e.to}
-                                start="2019-06-11T00:00"
-                                end="2019-06-11T00:00"
-                            />
-                        </div>
-                        <Button
-                            disabld={e.started}
-                            theme={e.started ? "disabled" : "aftersubmit"}
-                        >
-                            {e.started
-                                ? "Группа старотовала"
-                                : "Выйти из группы"}
-                        </Button>
-                    </CardInfo>
-                ))}
+            <div className="main__group_create">
+                {isTraider ? (
+                    <Button theme="aftersubmit" onClick={() => setIsOpen(true)}>
+                        Создать группу
+                    </Button>
+                ) : null}
             </div>
+            <div className="main__group_content">
+                {isTraider
+                    ? groups.map((e) => <TraiderGroup e={e} />)
+                    : mockData.mygroup.map((e) => <InvestorGroup e={e} />)}
+                {isTraider
+                    ? mockData.mygroup.map((e) => <TraiderGroup e={e} />)
+                    : mockData.mygroup.map((e) => <InvestorGroup e={e} />)}
+            </div>
+            {isOpen ? (
+                <CreateGroupSidebar toggle={() => setIsOpen(!isOpen)} />
+            ) : null}
+        </div>
+    ) : (
+        <div className="main">
+            <SpinnerLoad />
         </div>
     );
 };

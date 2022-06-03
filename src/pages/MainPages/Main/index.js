@@ -38,6 +38,8 @@ import {
     VerifyPerson,
 } from "@components/FaqComponents";
 import Footer from "@components/Footer";
+import CopyTradeModal from "@components/Modals/CopyTradeModal";
+import FreePlaceModal from "@components/Modals/FreePlaceModal";
 
 //Styles
 import "./Main.scss";
@@ -45,6 +47,9 @@ import { useNavigate } from "react-router";
 import router from "../../../utils/router";
 import Slider from "../../../components/Slider";
 import useSlider from "../../../hooks/useSlider";
+import YouTube from "react-youtube";
+import InsideGroupModal from "../../../components/Modals/InsideGroupModal";
+import InvestorGroup from "../../../components/InvestorComponents/InvestorGroup";
 
 const mockData = {
     trade: [
@@ -251,6 +256,9 @@ const mockFaq = {
 const Main = () => {
     const navigate = useNavigate();
     const [faqTab, setFaqTab] = useState(1);
+    const [groupTradeId, setGroupTradeId] = useState();
+    const [copyTradeId, setCopyTradeId] = useState();
+    const [freePlaceChange, setFreePlaceChange] = useState();
 
     const toggleFaqTab = (tab) => {
         if (faqTab === tab) {
@@ -262,8 +270,8 @@ const Main = () => {
 
     return (
         <div className="main main_page">
-            <div className="main__intro">
-                <Slider>
+            <Slider>
+                <div className="main__intro">
                     <div className="intro-item">
                         <div className="main__intro__welcome">
                             <span>Добро пожаловать в</span>
@@ -296,6 +304,8 @@ const Main = () => {
                             </Button>
                         </div>
                     </div>
+                </div>
+                <div className="main__intro">
                     <div className="intro-item">
                         <div className="main__intro__welcome">
                             <span>Добро пожаловать в</span>
@@ -328,40 +338,8 @@ const Main = () => {
                             </Button>
                         </div>
                     </div>
-                    <div className="intro-item">
-                        <div className="main__intro__welcome">
-                            <span>Добро пожаловать в</span>
-                            <img src={logo} alt="logo" />
-                        </div>
-                        <div className="main__intro__content">
-                            <img src={moment} alt="moment" />
-
-                            <div className="main__intro__content__desc">
-                                <p>
-                                    Стратегии доверительного управления
-                                    денежными средствами позволяют гибко
-                                    реагировать на изменения рынка и дают больше
-                                    возможностей повысить доходность вложений.
-                                </p>
-                                <p>
-                                    Воспользуйтесь услугой доверительного
-                                    управления активами, если не готовы тратить
-                                    много времени на инвестирование, хотите
-                                    снизить риски и добиться большей отдачи от
-                                    вложений.
-                                </p>
-                            </div>
-
-                            <Button
-                                theme="beforesubmit"
-                                onClick={() => navigate(router.dashboard)}
-                            >
-                                приступить к инвестированию
-                            </Button>
-                        </div>
-                    </div>
-                </Slider>
-            </div>
+                </div>
+            </Slider>
 
             <div className="main__content">
                 <div className="main__content__instruct">
@@ -435,9 +413,10 @@ const Main = () => {
                                 </div>
                             </Slider>
                         </div>
-                        <div className="main__content__instruct__block__video">
-                            <img src={play} alt="play" />
-                        </div>
+                        <YouTube
+                            videoId={"U7xUWaMDF4Q"}
+                            className="main__content__instruct__block__video"
+                        />
                     </div>
                 </div>
 
@@ -461,9 +440,9 @@ const Main = () => {
                     <div className="main__content__traider__content">
                         <Slider>
                             <div className="traider-item">
-                                {mockData.trade.map((e) => (
+                                {mockData.trade.map((e, idx) => (
                                     <CardInfo
-                                        key={e.name}
+                                        key={idx}
                                         className="content__card"
                                         name={e.name}
                                         email={e.email}
@@ -529,6 +508,13 @@ const Main = () => {
                                                 <span>{e.price} $</span>
                                             </div>
                                             <Button
+                                                onClick={() =>
+                                                    !e.copy
+                                                        ? setCopyTradeId(idx)
+                                                        : setFreePlaceChange(
+                                                              idx
+                                                          )
+                                                }
                                                 theme={
                                                     e.copy
                                                         ? "aftersubmit"
@@ -544,9 +530,9 @@ const Main = () => {
                                 ))}
                             </div>
                             <div className="traider-item">
-                                {mockData.trade.map((e) => (
+                                {mockData.trade.map((e, idx) => (
                                     <CardInfo
-                                        key={e.name}
+                                        key={idx}
                                         className="content__card"
                                         name={e.name}
                                         email={e.email}
@@ -612,6 +598,13 @@ const Main = () => {
                                                 <span>{e.price} $</span>
                                             </div>
                                             <Button
+                                                onClick={() =>
+                                                    !e.copy
+                                                        ? setCopyTradeId(idx)
+                                                        : setFreePlaceChange(
+                                                              idx
+                                                          )
+                                                }
                                                 theme={
                                                     e.copy
                                                         ? "aftersubmit"
@@ -650,99 +643,23 @@ const Main = () => {
                     <div className="main__content__groups__content">
                         <Slider>
                             <div className="groups-item">
-                                {mockData.mygroup.map((e) => (
-                                    <CardInfo
-                                        key={e.name}
-                                        className="main__content__groups__content__card"
-                                        name={e.name}
-                                        email={e.email}
-                                        rating={e.rating}
-                                        logo="https://cdn.dribbble.com/users/24078/screenshots/15522433/media/e92e58ec9d338a234945ae3d3ffd5be3.jpg?compress=1&resize=400x300"
-                                    >
-                                        <div className="main__group_content__card__title">
-                                            <span>Название группы</span>
-                                        </div>
-                                        <div className="main__group_content__card__desc">
-                                            <p>
-                                                Внеси свой первый депозит на
-                                                Bitget и получи +5% кешбэка на
-                                                счет USDT-M. Макс.выплата
-                                                торгового бонуса составляет до
-                                                100$.
-                                            </p>
-                                        </div>
-                                        <Button>ПОКАЗАТЬ ВСЕ</Button>
-                                        <div className="main__group_content__card__linebar">
-                                            <ProgressBar
-                                                completed={e.completed}
-                                                from={e.from}
-                                                to={e.to}
-                                                start="2019-06-11T00:00"
-                                                end="2019-06-11T00:00"
-                                            />
-                                        </div>
-                                        <Button
-                                            className="main__group_content__card__btn"
-                                            disabld={e.started}
-                                            theme={
-                                                e.started
-                                                    ? "disabled"
-                                                    : "beforesubmit"
-                                            }
-                                        >
-                                            {e.started
-                                                ? "Группа старотовала"
-                                                : "Вступить в группу"}
-                                        </Button>
-                                    </CardInfo>
+                                {mockData.mygroup.map((e, idx) => (
+                                    <InvestorGroup
+                                        key={idx}
+                                        e={e}
+                                        clean_group={true}
+                                        setgroupid={(e) => setGroupTradeId(e)}
+                                    />
                                 ))}
                             </div>
                             <div className="groups-item">
-                                {mockData.mygroup.map((e) => (
-                                    <CardInfo
-                                        key={e.name}
-                                        className="main__content__groups__content__card"
-                                        name={e.name}
-                                        email={e.email}
-                                        rating={e.rating}
-                                        logo="https://cdn.dribbble.com/users/24078/screenshots/15522433/media/e92e58ec9d338a234945ae3d3ffd5be3.jpg?compress=1&resize=400x300"
-                                    >
-                                        <div className="main__group_content__card__title">
-                                            <span>Название группы</span>
-                                        </div>
-                                        <div className="main__group_content__card__desc">
-                                            <p>
-                                                Внеси свой первый депозит на
-                                                Bitget и получи +5% кешбэка на
-                                                счет USDT-M. Макс.выплата
-                                                торгового бонуса составляет до
-                                                100$.
-                                            </p>
-                                        </div>
-                                        <Button>ПОКАЗАТЬ ВСЕ</Button>
-                                        <div className="main__group_content__card__linebar">
-                                            <ProgressBar
-                                                completed={e.completed}
-                                                from={e.from}
-                                                to={e.to}
-                                                start="2019-06-11T00:00"
-                                                end="2019-06-11T00:00"
-                                            />
-                                        </div>
-                                        <Button
-                                            className="main__group_content__card__btn"
-                                            disabld={e.started}
-                                            theme={
-                                                e.started
-                                                    ? "disabled"
-                                                    : "beforesubmit"
-                                            }
-                                        >
-                                            {e.started
-                                                ? "Группа старотовала"
-                                                : "Вступить в группу"}
-                                        </Button>
-                                    </CardInfo>
+                                {mockData.mygroup.map((e, idx) => (
+                                    <InvestorGroup
+                                        key={idx}
+                                        e={e}
+                                        clean_group={true}
+                                        setgroupid={(e) => setGroupTradeId(e)}
+                                    />
                                 ))}
                             </div>
                         </Slider>
@@ -814,6 +731,7 @@ const Main = () => {
                         <div className="main__content__faq__content__links">
                             {mockFaq.faqLinks.map((e) => (
                                 <div
+                                    key={e.tab}
                                     className={`faq_btn_block ${
                                         faqTab === e.tab ? "active" : ""
                                     }`}
@@ -860,7 +778,24 @@ const Main = () => {
                         </div>
                     </div>
                 </div>
-
+                {groupTradeId && (
+                    <InsideGroupModal
+                        handleChange={() => setGroupTradeId("")}
+                        info={groupTradeId}
+                    />
+                )}
+                {copyTradeId && (
+                    <CopyTradeModal
+                        handleChange={() => setCopyTradeId("")}
+                        info={copyTradeId}
+                    />
+                )}
+                {freePlaceChange && (
+                    <FreePlaceModal
+                        handleChange={() => setFreePlaceChange("")}
+                        info={freePlaceChange}
+                    />
+                )}
                 <Footer />
             </div>
         </div>

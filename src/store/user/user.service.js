@@ -2,6 +2,7 @@ import { instance } from "@utils/axios.instance";
 
 const USER_URL = "/users/";
 const AUTH_URL = "/auth/";
+const TRAID_URL = "/copytrade/";
 
 const me = async (token) => {
     const res = await instance.get(`${USER_URL}dashboard/`, {
@@ -25,6 +26,12 @@ const getMyGroups = async (token) => {
 
 const register = async (userData) => {
     const res = await instance.post(`${AUTH_URL}register/`, userData);
+
+    return res;
+};
+
+const payment = async (userData) => {
+    const res = await instance.post(`payment/register/`, userData);
 
     return res;
 };
@@ -56,6 +63,40 @@ const activation = async (userData) => {
     return res;
 };
 
+const trader_apply = async (token, userData) => {
+    const res = await instance.post(
+        `${USER_URL}trader/apply_for_trader/`,
+        userData,
+        {
+            headers: {
+                Authorization: `Token ${token}`,
+            },
+        }
+    );
+
+    return res;
+};
+
+const verification = async (userData, token) => {
+    const res = await instance.post(`${USER_URL}verification/`, userData, {
+        headers: {
+            Authorization: `Token ${token}`,
+        },
+    });
+
+    return res;
+};
+
+const createGroup = async (userData, token) => {
+    const res = await instance.post(`${TRAID_URL}trade_group/`, userData, {
+        headers: {
+            Authorization: `Token ${token}`,
+        },
+    });
+
+    return res;
+};
+
 const logout = async (token) => {
     const res = await instance.post(
         `${AUTH_URL}logout/`,
@@ -70,15 +111,29 @@ const logout = async (token) => {
     return res;
 };
 
+const getTraiderGroup = async (token) => {
+    const res = await instance.get(`${TRAID_URL}trade_group/`, {
+        headers: {
+            Authorization: `Token ${token}`,
+        },
+    });
+
+    return res;
+};
+
 const userService = {
     me,
     getMyGroups,
+    createGroup,
     logout,
     register,
+    trader_apply,
     login,
     reset_password,
     confirm_password,
     activation,
+    verification,
+    getTraiderGroup,
 };
 
 export default userService;

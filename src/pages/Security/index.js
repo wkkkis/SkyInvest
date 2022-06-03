@@ -10,11 +10,80 @@ import {
 
 //Styles
 import "./Security.scss";
+import { useDispatch, useSelector } from "react-redux";
+import {
+    create2FA,
+    delete2FA,
+    get2FAInfo,
+    update2FA,
+    verify2FA,
+} from "../../store/security/secu.api";
+import SpinnerLoad from "../../components/SpinnerLoad";
+import { getParameterByName } from "../../utils/stringHelper";
+import RemoveOtpModal from "../../components/Modals/RemoveOtp";
+import TwoFACode from "../../components/Modals/TwoFACode";
 
 const Security = () => {
     const [tab, setTab] = useState(1);
+    const [load, setLoad] = useState(false);
+    const [code, serCode] = useState();
+    const [otp_cancel, setOtp_cancel] = useState(false);
+    const [remove_otp_2fa, set_remove_otp_2fs] = useState(false);
+    const dispatch = useDispatch();
+    const { secu, qr, messages, auth, pay } = useSelector(
+        (state) => state.secu
+    );
 
-    return (
+    useEffect(() => {
+        setLoad(true);
+        dispatch(get2FAInfo());
+        if (secu) {
+            setTab(3);
+        }
+        setLoad(false);
+    }, []);
+
+    useEffect(() => {
+        if (tab === 2) {
+            dispatch(create2FA());
+        } else if (tab === 3) {
+            dispatch(get2FAInfo());
+        }
+    }, [tab]);
+
+    const verifyFetch = ({ code }) => {
+        dispatch(verify2FA(code));
+        if (secu) {
+            setTab(3);
+        }
+    };
+
+    const editOtp = (auth, pay) => {
+        dispatch(
+            update2FA({
+                otp_for_login: auth,
+                otp_for_withdraw: pay,
+            })
+        );
+        setTab(3);
+    };
+
+    useEffect(() => {
+        if (secu) {
+            setTab(3);
+        } else {
+            setTab(1);
+        }
+    }, [secu]);
+
+    useEffect(() => {
+        const code = getParameterByName("secret", qr);
+        serCode(code);
+    }, [qr]);
+
+    console.log(messages);
+
+    return !load ? (
         <div className="main">
             <div className="main__header">
                 <div className="main__header__title">
@@ -39,13 +108,58 @@ const Security = () => {
                 {tab === 1 ? (
                     <GoogleAuth handleChange={(e) => setTab(e)} />
                 ) : tab === 2 ? (
-                    <TwoAuthFactor handleChange={(e) => setTab(e)} />
+                    <TwoAuthFactor
+                        qr={qr}
+                        code={code}
+                        handleChange={(e) => verifyFetch(e)}
+                    />
                 ) : tab === 3 ? (
-                    <GoogleAuthSuccess handleChange={(e) => setTab(e)} />
+                    <GoogleAuthSuccess
+                        removeOtp={() => setOtp_cancel(true)}
+                        handleChange={(e) => setTab(e)}
+                    />
                 ) : tab === 4 ? (
-                    <GoogleAuthEdit handleChange={(e) => setTab(e)} />
+                    <GoogleAuthEdit
+                        authbool={auth}
+                        cashbool={pay}
+                        handleChange={(auth, cash) => editOtp(auth, cash)}
+                    />
                 ) : null}
             </div>
+            <div className="form__error">
+                {messages === "delete_2fa"
+                    ? "Ошибка с отключением двухфакторной аунтификации"
+                    : messages === "info_error"
+                    ? "Ошибка с получением данных о двухфакторной аунтификации"
+                    : messages === "verify_2fa"
+                    ? "Ошибка с подтвержением двухфакторной аунтификации"
+                    : messages === "update_2fa"
+                    ? "Ошибка с редактированием двухфакторной аунтификации"
+                    : null}
+            </div>
+            {otp_cancel && (
+                <RemoveOtpModal
+                    handleChange={(e) => {
+                        if (e) {
+                            set_remove_otp_2fs(true);
+                        }
+
+                        setOtp_cancel(false);
+                    }}
+                />
+            )}
+            {remove_otp_2fa && (
+                <TwoFACode
+                    handleChange={(e) => {
+                        dispatch(delete2FA(e));
+                        set_remove_otp_2fs(false);
+                    }}
+                />
+            )}
+        </div>
+    ) : (
+        <div className="main">
+            <SpinnerLoad />
         </div>
     );
 };

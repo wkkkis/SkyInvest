@@ -26,6 +26,7 @@ import { Link } from "react-router-dom";
 const LoginForm = ({ fetchData, error }) => {
     const navigate = useNavigate();
     const [loaded, setLoaded] = useState(true);
+    const [confirm, setConfirm] = useState(false);
     const {
         register,
         handleSubmit,
@@ -35,6 +36,10 @@ const LoginForm = ({ fetchData, error }) => {
 
     const onChangeHandler = (ev) => {
         setValue(ev.currentTarget.name, ev.currentTarget.value);
+    };
+
+    const handleCheckbox = () => {
+        setConfirm(!confirm);
     };
 
     const onSubmitHandler = async (data) => {
@@ -102,17 +107,20 @@ const LoginForm = ({ fetchData, error }) => {
                 {errors.password && (
                     <span className="form__error">{showPasswordError()}</span>
                 )}
-                {error ? (
+                {error === "Unable to log in with provided credentials." ? (
                     <span className="form__error">
                         Пароль или емейл введены неправильно!
                     </span>
                 ) : null}
                 <div className="form__confirm">
-                    <Checkbox {...register("confirm")} />
-                    <span>
-                        Я принимаю условия{" "}
-                        <Link to={router.reset_password}>Забыл пароль</Link>
-                    </span>
+                    <Checkbox
+                        onClick={handleCheckbox}
+                        id="register_confirm"
+                        group="register_confirm"
+                        label={`Я принимаю условия`}
+                        {...register("confirm")}
+                    />
+                    <Link to={router.reset_password}>Забыл пароль</Link>
                 </div>
 
                 <Button

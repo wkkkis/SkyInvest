@@ -19,6 +19,8 @@ import { usePageTitle } from "@hooks/useTitle";
 
 //Style
 import "./HistoryLayout.scss";
+import { useSelector } from "react-redux";
+import TraiderSideBar from "../../components/HistoryComponents/TraiderHistory";
 
 const allRoutes = [
     {
@@ -53,13 +55,14 @@ const allRoutes = [
     },
 ];
 
-const HistoryLayout = ({ children, ...props }) => {
+const HistoryLayout = ({ children, setGetTitle, ...props }) => {
     const location = useLocation();
     const { rename } = usePageTitle();
     const [searchParams, setSearchParams] = useSearchParams();
     const [render, setRenderBlock] = useState();
     const [blockrender, setBlockrender] = useState();
     const [sidebar, setSidebar] = useState();
+    const { isTraider } = useSelector((state) => state.user);
 
     useEffect(() => {
         rightRender();
@@ -72,12 +75,13 @@ const HistoryLayout = ({ children, ...props }) => {
     }, []);
 
     const rightRender = () => {
+        renderBlock(searchParams.get("type"));
         if (document.body.offsetWidth >= 700) {
             setSidebar(true);
             setBlockrender(true);
             if (!location.search) {
                 setSearchParams({ type: "payment" });
-                renderBlock("cash");
+                renderBlock("payment");
             }
         } else {
             if (!location.search) {
@@ -88,23 +92,22 @@ const HistoryLayout = ({ children, ...props }) => {
                 setBlockrender(true);
             }
         }
-        renderBlock(searchParams.get("type"));
     };
 
     const renderBlock = (type) => {
         const res = allRoutes.filter((e) => e.type === type)[0];
         if (res) {
-            props.setGetTitle(res.title);
             rename(`История операции | ${res.title}`);
+            setGetTitle(res.title);
             setRenderBlock(<res.component />);
         } else {
-            setRenderBlock(null);
+            setRenderBlock(<NotFound codeError="404" />);
         }
     };
 
     return (
         <div className="historylayout">
-            {sidebar ? <SideBar /> : null}
+            {sidebar ? isTraider ? <TraiderSideBar /> : <SideBar /> : null}
 
             {blockrender ? (
                 <div className="historylayout__content">{render}</div>
