@@ -4,6 +4,7 @@ let initialState = {
     groups: null,
     message: "",
     group: null,
+    load: false,
 };
 
 const groupReducer = (state = initialState, action) => {
@@ -17,6 +18,11 @@ const groupReducer = (state = initialState, action) => {
             return {
                 ...state,
                 group: action.payload,
+            };
+        case "SET_LOAD":
+            return {
+                ...state,
+                load: action.payload,
             };
         case "SET_MESSAGE":
             return {
@@ -33,11 +39,19 @@ export const actions = {
         type: "SET_GROUPs",
         payload: data,
     }),
+    setload: (data) => ({
+        type: "SET_LOAD",
+        payload: data,
+    }),
     setGroup: (data) => ({
         type: "SET_GROUP",
         payload: data,
     }),
     message: (message) => ({ type: "SET_MESSAGE", payload: message }),
+};
+
+export const messageClean = () => (dispatch) => {
+    dispatch(actions.message(""));
 };
 
 export const getGroups = () => async (dispatch) => {

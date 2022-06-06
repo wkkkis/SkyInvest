@@ -447,188 +447,83 @@ const Main = () => {
                         </p>
                     </div>
                     <div className="main__content__traider__content">
-                        <Slider>
-                            <div className="traider-item">
-                                {mockData.trade.map((e, idx) => (
-                                    <CardInfo
-                                        key={idx}
-                                        className="content__card"
-                                        name={e.name}
-                                        email={e.email}
-                                        rating={e.rating}
-                                        logo="https://cdn.dribbble.com/users/24078/screenshots/15522433/media/e92e58ec9d338a234945ae3d3ffd5be3.jpg?compress=1&resize=400x300"
+                        {mockData.trade.map((e, idx) => (
+                            <CardInfo
+                                key={idx}
+                                className="content__card"
+                                name={e.name}
+                                email={e.email}
+                                rating={e.rating}
+                                logo="https://cdn.dribbble.com/users/24078/screenshots/15522433/media/e92e58ec9d338a234945ae3d3ffd5be3.jpg?compress=1&resize=400x300"
+                            >
+                                <div className="content__card__profit">
+                                    <InfoBlock
+                                        label={"Уровень ROI"}
+                                        value="+ 23.31 %"
+                                        fontSize="12"
+                                        color="green"
+                                        vWeigth="700"
+                                        opactityLabel
+                                    />
+                                    <InfoBlock
+                                        label={"Профит"}
+                                        value="+ 23.31 %"
+                                        fontSize="12"
+                                        color="green"
+                                        vWeigth="700"
+                                        opactityLabel
+                                    />
+                                    <InfoBlock
+                                        label={"Уровень MDD"}
+                                        value="+ 23.31 %"
+                                        fontSize="12"
+                                        vWeigth="700"
+                                        opactityLabel
+                                    />
+                                </div>
+                                <div className="content__card__traid_cryptobtn">
+                                    <Button theme="whitebg">
+                                        <img src={arrowTop} alt="arrow" />
+                                        <span>Long</span>
+                                    </Button>
+                                    <Button theme="transparent">
+                                        <img src={usdtIcon} alt="arrow" />
+                                        <span>Long</span>
+                                    </Button>
+                                    <Button theme="whitebg">
+                                        <img src={usdtIcon} alt="arrow" />
+                                        <span>Long</span>
+                                    </Button>
+                                </div>
+                                <div className="content__card__cryptobtn">
+                                    <CryptoPick />
+                                    <CryptoPick />
+                                    <CryptoPick />
+                                </div>
+                                <div className="content__card__price_btn">
+                                    <div className="content__card__price_btn__price">
+                                        <span>Цена</span>
+                                        <span>{e.price} $</span>
+                                    </div>
+                                    <Button
+                                        onClick={() =>
+                                            !e.copy
+                                                ? setCopyTradeId(idx)
+                                                : setFreePlaceChange(idx)
+                                        }
+                                        theme={
+                                            e.copy
+                                                ? "aftersubmit"
+                                                : "beforesubmit"
+                                        }
                                     >
-                                        <div className="content__card__profit">
-                                            <InfoBlock
-                                                label={"Уровень ROI"}
-                                                value="+ 23.31 %"
-                                                fontSize="12"
-                                                color="green"
-                                                vWeigth="700"
-                                                opactityLabel
-                                            />
-                                            <InfoBlock
-                                                label={"Профит"}
-                                                value="+ 23.31 %"
-                                                fontSize="12"
-                                                color="green"
-                                                vWeigth="700"
-                                                opactityLabel
-                                            />
-                                            <InfoBlock
-                                                label={"Уровень MDD"}
-                                                value="+ 23.31 %"
-                                                fontSize="12"
-                                                vWeigth="700"
-                                                opactityLabel
-                                            />
-                                        </div>
-                                        <div className="content__card__traid_cryptobtn">
-                                            <Button theme="whitebg">
-                                                <img
-                                                    src={arrowTop}
-                                                    alt="arrow"
-                                                />
-                                                <span>Long</span>
-                                            </Button>
-                                            <Button theme="transparent">
-                                                <img
-                                                    src={usdtIcon}
-                                                    alt="arrow"
-                                                />
-                                                <span>Long</span>
-                                            </Button>
-                                            <Button theme="whitebg">
-                                                <img
-                                                    src={usdtIcon}
-                                                    alt="arrow"
-                                                />
-                                                <span>Long</span>
-                                            </Button>
-                                        </div>
-                                        <div className="content__card__cryptobtn">
-                                            <CryptoPick />
-                                            <CryptoPick />
-                                            <CryptoPick />
-                                        </div>
-                                        <div className="content__card__price_btn">
-                                            <div className="content__card__price_btn__price">
-                                                <span>Цена</span>
-                                                <span>{e.price} $</span>
-                                            </div>
-                                            <Button
-                                                onClick={() =>
-                                                    !e.copy
-                                                        ? setCopyTradeId(idx)
-                                                        : setFreePlaceChange(
-                                                              idx
-                                                          )
-                                                }
-                                                theme={
-                                                    e.copy
-                                                        ? "aftersubmit"
-                                                        : "beforesubmit"
-                                                }
-                                            >
-                                                {e.copy
-                                                    ? "Уведомить о свободном месте"
-                                                    : "Копировать"}
-                                            </Button>
-                                        </div>
-                                    </CardInfo>
-                                ))}
-                            </div>
-                            <div className="traider-item">
-                                {mockData.trade.map((e, idx) => (
-                                    <CardInfo
-                                        key={idx}
-                                        className="content__card"
-                                        name={e.name}
-                                        email={e.email}
-                                        rating={e.rating}
-                                        logo="https://cdn.dribbble.com/users/24078/screenshots/15522433/media/e92e58ec9d338a234945ae3d3ffd5be3.jpg?compress=1&resize=400x300"
-                                    >
-                                        <div className="content__card__profit">
-                                            <InfoBlock
-                                                label={"Уровень ROI"}
-                                                value="+ 23.31 %"
-                                                fontSize="12"
-                                                color="green"
-                                                vWeigth="700"
-                                                opactityLabel
-                                            />
-                                            <InfoBlock
-                                                label={"Профит"}
-                                                value="+ 23.31 %"
-                                                fontSize="12"
-                                                color="green"
-                                                vWeigth="700"
-                                                opactityLabel
-                                            />
-                                            <InfoBlock
-                                                label={"Уровень MDD"}
-                                                value="+ 23.31 %"
-                                                fontSize="12"
-                                                vWeigth="700"
-                                                opactityLabel
-                                            />
-                                        </div>
-                                        <div className="content__card__traid_cryptobtn">
-                                            <Button theme="whitebg">
-                                                <img
-                                                    src={arrowTop}
-                                                    alt="arrow"
-                                                />
-                                                <span>Long</span>
-                                            </Button>
-                                            <Button theme="transparent">
-                                                <img
-                                                    src={usdtIcon}
-                                                    alt="arrow"
-                                                />
-                                                <span>Long</span>
-                                            </Button>
-                                            <Button theme="whitebg">
-                                                <img
-                                                    src={usdtIcon}
-                                                    alt="arrow"
-                                                />
-                                                <span>Long</span>
-                                            </Button>
-                                        </div>
-                                        <div className="content__card__cryptobtn">
-                                            <CryptoPick />
-                                            <CryptoPick />
-                                            <CryptoPick />
-                                        </div>
-                                        <div className="content__card__price_btn">
-                                            <div className="content__card__price_btn__price">
-                                                <span>Цена</span>
-                                                <span>{e.price} $</span>
-                                            </div>
-                                            <Button
-                                                onClick={() =>
-                                                    !e.copy
-                                                        ? setCopyTradeId(idx)
-                                                        : setFreePlaceChange(
-                                                              idx
-                                                          )
-                                                }
-                                                theme={
-                                                    e.copy
-                                                        ? "aftersubmit"
-                                                        : "beforesubmit"
-                                                }
-                                            >
-                                                {e.copy
-                                                    ? "Уведомить о свободном месте"
-                                                    : "Копировать"}
-                                            </Button>
-                                        </div>
-                                    </CardInfo>
-                                ))}
-                            </div>
-                        </Slider>
+                                        {e.copy
+                                            ? "Уведомить о свободном месте"
+                                            : "Копировать"}
+                                    </Button>
+                                </div>
+                            </CardInfo>
+                        ))}
                     </div>
                 </div>
 

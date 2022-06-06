@@ -1,16 +1,22 @@
 import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { messageClean } from "../../store/group/group.api";
 
 //Styles
 import "./MessageBox.scss";
 
 const MessageBox = ({ message, error, onChange }) => {
+    const dispatch = useDispatch();
+
     const handleClick = () => {
         onChange(false);
+        dispatch(messageClean());
     };
 
     useEffect(() => {
         setTimeout(() => {
             onChange(false);
+            dispatch(messageClean());
         }, 3000);
     }, []);
 
