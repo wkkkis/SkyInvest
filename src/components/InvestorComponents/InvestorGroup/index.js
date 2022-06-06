@@ -7,7 +7,13 @@ import ProgressBar from "@components/ProgressBar";
 import { useNavigate } from "react-router";
 import router from "../../../utils/router";
 
-const InvestorGroup = ({ e, clean_group, setgroupid, className }) => {
+const InvestorGroup = ({
+    e,
+    clean_group,
+    setgroupid,
+    className,
+    setleavegroupid,
+}) => {
     const navigate = useNavigate();
     const [readMore, setReadMore] = useState(true);
 
@@ -48,21 +54,33 @@ const InvestorGroup = ({ e, clean_group, setgroupid, className }) => {
                     end="2019-06-11T00:00"
                 />
             </div>
-            {clean_group ? (
-                <Button
-                    onClick={() => setgroupid(e.name)}
-                    theme={!e.started ? "beforesubmit" : "aftersubmit"}
-                >
-                    {!e.started ? "Вступить в группу" : "Выйти из группы"}
-                </Button>
-            ) : (
-                <Button
-                    disabled={e.started}
-                    theme={e.started ? "disabled" : "aftersubmit"}
-                >
-                    {e.started ? "Группа старотовала" : "Выйти из группы"}
-                </Button>
-            )}
+            <Button
+                onClick={() => {
+                    if (e.started === "open") {
+                        setgroupid(e.name);
+                    } else if (e.started === "was") {
+                        setleavegroupid(e.name);
+                    }
+                }}
+                disabled={e.started === "end"}
+                theme={
+                    e.started === "open"
+                        ? "beforesubmit"
+                        : e.started === "was"
+                        ? "aftersubmit"
+                        : e.started === "end"
+                        ? "disabled"
+                        : ""
+                }
+            >
+                {e.started === "open"
+                    ? "Вступить в группу"
+                    : e.started === "was"
+                    ? "Выйти из группы"
+                    : e.started === "end"
+                    ? "Группа старотовала"
+                    : ""}
+            </Button>
         </CardInfo>
     );
 };

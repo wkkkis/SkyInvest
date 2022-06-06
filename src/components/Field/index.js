@@ -12,6 +12,7 @@ const Field = ({
     onChange,
     name,
     classNames,
+    defaultValue = "",
     error = "",
     type,
     ...props
@@ -51,6 +52,7 @@ const Field = ({
             <input
                 name={name}
                 ref={ref}
+                defaultValue={defaultValue}
                 placeholder={placeholder}
                 type={checkType()}
                 onClick={onClick}
@@ -92,6 +94,7 @@ const Field = ({
                 )
             ) : type === "date" ? (
                 <svg
+                    onClick={onFocus}
                     width="13"
                     height="15"
                     viewBox="0 0 13 15"

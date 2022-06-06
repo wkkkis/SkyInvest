@@ -50,6 +50,8 @@ import useSlider from "../../../hooks/useSlider";
 import YouTube from "react-youtube";
 import InsideGroupModal from "../../../components/Modals/InsideGroupModal";
 import InvestorGroup from "../../../components/InvestorComponents/InvestorGroup";
+import { getBanner, getFaq } from "../../../store/main/main.api";
+import { useDispatch, useSelector } from "react-redux";
 
 const mockData = {
     trade: [
@@ -125,7 +127,7 @@ const mockData = {
             from: "30",
             to: "50",
             completed: "50",
-            started: false,
+            started: "open",
         },
         {
             name: "User Name",
@@ -134,7 +136,7 @@ const mockData = {
             from: "100",
             to: "700",
             completed: "80",
-            started: false,
+            started: "open",
         },
         {
             name: "User Name",
@@ -143,7 +145,7 @@ const mockData = {
             from: "600",
             to: "4000",
             completed: "30",
-            started: false,
+            started: "open",
         },
     ],
     premium: [
@@ -259,6 +261,8 @@ const Main = () => {
     const [groupTradeId, setGroupTradeId] = useState();
     const [copyTradeId, setCopyTradeId] = useState();
     const [freePlaceChange, setFreePlaceChange] = useState();
+    const dispatch = useDispatch();
+    const { bunner, faq } = useSelector((state) => state.main);
 
     const toggleFaqTab = (tab) => {
         if (faqTab === tab) {
@@ -267,6 +271,11 @@ const Main = () => {
             setFaqTab(tab);
         }
     };
+
+    useEffect(() => {
+        dispatch(getBanner());
+        dispatch(getFaq());
+    }, []);
 
     return (
         <div className="main main_page">

@@ -13,6 +13,8 @@ import usdtIcon from "@assets/img/balance.svg";
 //Styles
 import "./Payments.scss";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import router from "../../utils/router";
 import { paymentVisa } from "../../store/payment/pay.api";
 
 const pay_method = [
@@ -35,14 +37,16 @@ const pay_method = [
 const Payments = () => {
     const dispatch = useDispatch();
     const [tab, setTab] = useState(1);
-    const [renderBlock, setRenderBlock] = useState(<VisaPaymentForm />);
-    const { messages } = useSelector((state) => state.user);
+    const [renderBlock, setRenderBlock] = useState(
+        <VisaPaymentForm fetchData={visapay} />
+    );
+    const { messages, isTraider } = useSelector((state) => state.user);
     const { visa_key } = useSelector((state) => state.pay);
     const [err, setErr] = useState(false);
 
-    const visapay = (data) => {
-        dispatch(paymentVisa({ amount: parseInt(data.cash) }));
-    };
+    function visapay(data) {
+        dispatch(paymentVisa(data.cash));
+    }
 
     useEffect(() => {
         if (visa_key) {
@@ -78,7 +82,15 @@ const Payments = () => {
         <div className="main">
             <div className="main__header">
                 <div className="main__header__title">
-                    <div className="main__header__title__back"></div>
+                    <Link
+                        to={
+                            isTraider
+                                ? router.traider_page
+                                : router.investor_page
+                        }
+                    >
+                        <div className="main__header__title__back"></div>
+                    </Link>
                     <svg
                         width="14"
                         height="15"
@@ -99,6 +111,7 @@ const Payments = () => {
                 <div className="main__payments_content__payments_change">
                     {pay_method.map((e) => (
                         <div
+                            key={e.title}
                             className={`main__payments_content__payments_change__block ${
                                 tab === e.id_tab ? "active" : ""
                             }`}

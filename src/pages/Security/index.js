@@ -22,6 +22,8 @@ import SpinnerLoad from "../../components/SpinnerLoad";
 import { getParameterByName } from "../../utils/stringHelper";
 import RemoveOtpModal from "../../components/Modals/RemoveOtp";
 import TwoFACode from "../../components/Modals/TwoFACode";
+import { Link } from "react-router-dom";
+import router from "../../utils/router";
 
 const Security = () => {
     const [tab, setTab] = useState(1);
@@ -30,6 +32,7 @@ const Security = () => {
     const [otp_cancel, setOtp_cancel] = useState(false);
     const [remove_otp_2fa, set_remove_otp_2fs] = useState(false);
     const dispatch = useDispatch();
+    const { isTraider } = useSelector((state) => state.user);
     const { secu, qr, messages, auth, pay } = useSelector(
         (state) => state.secu
     );
@@ -81,13 +84,19 @@ const Security = () => {
         serCode(code);
     }, [qr]);
 
-    console.log(messages);
-
     return !load ? (
         <div className="main">
             <div className="main__header">
                 <div className="main__header__title">
-                    <div className="main__header__title__back"></div>
+                    <Link
+                        to={
+                            isTraider
+                                ? router.traider_page
+                                : router.investor_page
+                        }
+                    >
+                        <div className="main__header__title__back"></div>
+                    </Link>
                     <svg
                         width="14"
                         height="15"

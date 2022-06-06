@@ -13,6 +13,8 @@ import usdtIcon from "@assets/img/usdt.svg";
 
 //Styles
 import "./MyCopy.scss";
+import { Link } from "react-router-dom";
+import router from "../../utils/router";
 
 const mockData = {
     mygroup: [
@@ -60,7 +62,9 @@ const MyCopy = () => {
         <div className="main">
             <div className="main__header">
                 <div className="main__header__title">
-                    <div className="main__header__title__back"></div>
+                    <Link to={router.investor_page}>
+                        <div className="main__header__title__back"></div>
+                    </Link>
                     <svg
                         width="14"
                         height="15"

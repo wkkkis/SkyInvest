@@ -23,9 +23,8 @@ import "../Forms.scss";
 import router from "@utils/router";
 import { Link } from "react-router-dom";
 
-const LoginForm = ({ fetchData, error }) => {
+const LoginForm = ({ fetchData, error, loaded }) => {
     const navigate = useNavigate();
-    const [loaded, setLoaded] = useState(true);
     const [confirm, setConfirm] = useState(false);
     const {
         register,
@@ -43,11 +42,7 @@ const LoginForm = ({ fetchData, error }) => {
     };
 
     const onSubmitHandler = async (data) => {
-        setLoaded(false);
-
         fetchData(data);
-
-        setLoaded(true);
     };
 
     const showEmailError = () => {
@@ -123,9 +118,10 @@ const LoginForm = ({ fetchData, error }) => {
                     className="form__button"
                     theme={"beforesubmit"}
                     type="submit"
+                    disabled={loaded}
                 >
                     <img src={key} alt="key" />
-                    {!loaded ? <SpinnerLoad /> : "АВТОРИЗОВАТЬСЯ"}
+                    {loaded ? <SpinnerLoad /> : "АВТОРИЗОВАТЬСЯ"}
                 </Button>
                 <Button
                     className="form__button"

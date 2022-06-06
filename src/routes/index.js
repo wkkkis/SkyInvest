@@ -20,7 +20,9 @@ const AppRoutes = () => {
     const { mains, investor, traider } = allRoutes;
 
     useEffect(() => {
-        dispatch(me());
+        if (localStorage.getItem("token")) {
+            dispatch(me());
+        }
     }, [isAuth]);
 
     useEffect(() => {

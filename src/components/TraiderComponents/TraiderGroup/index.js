@@ -6,13 +6,15 @@ import Button from "@components/Button";
 import ProgressBar from "@components/ProgressBar";
 import { useNavigate } from "react-router";
 import router from "../../../utils/router";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import RemoveGroup from "../../Modals/RemoveGroup";
 import { Link } from "react-router-dom";
 import RaspustitModal from "../../Modals/RaspustitModal";
+import { deleteGroup } from "../../../store/group/group.api";
 
 const TraiderGroup = ({ e }) => {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const [readMore, setReadMore] = useState(true);
     const [remove, setRemove] = useState(false);
     const [raspus, setRaspus] = useState(false);
@@ -25,8 +27,9 @@ const TraiderGroup = ({ e }) => {
         }
     };
 
-    const handleGroup = (e) => {
-        if (e === "remove") {
+    const handleGroup = (t) => {
+        if (t === "remove") {
+            dispatch(deleteGroup(e.id));
             setRemove(false);
         } else {
             setRemove(false);
@@ -66,11 +69,9 @@ const TraiderGroup = ({ e }) => {
                     100$.`}
                     </p>
                 </div>
-                {e.description > 100 && (
-                    <Button onClick={() => setReadMore(!readMore)}>
-                        ПОКАЗАТЬ ВСЕ
-                    </Button>
-                )}
+                <Button onClick={() => setReadMore(!readMore)}>
+                    ПОКАЗАТЬ ВСЕ
+                </Button>
                 <div className="main__group_content__card__linebar">
                     <ProgressBar
                         completed={e.need_sum / 500 - 1}

@@ -12,17 +12,21 @@ import back from "@assets/img/authbackground.jpg";
 //Functions
 import { regiter } from "../../../store/user/user.api";
 import CompletedModal from "../../../components/Modals/CompletedModal";
+import MessageBox from "../../../components/MessageBox";
 
 const Signin = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const [completed, setCompleted] = useState(false);
+    const [loaded, setLoaded] = useState(false);
+    const [error, setError] = useState(false);
 
     const { isAuth, messages } = useSelector((state) => state.user);
 
     useEffect(() => {
         if (messages === "register_success") {
             setCompleted(true);
+            setLoaded(!loaded);
         }
         if (isAuth) {
             navigate("/");
@@ -30,13 +34,30 @@ const Signin = () => {
     }, [isAuth, messages, navigate, dispatch]);
 
     const signinhandler = (data) => {
+        setLoaded(true);
         dispatch(regiter(data));
     };
 
+    useEffect(() => {
+        if (messages) {
+            setLoaded(false);
+            setError(true);
+        }
+    }, [messages]);
+
     return (
         <div className="main_auth">
+            {error && messages
+                ? Object.values(messages).map((e) => (
+                      <MessageBox
+                          message={e[0]}
+                          onChange={(e) => setError(e)}
+                          error={true}
+                      />
+                  ))
+                : null}
             <div className="main_auth__content">
-                <SigninForm fetchData={signinhandler} />
+                <SigninForm fetchData={signinhandler} loaded={loaded} />
                 <img src={back} alt="" />
             </div>
             {completed ? (

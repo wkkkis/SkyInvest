@@ -35,7 +35,7 @@ const sideBarRouter = {
                     />
                 </svg>
             ),
-            title: "Dasboard",
+            title: "Личный кабинет",
         },
         {
             url: router.groups,
@@ -213,13 +213,13 @@ const SidebarTraider = () => {
                     </div>
                     <div className="sidebar__balance__information__number">
                         <p>На вашем счету:</p>
-                        <span>250.00 USDT</span>
+                        <span>{user?.balance?.balance} USDT</span>
                     </div>
                 </div>
             </div>
             <div className="sidebar__todyprofit">
                 <p>Профит за 24 часа</p>
-                <span>+248.25 USDT</span>
+                <span>0.00 USDT</span>
             </div>
             <div className="sidebar__menu">
                 <div className="sidebar__menu__title">

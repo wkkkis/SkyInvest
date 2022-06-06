@@ -16,6 +16,8 @@ import UserInfoBlock from "../../components/UI/UserInfoBlock";
 import { getGroup } from "../../store/group/group.api";
 import SpinnerLoad from "../../components/SpinnerLoad";
 import { useParams } from "react-router";
+import { Link } from "react-router-dom";
+import router from "../../utils/router";
 
 const Group = ({ title, desc, ...props }) => {
     const dispatch = useDispatch();
@@ -30,7 +32,9 @@ const Group = ({ title, desc, ...props }) => {
         <div className="main">
             <div className="main__header">
                 <div className="main__header__title">
-                    <div className="main__header__title__back"></div>
+                    <Link to={router.groups}>
+                        <div className="main__header__title__back"></div>
+                    </Link>
                     <svg
                         width="18"
                         height="15"

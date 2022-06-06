@@ -5,13 +5,26 @@ import { CashForm } from "@components/Forms";
 
 //Styles
 import "./Cash.scss";
+import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import router from "../../utils/router";
 
 const Cash = () => {
+    const { isTraider } = useSelector((state) => state.user);
+
     return (
         <div className="main">
             <div className="main__header">
                 <div className="main__header__title">
-                    <div className="main__header__title__back"></div>
+                    <Link
+                        to={
+                            isTraider
+                                ? router.traider_page
+                                : router.investor_page
+                        }
+                    >
+                        <div className="main__header__title__back"></div>
+                    </Link>
                     <svg
                         width="24"
                         height="25"

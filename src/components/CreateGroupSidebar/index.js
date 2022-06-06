@@ -14,6 +14,7 @@ import { Calendar } from "react-calendar";
 import { createGroup } from "../../store/group/group.api";
 import BinanceActivation from "../Modals/BinanceActivation";
 import { binanceApiActive } from "../../store/user/user.api";
+import SpinnerLoad from "../SpinnerLoad";
 
 const CreateGroupSidebar = ({ isOpen, toggle }) => {
     const dispatch = useDispatch();
@@ -160,7 +161,7 @@ const CreateGroupSidebar = ({ isOpen, toggle }) => {
                         label="Процент начисления"
                         {...register("percent_from_income", {
                             required: true,
-                            minLength: 2,
+                            minLength: 1,
                             maxLength: 5,
                         })}
                         type="number"
@@ -171,7 +172,7 @@ const CreateGroupSidebar = ({ isOpen, toggle }) => {
                         label="Необходимая сумма"
                         {...register("need_sum", {
                             required: true,
-                            minLength: 2,
+                            minLength: 3,
                             maxLength: 5,
                         })}
                         type="money"
@@ -183,7 +184,7 @@ const CreateGroupSidebar = ({ isOpen, toggle }) => {
                             label="Минимальная сумма входа"
                             {...register("min_entry_sum", {
                                 required: true,
-                                minLength: 2,
+                                minLength: 3,
                                 maxLength: 50,
                             })}
                             type="money"
@@ -194,7 +195,7 @@ const CreateGroupSidebar = ({ isOpen, toggle }) => {
                             label="Максимальная сумма входа"
                             {...register("max_entry_sum", {
                                 required: true,
-                                minLength: 2,
+                                minLength: 3,
                                 maxLength: 50,
                             })}
                             type="money"
@@ -204,7 +205,7 @@ const CreateGroupSidebar = ({ isOpen, toggle }) => {
                     </div>
                     <div className="birthday">
                         <Field
-                            label="Дата рождения"
+                            label="Дата начала"
                             placeholder="-- / -- / ----"
                             name="birth_day"
                             onFocus={setDateOneToggle}
@@ -230,7 +231,7 @@ const CreateGroupSidebar = ({ isOpen, toggle }) => {
                     </div>
                     <div className="birthday">
                         <Field
-                            label="Дата рождения"
+                            label="Дата конца"
                             placeholder="-- / -- / ----"
                             name="birth_day"
                             onFocus={setDateTwoToggle}
@@ -254,8 +255,12 @@ const CreateGroupSidebar = ({ isOpen, toggle }) => {
                             />
                         ) : null}
                     </div>
-                    <Button theme="beforesubmit" type="submit">
-                        Создать группу
+                    <Button
+                        theme="beforesubmit"
+                        type="submit"
+                        disabled={loaded}
+                    >
+                        {!loaded ? "Создать группу" : <SpinnerLoad />}
                     </Button>
                 </form>
                 {active_binance && (

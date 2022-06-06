@@ -115,6 +115,16 @@ const logout = async (token) => {
     return res;
 };
 
+const editUser = async (data, token) => {
+    const res = await instance.patch(`${USER_URL}profile/`, data, {
+        headers: {
+            Authorization: `Token ${token}`,
+        },
+    });
+
+    return res;
+};
+
 const getTraiderGroup = async (token) => {
     const res = await instance.get(`${TRAID_URL}trade_group/`, {
         headers: {
@@ -131,6 +141,7 @@ const userService = {
     createGroup,
     logout,
     register,
+    editUser,
     paymentVisa,
     trader_apply,
     login,

@@ -41,36 +41,55 @@ export const actions = {
 };
 
 export const getGroups = () => async (dispatch) => {
+    dispatch(actions.message(""));
     try {
-        let response = await groupService.getGroups();
+        const token = localStorage.getItem("token");
+        let response = await groupService.getGroups(token);
         if (response.data) {
             dispatch(actions.setGroups(response.data));
         }
     } catch (e) {
-        dispatch(actions.message("get_group_err"));
+        dispatch(actions.message(e.response.data));
     }
 };
 
 export const getGroup = (id) => async (dispatch) => {
+    dispatch(actions.message(""));
     try {
-        let response = await groupService.getGroup(id);
+        const token = localStorage.getItem("token");
+        let response = await groupService.getGroup(id, token);
         if (response.data) {
             dispatch(actions.setGroup(response.data));
         }
     } catch (e) {
-        dispatch(actions.message("get_group_err"));
+        dispatch(actions.message(e.response.data));
     }
 };
 
 export const createGroup = (data) => async (dispatch) => {
+    dispatch(actions.message(""));
     try {
-        let response = await groupService.createGroup(data);
+        const token = localStorage.getItem("token");
+        let response = await groupService.createGroup(data, token);
         if (response.data) {
-            dispatch(getGroup());
-            dispatch(actions.message("group_create"));
+            dispatch(getGroups());
+            dispatch(actions.message("complete"));
         }
     } catch (e) {
-        dispatch(actions.message("create_group_err"));
+        dispatch(actions.message(e.response.data));
+    }
+};
+
+export const deleteGroup = (id, data) => async (dispatch) => {
+    dispatch(actions.message(""));
+    try {
+        const token = localStorage.getItem("token");
+        let response = await groupService.deteleGroup(id, data, token);
+        if (response.data) {
+            dispatch(getGroups());
+        }
+    } catch (e) {
+        dispatch(actions.message(e.response.data));
     }
 };
 

@@ -20,6 +20,7 @@ import "../Forms.scss";
 import Checkbox from "../../Checkbox";
 import { useValidator } from "../../../hooks/useValidator";
 import Radio from "../../Radio";
+import { useSelector } from "react-redux";
 
 const SigninForm = ({ fetchData }) => {
     const navigate = useNavigate();
@@ -36,7 +37,8 @@ const SigninForm = ({ fetchData }) => {
         errorData: { fields, error },
         ...validator
     } = useValidator();
-    const [loaded, setLoaded] = useState(true);
+    const { messages, loaded } = useSelector((state) => state.user);
+
     const {
         register,
         handleSubmit,
@@ -89,11 +91,7 @@ const SigninForm = ({ fetchData }) => {
             is_traider: role,
         };
 
-        setLoaded(false);
-
         fetchData(body);
-
-        setLoaded(true);
     };
 
     return (
@@ -207,14 +205,14 @@ const SigninForm = ({ fetchData }) => {
                     <a href="#">соглашения</a>
                 </div>
                 <Button
-                    disabled={validator.hasInvalidFields()}
+                    disabled={validator.hasInvalidFields() || loaded}
                     ref={btnRef}
                     className="form__button"
                     theme={"beforesubmit"}
                     type="submit"
                 >
                     <img src={key} alt="key" />
-                    {!loaded ? <SpinnerLoad /> : "ЗАРЕГИСТРИРОВАТЬСЯ"}
+                    {loaded ? <SpinnerLoad /> : "ЗАРЕГИСТРИРОВАТЬСЯ"}
                 </Button>
             </form>
         </div>

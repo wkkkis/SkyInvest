@@ -12,10 +12,11 @@ import "./Login.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../../../store/user/user.api";
 import TwoFACode from "../../../components/Modals/TwoFACode";
+import MessageBox from "../../../components/MessageBox";
 
 const Login = () => {
     const dispatch = useDispatch();
-    const [error, setError] = useState("");
+    const [error, setError] = useState(false);
     const [data, setData] = useState("");
     const [code, setCode] = useState("");
     const { messages } = useSelector((state) => state.user);
@@ -36,32 +37,30 @@ const Login = () => {
     };
 
     useEffect(() => {
-        if (messages === "error_login") {
-            setError("Логин или пароль не верны");
-        } else {
-            setError("");
-        }
-
-        if (messages === "2fa_error") {
-            setError("2fa_error");
-        }
-
-        if (messages === "Unable to log in with provided credentials.") {
-            setError("Логин или пароль не верны");
-        }
-
-        if (messages === "inactive_user") {
-            setError("Такого пользователя не существует");
+        if (messages) {
+            setError(true);
         }
     }, [messages]);
 
     return (
         <div className="main_auth">
+            {error && messages
+                ? Object.values(messages).map((e) => (
+                      <MessageBox
+                          message={e[0]}
+                          onChange={(e) => setError(e)}
+                          error={true}
+                      />
+                  ))
+                : null}
             <div className="main_auth__content">
-                <LoginForm fetchData={fetchLoginData} error={error} />
+                <LoginForm fetchData={fetchLoginData} />
                 <img src={back} alt="" />
             </div>
-            {error === "2fa_error" && <TwoFACode handleChange={handleOtp} />}
+            {messages?.message &&
+                messages?.message[0] === "Введите код Google authenticator" && (
+                    <TwoFACode handleChange={handleOtp} />
+                )}
             <Footer />
         </div>
     );

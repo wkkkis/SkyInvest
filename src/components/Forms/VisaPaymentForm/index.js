@@ -14,11 +14,8 @@ import SpinnerLoad from "@components/SpinnerLoad";
 //Styles
 import "../Forms.scss";
 import "./VisaPaymentForm.scss";
-import Select from "../../Select";
 
 const VisaPaymentForm = ({ fetchData }) => {
-    const navigate = useNavigate();
-    const [valute, setValute] = useState("USD");
     const [loaded, setLoaded] = useState(true);
     const {
         register,
@@ -27,16 +24,8 @@ const VisaPaymentForm = ({ fetchData }) => {
         setValue,
     } = useForm();
 
-    const getValuteSelect = (value) => {
-        setValute(value);
-    };
-
     const onChangeHandler = (ev) => {
-        if (ev.currentTarget.name === "cash") {
-            setValue(ev.currentTarget.name, ev.currentTarget.value + valute);
-        } else {
-            setValue(ev.currentTarget.name, ev.currentTarget.value);
-        }
+        setValue(ev.currentTarget.name, ev.currentTarget.value);
     };
 
     const onSubmitHandler = async (data) => {
@@ -55,48 +44,6 @@ const VisaPaymentForm = ({ fetchData }) => {
                 return "Введите меньше";
             case "required":
                 return "Поле сумма пополнения обязательна";
-            default:
-                return null;
-        }
-    };
-
-    const showCardNumError = () => {
-        switch (errors.card_num && errors.card_num.type) {
-            case "minLength":
-                return "Введите правильный номер карты";
-            case "maxLength":
-                return "Введите правильный номер карты";
-            case "required":
-                return "Поле номер карты обязателен";
-            default:
-                return null;
-        }
-    };
-
-    const showFioError = () => {
-        switch (errors.fio && errors.fio.type) {
-            case "minLength":
-                return "Введите больше 1 символа";
-            case "maxLength":
-                return "Введите меньше 50 символов";
-            case "required":
-                return "Поле ФИО обязателен";
-            default:
-                return null;
-        }
-    };
-
-    const showDateCvvError = () => {
-        switch (
-            (errors.date && errors.date.type) ||
-            (errors.cvv && errors.cvv.type)
-        ) {
-            case "minLength":
-                return "Введите верные данные!";
-            case "maxLength":
-                return "Введите верные данные!";
-            case "required":
-                return "Поля дата и cvv обязательны";
             default:
                 return null;
         }

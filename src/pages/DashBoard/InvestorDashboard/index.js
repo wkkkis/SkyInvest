@@ -19,6 +19,8 @@ import "./InvestorDashboard.scss";
 import { useNavigate } from "react-router";
 import { useSelector } from "react-redux";
 import SpinnerLoad from "../../../components/SpinnerLoad";
+import { Link } from "react-router-dom";
+import router from "../../../utils/router";
 
 const mockData = {
     userinfo: [
@@ -42,7 +44,9 @@ const InvestorDashBoard = React.memo(() => {
         <div className="main">
             <div className="main__header">
                 <div className="main__header__title">
-                    <div className="main__header__title__back"></div>
+                    <Link to={router.investor_page}>
+                        <div className="main__header__title__back"></div>
+                    </Link>
                     <svg
                         width="14"
                         height="13"
@@ -56,7 +60,7 @@ const InvestorDashBoard = React.memo(() => {
                         />
                     </svg>
 
-                    <span>Dasboard</span>
+                    <span>Личный кабинет</span>
                 </div>
                 <div className="main__header__info_group">
                     <span className="f12">Показать время</span>

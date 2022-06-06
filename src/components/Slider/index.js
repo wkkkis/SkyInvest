@@ -16,7 +16,6 @@ export default function Slider({ children, slides = 1 }) {
                 setSlideNum(slider.track.details.rel);
             },
             loop: true,
-            mode: "free",
             duration: 2000,
             // slides: slides,
         },

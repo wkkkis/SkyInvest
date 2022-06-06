@@ -28,26 +28,26 @@ const allRoutes = [
         type: "cash",
         title: "Вывод",
     },
-    {
-        component: HistoryGroup,
-        type: "group",
-        title: "Групп",
-    },
-    {
-        component: HistoryGroupCash,
-        type: "group-cash",
-        title: "Доходы с групп",
-    },
-    {
-        component: HistoryTradeCopy,
-        type: "trade-copy",
-        title: "Копирование",
-    },
-    {
-        component: HistoryTradeCash,
-        type: "trade-cash",
-        title: "Доходы копирования",
-    },
+    // {
+    //     component: HistoryGroup,
+    //     type: "group",
+    //     title: "Групп",
+    // },
+    // {
+    //     component: HistoryGroupCash,
+    //     type: "group-cash",
+    //     title: "Доходы с групп",
+    // },
+    // {
+    //     component: HistoryTradeCopy,
+    //     type: "trade-copy",
+    //     title: "Копирование",
+    // },
+    // {
+    //     component: HistoryTradeCash,
+    //     type: "trade-cash",
+    //     title: "Доходы копирования",
+    // },
     {
         component: HistoryPayment,
         type: "payment",

@@ -19,7 +19,9 @@ import { useForm } from "react-hook-form";
 import { Calendar } from "react-calendar";
 import FileUpload from "../../components/FileUpload";
 import { verification } from "../../store/user/user.api";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import router from "../../utils/router";
 
 const Verify = () => {
     const [dateTwoShow, setDateTwoShow] = useState(false);
@@ -36,6 +38,8 @@ const Verify = () => {
     const [inn, setInn] = useState("");
     const [address, setAddress] = useState("");
     const [city, setCity] = useState("");
+
+    const { isTraider } = useSelector((state) => state.user);
 
     const [errors, setErrors] = useState({
         name: "",
@@ -106,10 +110,28 @@ const Verify = () => {
         });
 
         if (validate === 9) {
-            const obj = {};
+            const obj = {
+                first_name: name,
+                last_name: lastName,
+                birth_day: new Date(dateOne).toISOString().split("T")[0],
+                passport_number: pasportNum,
+                inn: inn,
+                country: select,
+                city: city,
+                address: address,
+                images: [
+                    {
+                        image: filePerson,
+                    },
+                    {
+                        image: locationPerson,
+                    },
+                ],
+            };
+
+            dispatch(verification(obj));
         }
 
-        // dispatch(verification(obj));
         setLoaded(false);
     };
 
@@ -117,7 +139,15 @@ const Verify = () => {
         <div className="main">
             <div className="main__header">
                 <div className="main__header__title">
-                    <div className="main__header__title__back"></div>
+                    <Link
+                        to={
+                            isTraider
+                                ? router.traider_page
+                                : router.investor_page
+                        }
+                    >
+                        <div className="main__header__title__back"></div>
+                    </Link>
                     <svg
                         width="14"
                         height="15"

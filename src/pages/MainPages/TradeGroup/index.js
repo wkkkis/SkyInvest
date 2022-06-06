@@ -13,6 +13,7 @@ import Footer from "@components/Footer";
 import "./TradeGroup.scss";
 import InsideGroupModal from "../../../components/Modals/InsideGroupModal";
 import InvestorGroup from "../../../components/InvestorComponents/InvestorGroup";
+import LeaveGroup from "../../../components/Modals/LeaveGroup";
 
 const mockData = {
     mygroup: [
@@ -23,7 +24,7 @@ const mockData = {
             from: "30",
             to: "50",
             completed: "50",
-            started: true,
+            started: "open",
         },
         {
             name: "User Name",
@@ -32,7 +33,7 @@ const mockData = {
             from: "100",
             to: "700",
             completed: "80",
-            started: false,
+            started: "end",
         },
         {
             name: "User Name",
@@ -41,7 +42,7 @@ const mockData = {
             from: "600",
             to: "4000",
             completed: "30",
-            started: true,
+            started: "was",
         },
         {
             name: "User Name",
@@ -50,7 +51,7 @@ const mockData = {
             from: "30",
             to: "50",
             completed: "50",
-            started: true,
+            started: "was",
         },
         {
             name: "User Name",
@@ -59,7 +60,7 @@ const mockData = {
             from: "100",
             to: "700",
             completed: "80",
-            started: false,
+            started: "open",
         },
         {
             name: "User Name",
@@ -68,7 +69,7 @@ const mockData = {
             from: "600",
             to: "4000",
             completed: "30",
-            started: true,
+            started: "end",
         },
         {
             name: "User Name",
@@ -77,7 +78,7 @@ const mockData = {
             from: "30",
             to: "50",
             completed: "50",
-            started: true,
+            started: "end",
         },
         {
             name: "User Name",
@@ -86,7 +87,7 @@ const mockData = {
             from: "100",
             to: "700",
             completed: "80",
-            started: false,
+            started: "end",
         },
         {
             name: "User Name",
@@ -95,7 +96,7 @@ const mockData = {
             from: "600",
             to: "4000",
             completed: "30",
-            started: true,
+            started: "end",
         },
         {
             name: "User Name",
@@ -104,7 +105,7 @@ const mockData = {
             from: "30",
             to: "50",
             completed: "50",
-            started: true,
+            started: "end",
         },
         {
             name: "User Name",
@@ -113,7 +114,7 @@ const mockData = {
             from: "100",
             to: "700",
             completed: "80",
-            started: false,
+            started: "end",
         },
         {
             name: "User Name",
@@ -122,13 +123,14 @@ const mockData = {
             from: "600",
             to: "4000",
             completed: "30",
-            started: true,
+            started: "end",
         },
     ],
 };
 
 const TradeGroup = () => {
-    const [copyTradeId, setCopyTradeId] = useState();
+    const [groupId, setGroupId] = useState();
+    const [leaveId, setLeaveId] = useState();
 
     return (
         <div className="main trade_group">
@@ -152,13 +154,23 @@ const TradeGroup = () => {
 
             <div className="main__trade_group">
                 {mockData.mygroup.map((e) => (
-                    <InvestorGroup e={e} />
+                    <InvestorGroup
+                        e={e}
+                        setleavegroupid={(e) => setLeaveId(e)}
+                        setgroupid={(e) => setGroupId(e)}
+                    />
                 ))}
             </div>
-            {copyTradeId && (
+            {groupId && (
                 <InsideGroupModal
-                    handleChange={() => setCopyTradeId("")}
-                    info={copyTradeId}
+                    handleChange={() => setGroupId("")}
+                    info={groupId}
+                />
+            )}
+            {leaveId && (
+                <LeaveGroup
+                    info={leaveId}
+                    handleChange={() => setLeaveId("")}
                 />
             )}
 

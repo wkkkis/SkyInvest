@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 
 //Form
@@ -15,11 +15,20 @@ import Select from "../../Select";
 //Styles
 import "../Forms.scss";
 import "./USDT.scss";
+import { useDispatch, useSelector } from "react-redux";
+import {
+    ustdConfirm,
+    ustdDeposit,
+    ustdPayment,
+} from "../../../store/payment/pay.api";
+import MessageBox from "../../MessageBox";
 
 const USDTForm = () => {
-    const navigate = useNavigate();
-    const [valute, setValute] = useState("USD");
-    const [loaded, setLoaded] = useState(true);
+    const dispatch = useDispatch();
+    const [error, setError] = useState(false);
+    const { usdt_for_pay, message, loaded, confirm } = useSelector(
+        (state) => state.pay
+    );
     const {
         register,
         handleSubmit,
@@ -27,24 +36,12 @@ const USDTForm = () => {
         setValue,
     } = useForm();
 
-    const getValuteSelect = (value) => {
-        setValute(value);
-    };
-
     const onChangeHandler = (ev) => {
-        if (ev.currentTarget.name === "usdt") {
-            setValue(ev.currentTarget.name, ev.currentTarget.value + valute);
-        } else {
-            setValue(ev.currentTarget.name, ev.currentTarget.value);
-        }
+        setValue(ev.currentTarget.name, ev.currentTarget.value);
     };
 
     const onSubmitHandler = async (data) => {
-        setLoaded(false);
-
-        console.log(data);
-
-        setLoaded(true);
+        dispatch(ustdDeposit(data.usdt));
     };
 
     const showCashError = () => {
@@ -60,8 +57,31 @@ const USDTForm = () => {
         }
     };
 
+    useEffect(() => {
+        dispatch(ustdPayment());
+    }, []);
+
+    const onConfirmClick = () => {
+        dispatch(ustdConfirm());
+    };
+
+    useEffect(() => {
+        if (message) {
+            setError(true);
+        }
+    }, [message]);
+
     return (
         <div className="form">
+            {error && message
+                ? Object.values(message).map((e) => (
+                      <MessageBox
+                          message={e}
+                          onChange={(e) => setError(e)}
+                          error={true}
+                      />
+                  ))
+                : null}
             <div className="form__title">
                 <span>USDT</span>
             </div>
@@ -70,25 +90,37 @@ const USDTForm = () => {
                 noValidate
                 autoComplete="off"
             >
-                <Field
-                    label="Сумма пополнения"
-                    type="money"
-                    {...register("usdt", {
-                        required: true,
-                        minLength: 2,
-                        maxLength: 50,
-                    })}
-                    onChange={onChangeHandler}
-                />
+                {confirm && (
+                    <Field
+                        label="Сумма пополнения"
+                        type="money"
+                        {...register("usdt", {
+                            required: true,
+                            minLength: 2,
+                            maxLength: 50,
+                        })}
+                        error={errors.usdt && "Поле обязательна"}
+                        onChange={onChangeHandler}
+                    />
+                )}
+                {usdt_for_pay && (
+                    <>
+                        <span>Tether TRC20 Адрес</span>
+                        <span className="usdt_key">{usdt_for_pay.address}</span>
+                    </>
+                )}
                 {errors.cash && (
                     <span className="form__error">{showCashError()}</span>
                 )}
                 <Button
+                    onClick={
+                        message === "usdt_confirm" ? () => {} : onConfirmClick
+                    }
                     className="form__button"
                     theme={"beforesubmit"}
                     type="submit"
                 >
-                    {!loaded ? (
+                    {loaded ? (
                         <SpinnerLoad />
                     ) : (
                         <>
@@ -105,7 +137,7 @@ const USDTForm = () => {
                                 />
                             </svg>
 
-                            <span>Пополнить баланс</span>
+                            <span>Оплатил</span>
                         </>
                     )}
                 </Button>
