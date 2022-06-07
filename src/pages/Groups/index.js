@@ -148,7 +148,7 @@ const Groups = ({ title }) => {
                       <MessageBox message={e} error={true} />
                   ))
                 : null}
-            {complete ? <MessageBox message={message} error={false} /> : null}
+            {complete ? <MessageBox message={complete} error={false} /> : null}
         </div>
     ) : (
         <div className="main">

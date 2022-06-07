@@ -34,8 +34,6 @@ const CreateGroupSidebar = ({ isOpen, toggle }) => {
         setValue,
     } = useForm();
 
-    // detail: "You do not have permission to perform this action."
-
     useEffect(() => {
         if (
             message?.detail ===
