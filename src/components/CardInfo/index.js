@@ -15,6 +15,7 @@ const CardInfo = ({
     logo,
     className,
     onClick,
+    id,
 }) => {
     return (
         <div className={`cardinfo ${className}`}>
@@ -24,6 +25,7 @@ const CardInfo = ({
                     email={email}
                     logo={logo}
                     onClick={onClick}
+                    id={id}
                 />
                 {rating ? (
                     <div className="cardinfo__header__rating">

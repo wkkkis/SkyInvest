@@ -26,7 +26,7 @@ const CreateGroupSidebar = ({ isOpen, toggle }) => {
     const [active_binance, set_active_binance] = useState(false);
     const [select, setSelect] = useState("");
     const { message } = useSelector((state) => state.group);
-    const { messages } = useSelector((state) => state.group);
+    const { complete } = useSelector((state) => state.user);
     const {
         register,
         handleSubmit,
@@ -34,17 +34,19 @@ const CreateGroupSidebar = ({ isOpen, toggle }) => {
         setValue,
     } = useForm();
 
+    // detail: "You do not have permission to perform this action."
+
     useEffect(() => {
-        if (message === "create_group_err") {
+        if (
+            message?.detail ===
+            "You do not have permission to perform this action."
+        ) {
             set_active_binance(true);
         }
-        if (messages === "binance_active") {
+        if (complete === "Вы успешно стали трейдером") {
             set_active_binance(false);
         }
-        if (message === "group_create") {
-            toggle();
-        }
-    }, [message, messages]);
+    }, [message, complete]);
 
     const binanceActivation = (data) => {
         dispatch(binanceApiActive(data));

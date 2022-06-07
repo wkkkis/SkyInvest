@@ -16,7 +16,7 @@ const ProgressBar = ({ completed, from, to, start, end }) => {
     return (
         <div className="progressbar">
             <div className="progressbar__from_to">
-                <span>{numberWithSpaces(from, "$")}</span>
+                <span>{from ? numberWithSpaces(from, "$") : 0}</span>
                 <span>{numberWithSpaces(to, "$")}</span>
             </div>
             <div className="progressbar__line">

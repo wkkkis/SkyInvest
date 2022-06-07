@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 //Components
 import { CashForm } from "@components/Forms";
@@ -6,11 +6,46 @@ import { CashForm } from "@components/Forms";
 //Styles
 import "./Cash.scss";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import router from "../../utils/router";
+import TwoFACode from "../../components/Modals/TwoFACode";
+import { cashUsd } from "../../store/payment/pay.api";
+import MessageBox from "../../components/MessageBox";
 
 const Cash = () => {
+    const [error, setError] = useState(false);
+    const [data, setData] = useState("");
+    const [code, setCode] = useState("");
+
+    const dispatch = useDispatch();
+
     const { isTraider } = useSelector((state) => state.user);
+    const { message, loaded, complete } = useSelector((state) => state.pay);
+
+    const handleOtp = (token) => {
+        setCode(token);
+        const obj = {
+            amount: data.sum,
+            address: data.card_number,
+            two_fa_otp: token,
+        };
+        dispatch(cashUsd(obj));
+        setError("");
+    };
+
+    useEffect(() => {
+        if (message) {
+            setError(true);
+        }
+    }, [message]);
+
+    const cashFetch = (data) => {
+        const obj = {
+            amount: data.sum,
+            address: data.card_number,
+        };
+        dispatch(cashUsd(obj));
+    };
 
     return (
         <div className="main">
@@ -43,8 +78,18 @@ const Cash = () => {
                 </div>
             </div>
             <div className="main__cash_content">
-                <CashForm />
+                <CashForm fetchData={cashFetch} loaded={loaded} />
             </div>
+            {error && message
+                ? Object.values(message).map((e) => (
+                      <MessageBox message={e[0]} error={true} />
+                  ))
+                : null}
+            {complete ? <MessageBox message={complete} error={false} /> : null}
+            {message?.message &&
+                message?.message[0] === "Введите код Google authenticator" && (
+                    <TwoFACode handleChange={handleOtp} />
+                )}
         </div>
     );
 };

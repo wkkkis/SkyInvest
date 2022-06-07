@@ -282,6 +282,13 @@
                     display: flex;
                     justify-content: center
                 }
+
+                &__pagination {
+                    width: 100%;
+                    
+                    display: flex;
+                    justify-content: center;
+                }
                 
                 .traider-item {
                     display: flex;

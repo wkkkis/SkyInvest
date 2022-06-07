@@ -8,33 +8,8 @@ import { Calendar } from "react-calendar";
 //Styles
 import "react-calendar/dist/Calendar.css";
 import MessageBlock from "../../UI/MessageBlock";
-
-const messagesData = [
-    {
-        succesfull: "failed",
-        title: "Пополнение (VISA/Mastercard)",
-        date: "2019-06-11T00:00",
-        sum: "200",
-    },
-    {
-        succesfull: "fechted",
-        title: "Пополнение (VISA/Mastercard)",
-        date: "2019-06-11T00:00",
-        sum: "200",
-    },
-    {
-        succesfull: "load",
-        title: "Пополнение (VISA/Mastercard)",
-        date: "2019-06-11T00:00",
-        sum: "2300",
-    },
-    {
-        succesfull: "failed",
-        title: "Пополнение (VISA/Mastercard)",
-        date: "2019-06-11T00:00",
-        sum: "200",
-    },
-];
+import { useDispatch, useSelector } from "react-redux";
+import { getHistoryPayments } from "../../../store/history/history.api";
 
 const Payment = () => {
     const [dateOneShow, setDateOneShow] = useState(false);
@@ -42,6 +17,11 @@ const Payment = () => {
     const [dateOne, setDateOne] = useState(null);
     const [dateTwo, setDateTwo] = useState(null);
     const [select, setSelect] = useState("Все");
+    const [data, setData] = useState([]);
+
+    const dispatch = useDispatch();
+
+    const { history } = useSelector((state) => state.history);
 
     const setDateTwoToggle = () => {
         setDateTwoShow(true);
@@ -67,6 +47,32 @@ const Payment = () => {
             }
         }
     });
+
+    useEffect(() => {
+        dispatch(getHistoryPayments());
+    }, []);
+
+    useEffect(() => {
+        if (history && history.payments) {
+            setData([...history.payments, ...history.tether_payments]);
+        }
+    }, [history]);
+
+    useEffect(() => {
+        if (dateOne && !dateTwo) {
+            const start = new Date(dateOne).toISOString().split("T")[0];
+            const end = new Date().toISOString().split("T")[0];
+            dispatch(getHistoryPayments(start, end));
+        } else if (!dateOne && dateTwo) {
+            const start = new Date().toISOString().split("T")[0];
+            const end = new Date(dateTwo).toISOString().split("T")[0];
+            dispatch(getHistoryPayments(start, end));
+        } else if (dateOne && dateTwo) {
+            const start = new Date(dateOne).toISOString().split("T")[0];
+            const end = new Date(dateTwo).toISOString().split("T")[0];
+            dispatch(getHistoryPayments(start, end));
+        }
+    }, [dateOne, dateTwo]);
 
     return (
         <div className="history_page history_payment">
@@ -130,9 +136,9 @@ const Payment = () => {
                     <span>Список операций</span>
                 </div>
                 <div className="history_page__messages_info__content">
-                    {messagesData.map((e) => (
-                        <MessageBlock {...e} />
-                    ))}
+                    {data && data.length
+                        ? data.map((e) => <MessageBlock e={e} payment={true} />)
+                        : null}
                 </div>
             </div>
         </div>

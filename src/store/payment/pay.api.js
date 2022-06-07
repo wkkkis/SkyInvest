@@ -1,10 +1,11 @@
+import { me } from "../user/user.api";
 import { payService } from "./payment.service";
 
 let initialState = {
     visa_key: null,
     message: "",
     usdt_for_pay: null,
-    confirm: false,
+    complete: false,
     loaded: false,
 };
 
@@ -18,7 +19,7 @@ const payReducer = (state = initialState, action) => {
         case "SET_CONFIRM":
             return {
                 ...state,
-                confirm: action.payload,
+                complete: action.payload,
             };
         case "SET_USDT_KEY":
             return {
@@ -40,7 +41,7 @@ const payReducer = (state = initialState, action) => {
     }
 };
 
-export const actions = {
+export const payActions = {
     setVisaKey: (data) => ({
         type: "SET_VISA_KEY",
         payload: data,
@@ -58,68 +59,98 @@ export const actions = {
         payload: data,
     }),
     message: (message) => ({ type: "SET_MESSAGE", payload: message }),
+    complete: (message) => ({ type: "SET_CONFIRM", payload: message }),
 };
 
 export const paymentVisa = (data) => async (dispatch) => {
-    dispatch(actions.message(""));
+    dispatch(payActions.message(""));
+    dispatch(payActions.setLoad(true));
     try {
-        dispatch(actions.setLoad(true));
         const token = localStorage.getItem("token");
         let response = await payService.visa(data, token);
-        if (response.data) {
-            dispatch(actions.setVisaKey(response.data));
-        }
-        dispatch(actions.setLoad(false));
+        dispatch(payActions.setVisaKey(response.data));
     } catch (e) {
-        if (e.response) {
-            dispatch(actions.message("visa_false"));
+        if (e.response.data.message) {
+            dispatch(
+                payActions.message({ message: [e.response.data.message] })
+            );
+        } else {
+            dispatch(payActions.message(e.response.data));
         }
     }
+    dispatch(payActions.setLoad(false));
+};
+
+export const cashUsd = (data) => async (dispatch) => {
+    dispatch(payActions.message(""));
+    dispatch(payActions.setLoad(true));
+    try {
+        const token = localStorage.getItem("token");
+        let response = await payService.cash(data, token);
+        dispatch(payActions.setVisaKey(response.data));
+        dispatch(payActions.complete(response.data.message));
+        dispatch(me());
+    } catch (e) {
+        if (e.response.data.message) {
+            dispatch(
+                payActions.message({ message: [e.response.data.message] })
+            );
+        } else {
+            dispatch(payActions.message(e.response.data));
+        }
+    }
+    dispatch(payActions.setLoad(false));
 };
 
 export const ustdPayment = () => async (dispatch) => {
-    dispatch(actions.message(""));
+    dispatch(payActions.message(""));
+    dispatch(payActions.setLoad(true));
     try {
-        dispatch(actions.setLoad(true));
         const token = localStorage.getItem("token");
         let response = await payService.usdtForPay(token);
-        if (response.data) {
-            dispatch(actions.setUsdtKey(response.data));
-        }
-        dispatch(actions.setLoad(false));
+        dispatch(payActions.setUsdtKey(response.data));
     } catch (e) {
-        dispatch(actions.message(e.response.data));
+        dispatch(payActions.message(e.response.data));
     }
+    dispatch(payActions.setLoad(false));
 };
 
 export const ustdConfirm = () => async (dispatch) => {
-    dispatch(actions.message(""));
+    dispatch(payActions.message(""));
+    dispatch(payActions.setLoad(true));
     try {
-        dispatch(actions.setLoad(true));
         const token = localStorage.getItem("token");
         let response = await payService.usdtForConfirm(token);
-        if (response.data) {
-            dispatch(actions.setConfirm(true));
-        }
-        dispatch(actions.setLoad(false));
+        dispatch(payActions.setConfirm(response.data.message));
     } catch (e) {
-        dispatch(actions.message(e.response.data));
+        if (e.response.data.message) {
+            dispatch(
+                payActions.message({ message: [e.response.data.message] })
+            );
+        } else {
+            dispatch(payActions.message(e.response.data));
+        }
     }
+    dispatch(payActions.setLoad(false));
 };
 
 export const ustdDeposit = (data) => async (dispatch) => {
-    dispatch(actions.message(""));
+    dispatch(payActions.message(""));
+    dispatch(payActions.setLoad(true));
     try {
-        dispatch(actions.setLoad(true));
         const token = localStorage.getItem("token");
         let response = await payService.usdtForDeposit(data, token);
-        if (response.data) {
-            dispatch(actions.setUsdtKey(response.data));
-        }
-        dispatch(actions.setLoad(false));
+        dispatch(payActions.setUsdtKey(response.data));
     } catch (e) {
-        dispatch(actions.message(e.response.data));
+        if (e.response.data.message) {
+            dispatch(
+                payActions.message({ message: [e.response.data.message] })
+            );
+        } else {
+            dispatch(payActions.message(e.response.data));
+        }
     }
+    dispatch(payActions.setLoad(false));
 };
 
 export default payReducer;

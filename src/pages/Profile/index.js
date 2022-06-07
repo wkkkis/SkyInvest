@@ -10,10 +10,13 @@ import ProfileLayout from "@layouts/ProfileLayout";
 import "./Profile.scss";
 import { useLocation, useNavigate } from "react-router";
 import { useSelector } from "react-redux";
+import MessageBox from "../../components/MessageBox";
 
 const Profile = () => {
     const [getTitle, setGetTitle] = useState("");
-    const { isTraider } = useSelector((state) => state.user);
+    const { isTraider, messages, complete } = useSelector(
+        (state) => state.user
+    );
 
     const location = useLocation();
     const navigate = useNavigate();
@@ -64,6 +67,12 @@ const Profile = () => {
             <div className="main__history_content">
                 <ProfileLayout renameBlock={renameBlock} />
             </div>
+            {messages
+                ? Object.values(messages).map((e) => (
+                      <MessageBox message={e[0]} error={true} />
+                  ))
+                : null}
+            {complete ? <MessageBox message={complete} error={false} /> : null}
         </div>
     );
 };

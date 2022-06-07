@@ -1,22 +1,35 @@
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { messageClean } from "../../store/group/group.api";
+import {
+    confirmClean,
+    groupActions,
+    messageClean,
+} from "../../store/group/group.api";
+import { userActions } from "../../store/user/user.api";
 
 //Styles
 import "./MessageBox.scss";
 
-const MessageBox = ({ message, error, onChange }) => {
+const MessageBox = ({ message, error }) => {
     const dispatch = useDispatch();
 
     const handleClick = () => {
-        onChange(false);
-        dispatch(messageClean());
+        if (message !== "Введите код Google authenticator") {
+            dispatch(groupActions.message(""));
+            dispatch(groupActions.complete(""));
+            dispatch(userActions.complete(""));
+            dispatch(userActions.message(""));
+        }
     };
 
     useEffect(() => {
         setTimeout(() => {
-            onChange(false);
-            dispatch(messageClean());
+            if (message !== "Введите код Google authenticator") {
+                dispatch(groupActions.message(""));
+                dispatch(groupActions.complete(""));
+                dispatch(userActions.complete(""));
+                dispatch(userActions.message(""));
+            }
         }, 3000);
     }, []);
 

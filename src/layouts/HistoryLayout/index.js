@@ -28,11 +28,11 @@ const allRoutes = [
         type: "cash",
         title: "Вывод",
     },
-    // {
-    //     component: HistoryGroup,
-    //     type: "group",
-    //     title: "Групп",
-    // },
+    {
+        component: HistoryGroup,
+        type: "group",
+        title: "Групп",
+    },
     // {
     //     component: HistoryGroupCash,
     //     type: "group-cash",

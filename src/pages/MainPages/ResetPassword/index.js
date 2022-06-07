@@ -10,8 +10,8 @@ import back from "@assets/img/authbackground.jpg";
 //Styles
 import "./ResetPassword.scss";
 import { useDispatch, useSelector } from "react-redux";
-import { resetPassword } from "../../../store/user/user.api";
 import ActivationModal from "../../../components/Modals/ActivationModal";
+import { resetPassword } from "../../../store/auth/auth.api";
 
 const ResetPassword = () => {
     const [completed, setCompleted] = useState(false);

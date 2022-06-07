@@ -6,66 +6,60 @@ import { dateFormatter } from "@utils/stringHelper";
 //Styles
 import "./MessageBlock.scss";
 
-const MessageBlock = ({
-    title,
-    date,
-    card,
-    sum,
-    succesfull,
-    copyStart = false,
-    copyEnd = false,
-}) => {
+const MessageBlock = ({ e, payment = false, cash = false }) => {
     return (
         <div className="messageblock">
             <div className="messageblock__header">
                 <div className="messageblock__header__title">
-                    <span>{title}</span>
+                    <span>
+                        {payment
+                            ? "Пополнение"
+                            : cash
+                            ? "Вывод"
+                            : `Вступление в группу (#${e?.id})`}
+                    </span>
                 </div>
-                {succesfull ? (
-                    <div className="messageblock__header__success">
-                        <span
-                            className={
-                                succesfull === "fechted"
+                <div className="messageblock__header__success">
+                    <span
+                        className={
+                            payment || cash
+                                ? e?.status === "expectation"
+                                    ? "load"
+                                    : e?.status === "success"
                                     ? "success"
-                                    : succesfull === "failed"
-                                    ? "fail"
-                                    : "load"
-                            }
-                        >
-                            {succesfull === "fechted"
+                                    : "fail"
+                                : "success"
+                        }
+                    >
+                        {payment || cash
+                            ? e?.status === "expectation"
+                                ? "Ожидание"
+                                : e?.status === "success"
                                 ? "Успешно"
-                                : succesfull === "failed"
-                                ? "Не успешно"
-                                : "Ожидание"}
-                        </span>
-                    </div>
-                ) : null}
+                                : "Не успешно"
+                            : "Успешно"}
+                    </span>
+                </div>
             </div>
-            {card ? (
+            {/* {card ? (
                 <div className="messageblock__card">
                     <span>Кошолек:</span>
                     <span className="opacity">{card}</span>
                 </div>
-            ) : null}
+            ) : null} */}
             <div className="messageblock__footer">
                 <div className="messageblock__footer__date">
-                    <span>
-                        {copyStart
-                            ? "Начало копирования:"
-                            : copyEnd
-                            ? "Конец копирования:"
-                            : "Дата:"}
-                    </span>
+                    <span>Дата:</span>
                     <span className="opacity">
-                        {dateFormatter(new Date(date))}
+                        {dateFormatter(new Date(e?.date_joined || e?.created))}
                     </span>
                 </div>
-                {sum ? (
-                    <div className="messageblock__footer__sum">
-                        <span>Сумма:</span>
-                        <span className="opacity">{sum}</span>
-                    </div>
-                ) : null}
+                <div className="messageblock__footer__sum">
+                    <span>Сумма:</span>
+                    <span className="opacity">
+                        {e?.invested_sum || e?.amount}
+                    </span>
+                </div>
             </div>
         </div>
     );

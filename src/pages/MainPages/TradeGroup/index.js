@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 //Icons
 import tradeGroup from "@assets/img/forAboutCauses.svg";
@@ -14,123 +14,22 @@ import "./TradeGroup.scss";
 import InsideGroupModal from "../../../components/Modals/InsideGroupModal";
 import InvestorGroup from "../../../components/InvestorComponents/InvestorGroup";
 import LeaveGroup from "../../../components/Modals/LeaveGroup";
-
-const mockData = {
-    mygroup: [
-        {
-            name: "User Name",
-            email: "username@mail.com",
-            rating: "50/50",
-            from: "30",
-            to: "50",
-            completed: "50",
-            started: "open",
-        },
-        {
-            name: "User Name",
-            email: "username@mail.com",
-            rating: "50/50",
-            from: "100",
-            to: "700",
-            completed: "80",
-            started: "end",
-        },
-        {
-            name: "User Name",
-            email: "username@mail.com",
-            rating: "50/50",
-            from: "600",
-            to: "4000",
-            completed: "30",
-            started: "was",
-        },
-        {
-            name: "User Name",
-            email: "username@mail.com",
-            rating: "50/50",
-            from: "30",
-            to: "50",
-            completed: "50",
-            started: "was",
-        },
-        {
-            name: "User Name",
-            email: "username@mail.com",
-            rating: "50/50",
-            from: "100",
-            to: "700",
-            completed: "80",
-            started: "open",
-        },
-        {
-            name: "User Name",
-            email: "username@mail.com",
-            rating: "50/50",
-            from: "600",
-            to: "4000",
-            completed: "30",
-            started: "end",
-        },
-        {
-            name: "User Name",
-            email: "username@mail.com",
-            rating: "50/50",
-            from: "30",
-            to: "50",
-            completed: "50",
-            started: "end",
-        },
-        {
-            name: "User Name",
-            email: "username@mail.com",
-            rating: "50/50",
-            from: "100",
-            to: "700",
-            completed: "80",
-            started: "end",
-        },
-        {
-            name: "User Name",
-            email: "username@mail.com",
-            rating: "50/50",
-            from: "600",
-            to: "4000",
-            completed: "30",
-            started: "end",
-        },
-        {
-            name: "User Name",
-            email: "username@mail.com",
-            rating: "50/50",
-            from: "30",
-            to: "50",
-            completed: "50",
-            started: "end",
-        },
-        {
-            name: "User Name",
-            email: "username@mail.com",
-            rating: "50/50",
-            from: "100",
-            to: "700",
-            completed: "80",
-            started: "end",
-        },
-        {
-            name: "User Name",
-            email: "username@mail.com",
-            rating: "50/50",
-            from: "600",
-            to: "4000",
-            completed: "30",
-            started: "end",
-        },
-    ],
-};
+import { useDispatch, useSelector } from "react-redux";
+import { getAllGroups, messageClean } from "../../../store/group/group.api";
+import SpinnerLoad from "../../../components/SpinnerLoad";
+import MessageBox from "../../../components/MessageBox";
 
 const TradeGroup = () => {
     const [groupId, setGroupId] = useState();
     const [leaveId, setLeaveId] = useState();
+    const dispatch = useDispatch();
+
+    const { user, isTraider } = useSelector((state) => state.user);
+    const { groups, message, complete } = useSelector((state) => state.group);
+
+    useEffect(() => {
+        dispatch(getAllGroups());
+    }, [user]);
 
     return (
         <div className="main trade_group">
@@ -153,13 +52,17 @@ const TradeGroup = () => {
             </div>
 
             <div className="main__trade_group">
-                {mockData.mygroup.map((e) => (
-                    <InvestorGroup
-                        e={e}
-                        setleavegroupid={(e) => setLeaveId(e)}
-                        setgroupid={(e) => setGroupId(e)}
-                    />
-                ))}
+                {groups ? (
+                    groups.map((e) => (
+                        <InvestorGroup
+                            e={e}
+                            setleavegroupid={(e) => setLeaveId(e)}
+                            setgroupid={(e) => setGroupId(e)}
+                        />
+                    ))
+                ) : (
+                    <SpinnerLoad />
+                )}
             </div>
             {groupId && (
                 <InsideGroupModal
@@ -173,7 +76,12 @@ const TradeGroup = () => {
                     handleChange={() => setLeaveId("")}
                 />
             )}
-
+            {message
+                ? Object.values(message).map((e) => (
+                      <MessageBox message={e[0]} error={true} />
+                  ))
+                : null}
+            {complete ? <MessageBox message={complete} error={false} /> : null}
             <Footer />
         </div>
     );

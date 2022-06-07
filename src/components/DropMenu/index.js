@@ -84,7 +84,7 @@ const DropMenu = ({ user }) => {
                 <div className="hamburger_menu__container__nav_links">
                     {user ? (
                         <UserInfoBlock
-                            onClick={() => navigate(router.profile)}
+                            onClick={() => navigate(router.dashboard)}
                             order={true}
                             email={user.email}
                             name={`${user.first_name} ${user.last_name}`}

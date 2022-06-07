@@ -65,7 +65,6 @@ const SideBar = () => {
     }, [location.search]);
 
     const handleChange = (toggle) => {
-        console.log("logout:", toggle);
         setLogout(false);
     };
 

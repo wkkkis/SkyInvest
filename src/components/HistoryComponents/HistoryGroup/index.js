@@ -8,33 +8,8 @@ import { Calendar } from "react-calendar";
 //Styles
 import "react-calendar/dist/Calendar.css";
 import MessageBlock from "../../UI/MessageBlock";
-
-const messagesData = [
-    {
-        succesfull: "failed",
-        title: "Вступление в группу (#9379992)",
-        date: "2019-06-11T00:00",
-        sum: "200",
-    },
-    {
-        succesfull: "fechted",
-        title: "Вступление в группу (#9379992)",
-        date: "2019-06-11T00:00",
-        sum: "200",
-    },
-    {
-        succesfull: "load",
-        title: "Вступление в группу (#9379992)",
-        date: "2019-06-11T00:00",
-        sum: "2300",
-    },
-    {
-        succesfull: "failed",
-        title: "Вступление в группу (#9379992)",
-        date: "2019-06-11T00:00",
-        sum: "200",
-    },
-];
+import { useDispatch, useSelector } from "react-redux";
+import { getHistoryJoinGroup } from "../../../store/history/history.api";
 
 const Group = () => {
     const [dateOneShow, setDateOneShow] = useState(false);
@@ -42,6 +17,14 @@ const Group = () => {
     const [dateOne, setDateOne] = useState(null);
     const [dateTwo, setDateTwo] = useState(null);
     const [select, setSelect] = useState("Все");
+
+    const dispatch = useDispatch();
+
+    const { history } = useSelector((state) => state.history);
+
+    useEffect(() => {
+        dispatch(getHistoryJoinGroup());
+    }, []);
 
     const setDateTwoToggle = () => {
         setDateTwoShow(true);
@@ -67,6 +50,22 @@ const Group = () => {
             }
         }
     });
+
+    useEffect(() => {
+        if (dateOne && !dateTwo) {
+            const start = new Date(dateOne).toISOString().split("T")[0];
+            const end = new Date().toISOString().split("T")[0];
+            dispatch(getHistoryJoinGroup(start, end));
+        } else if (!dateOne && dateTwo) {
+            const start = new Date().toISOString().split("T")[0];
+            const end = new Date(dateTwo).toISOString().split("T")[0];
+            dispatch(getHistoryJoinGroup(start, end));
+        } else if (dateOne && dateTwo) {
+            const start = new Date(dateOne).toISOString().split("T")[0];
+            const end = new Date(dateTwo).toISOString().split("T")[0];
+            dispatch(getHistoryJoinGroup(start, end));
+        }
+    }, [dateOne, dateTwo]);
 
     return (
         <div className="history_page history_payment">
@@ -112,7 +111,7 @@ const Group = () => {
                         />
                     ) : null}
                 </div>
-                <div className="history_page__filter__select">
+                {/* <div className="history_page__filter__select">
                     <label>Статус</label>
                     <Select
                         defaultOption={select}
@@ -123,16 +122,16 @@ const Group = () => {
                         <li>Не успешно</li>
                         <li>Ожидание</li>
                     </Select>
-                </div>
+                </div> */}
             </div>
             <div className="history_page__messages_info">
                 <div className="history_page__messages_info__title opacity f12">
                     <span>Список операций</span>
                 </div>
                 <div className="history_page__messages_info__content">
-                    {messagesData.map((e) => (
-                        <MessageBlock {...e} />
-                    ))}
+                    {history && history.length
+                        ? history.map((e) => <MessageBlock e={e} />)
+                        : null}
                 </div>
             </div>
         </div>

@@ -6,82 +6,98 @@ import Button from "@components/Button";
 import ProgressBar from "@components/ProgressBar";
 import { useNavigate } from "react-router";
 import router from "../../../utils/router";
+import { useDispatch } from "react-redux";
+import { joinToGroup, leaveFromGroup } from "../../../store/group/group.api";
+import SpinnerLoad from "../../SpinnerLoad";
+import LeaveGroup from "../../Modals/LeaveGroup";
 
-const InvestorGroup = ({
-    e,
-    clean_group,
-    setgroupid,
-    className,
-    setleavegroupid,
-}) => {
+const InvestorGroup = ({ e, clean_group, setgroupid, className }) => {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const [readMore, setReadMore] = useState(true);
+    const [leaveToggle, setLeaveToggle] = useState(false);
 
     const handleClick = () => {
         navigate(`${router.groups}/${e.id}`);
     };
 
-    return (
+    const leave = (toggle) => {
+        if (e.status_for_user && toggle) {
+            dispatch(leaveFromGroup(e.id));
+        }
+    };
+
+    return e ? (
         <CardInfo
             className={`${className}`}
-            name={e.name}
+            name={`${e.first_name} ${e.last_name}`}
             email={e.email}
             rating={e.rating}
             onClick={handleClick}
             logo="https://cdn.dribbble.com/users/24078/screenshots/15522433/media/e92e58ec9d338a234945ae3d3ffd5be3.jpg?compress=1&resize=400x300"
         >
             <div className="main__group_content__card__title">
-                <span>Название группы</span>
+                <span>{e.title}</span>
             </div>
             <div
                 className={`main__group_content__card__desc ${
                     readMore && "active"
                 }`}
             >
-                <p>
-                    Внеси свой первый депозит на Bitget и получи +5% кешбэка на
-                    счет USDT-M. Макс.выплата торгового бонуса составляет до
-                    100$.
-                </p>
+                <p>{e.description}</p>
             </div>
-            <Button onClick={() => setReadMore(!readMore)}>ПОКАЗАТЬ ВСЕ</Button>
+            {e?.description?.split("").length > 100 ? (
+                <Button onClick={() => setReadMore(!readMore)}>
+                    ПОКАЗАТЬ ВСЕ
+                </Button>
+            ) : null}
             <div className="main__group_content__card__linebar">
                 <ProgressBar
-                    completed={e.completed}
-                    from={e.from}
-                    to={e.to}
-                    start="2019-06-11T00:00"
-                    end="2019-06-11T00:00"
+                    completed={(e.amount_collected / e.need_sum) * 100}
+                    from={e.amount_collected}
+                    to={e.need_sum}
+                    start={e.start_date}
+                    end={e.end_date}
                 />
             </div>
             <Button
                 onClick={() => {
-                    if (e.started === "open") {
-                        setgroupid(e.name);
-                    } else if (e.started === "was") {
-                        setleavegroupid(e.name);
+                    if (e.status_for_user) {
+                        setLeaveToggle(true);
+                    } else {
+                        if (e.status === "recruited") {
+                            setgroupid(e.id);
+                        }
                     }
                 }}
-                disabled={e.started === "end"}
+                disabled={e.status === "end"}
                 theme={
-                    e.started === "open"
-                        ? "beforesubmit"
-                        : e.started === "was"
-                        ? "aftersubmit"
-                        : e.started === "end"
-                        ? "disabled"
-                        : ""
+                    !e.status_for_user
+                        ? e.status === "recruited"
+                            ? "beforesubmit"
+                            : e.status === "was"
+                            ? "aftersubmit"
+                            : e.status === "end"
+                            ? "disabled"
+                            : ""
+                        : "aftersubmit"
                 }
             >
-                {e.started === "open"
-                    ? "Вступить в группу"
-                    : e.started === "was"
-                    ? "Выйти из группы"
-                    : e.started === "end"
-                    ? "Группа старотовала"
-                    : ""}
+                {!e.status_for_user
+                    ? e.status === "recruited"
+                        ? "Вступить в группу"
+                        : e.status === "was"
+                        ? "Выйти из группы"
+                        : e.status === "end"
+                        ? "Группа старотовала"
+                        : ""
+                    : "Выйти из группы"}
             </Button>
+
+            {leaveToggle ? <LeaveGroup handleChange={leave} /> : null}
         </CardInfo>
+    ) : (
+        <SpinnerLoad />
     );
 };
 

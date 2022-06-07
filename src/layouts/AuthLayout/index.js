@@ -15,7 +15,8 @@ import router from "../../utils/router";
 const AuthLayout = ({ children, ...props }) => {
     const { rename } = usePageTitle();
     const navigate = useNavigate();
-    const { user, isAuth } = useSelector((state) => state.user);
+    const { user } = useSelector((state) => state.user);
+    const { isAuth } = useSelector((state) => state.auth);
 
     useEffect(() => {
         rename(props.title);

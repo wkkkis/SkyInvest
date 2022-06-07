@@ -158,6 +158,7 @@ const SigninForm = ({ fetchData }) => {
                 <Field
                     name="phone"
                     label="Телефон"
+                    type="number"
                     classNames={`${fields.phone && "error"}`}
                     onChange={(e) => {
                         validator.isPhoneValid(e.target.value);

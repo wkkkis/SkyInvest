@@ -18,27 +18,21 @@ const Field = ({
     ...props
 }) => {
     const ref = useRef();
-    const [passwordVisible, setPasswordVisible] = useState(true);
-    // const [valueInput, setValueInput] = useState(value);
-
-    // useEffect(() => {
-    //     if (ref.current.value) {
-    //         setValueInput(ref.current.value);
-    //         console.log(ref.current.value);
-    //     }
-    // }, [ref, valueInput]);
+    const [passwordVisible, setPasswordVisible] = useState(false);
 
     const changeType = () => {
         setPasswordVisible(!passwordVisible);
     };
 
     const checkType = () => {
-        if (!passwordVisible) {
-            return type;
+        if (!passwordVisible && type === "password") {
+            return "password";
         } else if (type === "user_count") {
             return "number";
         } else if (type === "money") {
             return "number";
+        } else if (type === "date") {
+            return "text";
         } else if (type === "number") {
             return "number";
         } else {

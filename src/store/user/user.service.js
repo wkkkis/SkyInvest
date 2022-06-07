@@ -84,6 +84,7 @@ const trader_apply = async (token, userData) => {
 const verification = async (userData, token) => {
     const res = await instance.post(`${USER_URL}verification/`, userData, {
         headers: {
+            "Content-Type": "multipart/form-data",
             Authorization: `Token ${token}`,
         },
     });

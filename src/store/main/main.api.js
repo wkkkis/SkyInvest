@@ -37,9 +37,7 @@ export const actions = {
 export const getBanner = () => async (dispatch) => {
     try {
         let response = await mainService.getBanner();
-        if (response.data) {
-            dispatch(actions.setBanner(response.data));
-        }
+        dispatch(actions.setBanner(response.data));
     } catch (e) {
         dispatch(actions.message(e.response.data));
     }
@@ -48,9 +46,7 @@ export const getBanner = () => async (dispatch) => {
 export const getFaq = () => async (dispatch) => {
     try {
         let response = await mainService.getFaq();
-        if (response.data) {
-            dispatch(actions.setFaq(response.data));
-        }
+        dispatch(actions.setFaq(response.data));
     } catch (e) {
         dispatch(actions.message(e.response.data));
     }

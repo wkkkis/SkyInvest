@@ -10,9 +10,9 @@ import { useNavigate } from "react-router";
 import back from "@assets/img/authbackground.jpg";
 
 //Functions
-import { regiter } from "../../../store/user/user.api";
 import CompletedModal from "../../../components/Modals/CompletedModal";
 import MessageBox from "../../../components/MessageBox";
+import { regiter } from "../../../store/auth/auth.api";
 
 const Signin = () => {
     const navigate = useNavigate();

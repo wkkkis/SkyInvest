@@ -110,6 +110,12 @@ const Verify = () => {
         });
 
         if (validate === 9) {
+            const filePersons = new FormData();
+            filePersons.append("image", filePerson);
+            const fileLocation = new FormData();
+            fileLocation.append("image", locationPerson);
+            console.log(filePersons, fileLocation);
+
             const obj = {
                 first_name: name,
                 last_name: lastName,
@@ -119,14 +125,14 @@ const Verify = () => {
                 country: select,
                 city: city,
                 address: address,
-                images: [
-                    {
-                        image: filePerson,
-                    },
-                    {
-                        image: locationPerson,
-                    },
-                ],
+                // images: [
+                //     {
+                //         image: filePerson,
+                //     },
+                //     {
+                //         image: locationPerson,
+                //     },
+                // ],
             };
 
             dispatch(verification(obj));
@@ -134,6 +140,8 @@ const Verify = () => {
 
         setLoaded(false);
     };
+
+    console.log(filePerson);
 
     return (
         <div className="main">

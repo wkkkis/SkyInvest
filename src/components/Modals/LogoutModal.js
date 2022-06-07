@@ -6,7 +6,7 @@ import Button from "@components/Button";
 //Styles
 import "./Modal.scss";
 import { useDispatch } from "react-redux";
-import { logOut } from "../../store/user/user.api";
+import { logOut } from "../../store/auth/auth.api";
 
 const LogoutModal = ({ handleChange }) => {
     const dispatch = useDispatch();

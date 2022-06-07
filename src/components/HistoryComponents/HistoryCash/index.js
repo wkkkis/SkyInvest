@@ -8,37 +8,8 @@ import { Calendar } from "react-calendar";
 //Styles
 import "react-calendar/dist/Calendar.css";
 import MessageBlock from "../../UI/MessageBlock";
-
-const messagesData = [
-    {
-        succesfull: "failed",
-        title: "Вывод",
-        card: "0x787FAdA7a8e68576491b16d699f044Ca3217f0c5",
-        date: "2019-06-11T00:00",
-        sum: "200",
-    },
-    {
-        succesfull: "fechted",
-        title: "Вывод",
-        card: "0x787FAdA7a8e68576491b16d699f044Ca3217f0c5",
-        date: "2019-06-11T00:00",
-        sum: "200",
-    },
-    {
-        succesfull: "load",
-        title: "Вывод",
-        card: "0x787FAdA7a8e68576491b16d699f044Ca3217f0c5",
-        date: "2019-06-11T00:00",
-        sum: "2300",
-    },
-    {
-        succesfull: "failed",
-        title: "Вывод",
-        card: "0x787FAdA7a8e68576491b16d699f044Ca3217f0c5",
-        date: "2019-06-11T00:00",
-        sum: "200",
-    },
-];
+import { useDispatch, useSelector } from "react-redux";
+import { getHistoryCash } from "../../../store/history/history.api";
 
 const Cash = () => {
     const [dateOneShow, setDateOneShow] = useState(false);
@@ -46,6 +17,10 @@ const Cash = () => {
     const [dateOne, setDateOne] = useState(null);
     const [dateTwo, setDateTwo] = useState(null);
     const [select, setSelect] = useState("Все");
+
+    const dispatch = useDispatch();
+
+    const { history } = useSelector((state) => state.history);
 
     const setDateTwoToggle = () => {
         setDateTwoShow(true);
@@ -56,6 +31,10 @@ const Cash = () => {
         setDateOneShow(true);
         setDateTwoShow(false);
     };
+
+    useEffect(() => {
+        dispatch(getHistoryCash());
+    }, []);
 
     document.addEventListener("click", (e) => {
         if (e.target.localName !== "input") {
@@ -71,6 +50,22 @@ const Cash = () => {
             }
         }
     });
+
+    useEffect(() => {
+        if (dateOne && !dateTwo) {
+            const start = new Date(dateOne).toISOString().split("T")[0];
+            const end = new Date().toISOString().split("T")[0];
+            dispatch(getHistoryCash(start, end));
+        } else if (!dateOne && dateTwo) {
+            const start = new Date().toISOString().split("T")[0];
+            const end = new Date(dateTwo).toISOString().split("T")[0];
+            dispatch(getHistoryCash(start, end));
+        } else if (dateOne && dateTwo) {
+            const start = new Date(dateOne).toISOString().split("T")[0];
+            const end = new Date(dateTwo).toISOString().split("T")[0];
+            dispatch(getHistoryCash(start, end));
+        }
+    }, [dateOne, dateTwo]);
 
     return (
         <div className="history_page history_payment">
@@ -134,9 +129,9 @@ const Cash = () => {
                     <span>Список операций</span>
                 </div>
                 <div className="history_page__messages_info__content">
-                    {messagesData.map((e) => (
-                        <MessageBlock {...e} />
-                    ))}
+                    {history && history.length
+                        ? history.map((e) => <MessageBlock e={e} cash={true} />)
+                        : null}
                 </div>
             </div>
         </div>

@@ -15,7 +15,8 @@ import { me } from "../store/user/user.api";
 const AppRoutes = () => {
     const dispatch = useDispatch();
     const location = useLocation();
-    const { isTraider, user, isAuth } = useSelector((state) => state.user);
+    const { isTraider, user } = useSelector((state) => state.user);
+    const { isAuth } = useSelector((state) => state.auth);
     const [routes, setRoutes] = useState([]);
     const { mains, investor, traider } = allRoutes;
 

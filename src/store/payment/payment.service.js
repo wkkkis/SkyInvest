@@ -1,8 +1,6 @@
 import axios from "axios";
 import { instance } from "../../utils/axios.instance";
 
-const token = localStorage.getItem("user");
-
 const APP_URL = "/payment/";
 
 const visa = async (data, token) => {
@@ -17,6 +15,16 @@ const visa = async (data, token) => {
             },
         }
     );
+
+    return res;
+};
+
+const cash = async (data, token) => {
+    const res = await instance.post(`/withdraw/`, data, {
+        headers: {
+            Authorization: `Token ${token}`,
+        },
+    });
 
     return res;
 };
@@ -57,6 +65,7 @@ const usdtForDeposit = async (data, token) => {
 
 export const payService = {
     visa,
+    cash,
     usdtForPay,
     usdtForDeposit,
     usdtForConfirm,

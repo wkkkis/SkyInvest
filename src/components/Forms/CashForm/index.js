@@ -15,9 +15,8 @@ import Select from "@components/Select";
 import "../Forms.scss";
 import "./CashForm.scss";
 
-const CashForm = ({ fetchData }) => {
+const CashForm = ({ fetchData, loaded }) => {
     const [valute, setValute] = useState("USD");
-    const [loaded, setLoaded] = useState(true);
     const {
         register,
         handleSubmit,
@@ -38,15 +37,11 @@ const CashForm = ({ fetchData }) => {
     };
 
     const onSubmitHandler = async (data) => {
-        setLoaded(false);
-
         fetchData(data);
-
-        setLoaded(true);
     };
 
     const showCashError = () => {
-        switch (errors.cash && errors.cash.type) {
+        switch (errors.sum && errors.sum.type) {
             case "minLength":
                 return "Введите больше";
             case "maxLength":
@@ -88,36 +83,28 @@ const CashForm = ({ fetchData }) => {
                         {...register("sum", {
                             required: true,
                             minLength: 2,
-                            maxLength: 50,
+                            maxLength: 100,
                         })}
+                        error={errors.sum && showCashError()}
                         onChange={onChangeHandler}
                     />
-                    {errors.cash && (
-                        <span className="form__error">{showCashError()}</span>
-                    )}
-                    <div className="form__cash_fields__card_number">
-                        <Field
-                            label="Номер кошелька"
-                            {...register("card_number", {
-                                required: true,
-                                minLength: 2,
-                                maxLength: 50,
-                            })}
-                            onChange={onChangeHandler}
-                        />
-                        {errors.card_number && (
-                            <span className="form__error">
-                                {showCardNumberError()}
-                            </span>
-                        )}
-                    </div>
+                    <Field
+                        label="Номер кошелька"
+                        {...register("card_number", {
+                            required: true,
+                            minLength: 2,
+                            maxLength: 100,
+                        })}
+                        error={errors.card_number && showCardNumberError()}
+                        onChange={onChangeHandler}
+                    />
                 </div>
                 <Button
                     className="form__button"
                     theme={"beforesubmit"}
                     type="submit"
                 >
-                    {!loaded ? (
+                    {loaded ? (
                         <SpinnerLoad />
                     ) : (
                         <>

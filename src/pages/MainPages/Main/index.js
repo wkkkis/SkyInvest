@@ -52,6 +52,8 @@ import InsideGroupModal from "../../../components/Modals/InsideGroupModal";
 import InvestorGroup from "../../../components/InvestorComponents/InvestorGroup";
 import { getBanner, getFaq } from "../../../store/main/main.api";
 import { useDispatch, useSelector } from "react-redux";
+import ReactPaginate from "react-paginate";
+import { getAllGroups } from "../../../store/group/group.api";
 
 const mockData = {
     trade: [
@@ -121,31 +123,40 @@ const mockData = {
     ],
     mygroup: [
         {
-            name: "User Name",
+            first_name: "User",
+            last_name: "Name",
             email: "username@mail.com",
+            description: "HIHIONBONONIOBIPNI HU JNL",
             rating: "50/50",
-            from: "30",
-            to: "50",
-            completed: "50",
+            amount_collected: "100",
+            need_sum: "700",
             started: "open",
+            status_for_user: false,
+            status: "recruited",
         },
         {
-            name: "User Name",
+            first_name: "User",
+            last_name: "Name",
             email: "username@mail.com",
+            description: "HIHIONBONONIOBIPNI HU JNL",
             rating: "50/50",
-            from: "100",
-            to: "700",
-            completed: "80",
+            amount_collected: "100",
+            need_sum: "700",
             started: "open",
+            status_for_user: false,
+            status: "recruited",
         },
         {
-            name: "User Name",
+            first_name: "User",
+            last_name: "Name",
             email: "username@mail.com",
+            description: "HIHIONBONONIOBIPNI HU JNL",
             rating: "50/50",
-            from: "600",
-            to: "4000",
-            completed: "30",
+            amount_collected: "100",
+            need_sum: "700",
             started: "open",
+            status_for_user: false,
+            status: "recruited",
         },
     ],
     premium: [
@@ -261,8 +272,13 @@ const Main = () => {
     const [groupTradeId, setGroupTradeId] = useState();
     const [copyTradeId, setCopyTradeId] = useState();
     const [freePlaceChange, setFreePlaceChange] = useState();
+
     const dispatch = useDispatch();
     const { bunner, faq } = useSelector((state) => state.main);
+    const { groups, message, complete } = useSelector((state) => state.group);
+
+    const [itemOffset, setItemOffset] = useState(0);
+    const [pageCount, setPageCount] = useState(0);
 
     const toggleFaqTab = (tab) => {
         if (faqTab === tab) {
@@ -275,7 +291,16 @@ const Main = () => {
     useEffect(() => {
         dispatch(getBanner());
         dispatch(getFaq());
+        dispatch(getAllGroups());
     }, []);
+
+    const handlePageClick = (event) => {
+        const newOffset = event.selected;
+        console.log(
+            `User requested page number ${event.selected}, which is offset ${newOffset}`
+        );
+        setItemOffset(newOffset);
+    };
 
     return (
         <div className="main main_page">
@@ -524,6 +549,19 @@ const Main = () => {
                                 </div>
                             </CardInfo>
                         ))}
+
+                        <div className="main__content__traider__content__pagination">
+                            <ReactPaginate
+                                className="react-paginate"
+                                breakLabel="..."
+                                nextLabel=">"
+                                onPageChange={handlePageClick}
+                                pageRangeDisplayed={5}
+                                pageCount={5}
+                                previousLabel="<"
+                                renderOnZeroPageCount={null}
+                            />
+                        </div>
                     </div>
                 </div>
 

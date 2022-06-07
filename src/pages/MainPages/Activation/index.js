@@ -9,10 +9,10 @@ import Footer from "@components/Footer";
 import back from "@assets/img/authbackground.jpg";
 
 import { useDispatch, useSelector } from "react-redux";
-import { activation } from "../../../store/user/user.api";
 import { useSearchParams } from "react-router-dom";
 import ActivationModal from "../../../components/Modals/ActivationModal";
 import router from "../../../utils/router";
+import { activation } from "../../../store/auth/auth.api";
 
 const Activation = () => {
     const navigate = useNavigate();

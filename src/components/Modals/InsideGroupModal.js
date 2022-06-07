@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 //Components
 import Button from "@components/Button";
@@ -13,9 +13,19 @@ import balance from "@assets/img/balance.svg";
 
 //Styles
 import "./Modal.scss";
+import { useDispatch, useSelector } from "react-redux";
+import { getGroupInfo, joinToGroup } from "../../store/group/group.api";
+import SpinnerLoad from "../SpinnerLoad";
+import { useNavigate } from "react-router";
+import router from "../../utils/router";
 
 const InsideGroupModal = ({ handleChange, info }) => {
-    const [pareChange, setPareChange] = useState(0);
+    const [sum, setSum] = useState(0);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
+    const { group, load } = useSelector((state) => state.group);
+    const { isAuth } = useSelector((state) => state.auth);
 
     const hadnleClick = (toggle) => {
         if (toggle) {
@@ -25,73 +35,105 @@ const InsideGroupModal = ({ handleChange, info }) => {
         }
     };
 
+    useEffect(() => {
+        if (info) {
+            dispatch(getGroupInfo(info));
+        }
+    }, [info]);
+
     const rangeChange = (length) => {
-        console.log(length);
+        setSum(length);
+    };
+
+    const join = (id) => {
+        if (isAuth) {
+            dispatch(joinToGroup(id, sum));
+        } else {
+            navigate(router.login);
+        }
     };
 
     return (
         <div className="modal">
             <div className="modal__block">
-                <div className="modal__block__title">
-                    <span>Название группы</span>
-                </div>
-                <div className="modal__block__desc opacity">
-                    <span>
-                        Внеси свой первый депозит на Bitget и получи +5% кешбэка
-                        на счет USDT-M. Макс.выплата торгового бонуса составляет
-                        до 100$.
-                    </span>
-                </div>
-                <div className="modal__block__line"></div>
-                <CardInfo
-                    className="modal__block__profit"
-                    name={"Богдан Богданов"}
-                    email={"danghoang87hl@gmail.com"}
-                    rating={"50/50"}
-                    logo="https://cdn.dribbble.com/users/24078/screenshots/15522433/media/e92e58ec9d338a234945ae3d3ffd5be3.jpg?compress=1&resize=400x300"
-                />
-                <div className="modal__block__line"></div>
-                <span className="w700 f12">Пары:</span>
-                <span className="w400 f12">120 дней</span>
-                <ProgressBar
-                    completed={"80"}
-                    from={"100"}
-                    to={"5000"}
-                    start="2019-06-11T00:00"
-                    end="2019-06-11T00:00"
-                />
-                <span className="w700 f12">ВАША СУММА ВСТУПЛЕНИЯ</span>
-                <RangeSlider
-                    min={0}
-                    max={500}
-                    onChange={(e) => rangeChange(e)}
-                />
-                <div className="modal__block__confirm">
-                    <Checkbox
-                        id={info}
-                        onClick={() => console.log("confirm")}
-                        label="Я принимаю условия"
-                    />
-                    <span>
-                        <a href="#">соглашения</a>
-                    </span>
-                </div>
-                <div className="modal__block__btns">
-                    <Button
-                        className="modal__block__btns__button"
-                        theme="aftersubmit"
-                        onClick={() => hadnleClick(false)}
-                    >
-                        Отмена
-                    </Button>
-                    <Button
-                        className="modal__block__btns__button"
-                        theme="beforesubmit"
-                        onClick={() => hadnleClick(true)}
-                    >
-                        Вступить
-                    </Button>
-                </div>
+                {group ? (
+                    <>
+                        <div className="modal__block__title">
+                            <span>{group.title}</span>
+                        </div>
+                        <div className="modal__block__desc opacity">
+                            <span>{group.description}</span>
+                        </div>
+                        <div className="modal__block__line"></div>
+                        <CardInfo
+                            id={group.id}
+                            className="modal__block__profit"
+                            name={`${group.first_name} ${group.last_name}`}
+                            email={group.email}
+                            rating={`${group.investors.length}/${group.group_size}`}
+                            logo="https://cdn.dribbble.com/users/24078/screenshots/15522433/media/e92e58ec9d338a234945ae3d3ffd5be3.jpg?compress=1&resize=400x300"
+                        />
+                        <div className="modal__block__line"></div>
+                        <span className="w700 f12">Пары:</span>
+                        <span className="w400 f12">120 дней</span>
+                        <ProgressBar
+                            completed={
+                                (group.amount_collected / group.need_sum) * 100
+                            }
+                            from={group.amount_collected}
+                            to={group.need_sum}
+                            start="2019-06-11T00:00"
+                            end="2019-06-11T00:00"
+                        />
+                        <span className="w700 f12">ВАША СУММА ВСТУПЛЕНИЯ</span>
+                        <RangeSlider
+                            min={group?.min_entry_sum}
+                            max={group?.max_entry_sum}
+                            onChange={(e) => rangeChange(e)}
+                        />
+                        <div className="modal__block__confirm">
+                            <Checkbox
+                                id={info}
+                                onClick={() => console.log("confirm")}
+                                label="Я принимаю условия"
+                            />
+                            <span>
+                                <a href="#">соглашения</a>
+                            </span>
+                        </div>
+                        <div className="modal__block__btns">
+                            <Button
+                                className="modal__block__btns__button"
+                                theme="aftersubmit"
+                                onClick={() => hadnleClick(false)}
+                            >
+                                Отмена
+                            </Button>
+                            <Button
+                                className="modal__block__btns__button"
+                                theme={
+                                    group.status === "recruited"
+                                        ? "beforesubmit"
+                                        : "aftersubmit"
+                                }
+                                onClick={() => {
+                                    join(group.id);
+                                    hadnleClick(true);
+                                }}
+                            >
+                                {load ? (
+                                    <SpinnerLoad />
+                                ) : group.status === "recruited" ? (
+                                    "Вступить"
+                                ) : (
+                                    "Выйти из группы"
+                                )}
+                            </Button>
+                        </div>
+                    </>
+                ) : (
+                    <SpinnerLoad />
+                )}
             </div>
         </div>
     );

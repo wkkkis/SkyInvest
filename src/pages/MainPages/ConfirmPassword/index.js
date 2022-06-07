@@ -12,9 +12,9 @@ import "./ConfirmPassword.scss";
 import { useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { useSearchParams } from "react-router-dom";
-import { confirmPassword, resetPassword } from "../../../store/user/user.api";
 import router from "../../../utils/router";
 import ActivationModal from "../../../components/Modals/ActivationModal";
+import { confirmPassword } from "../../../store/auth/auth.api";
 
 const ConfirmPassword = () => {
     const navigate = useNavigate();

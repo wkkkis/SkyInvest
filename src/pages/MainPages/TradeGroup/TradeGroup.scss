@@ -49,7 +49,7 @@
         &__trade_group {
             flex-direction: column;
             
-            &__item {
+            .cardinfo {
                 width: 100% !important;
             }
         }
@@ -62,7 +62,7 @@
 
         &__trade_group {
             
-            &__item {
+            .cardinfo {
                 width: 40%;
             }
         }

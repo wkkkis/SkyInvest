@@ -8,15 +8,18 @@ import ProgressBar from "@components/ProgressBar";
 //Styles
 import "./Groups.scss";
 import { useDispatch, useSelector } from "react-redux";
-import { getMyGroups, getTraiderGroup } from "../../store/user/user.api";
 import CreateGroupSidebar from "../../components/CreateGroupSidebar";
 import TraiderGroup from "../../components/TraiderComponents/TraiderGroup";
-import InvestorGroup from "../../components/InvestorComponents/InvestorGroup";
-import { getGroups } from "../../store/group/group.api";
 import SpinnerLoad from "../../components/SpinnerLoad";
 import { Link } from "react-router-dom";
 import router from "../../utils/router";
 import MessageBox from "../../components/MessageBox";
+import {
+    getInvestorGroups,
+    getTraiderGroups,
+    groupActions,
+} from "../../store/group/group.api";
+import InvestorGroup from "../../components/InvestorComponents/InvestorGroup";
 
 const mockData = {
     mygroup: [
@@ -66,29 +69,18 @@ const mockData = {
 const Groups = ({ title }) => {
     const dispatch = useDispatch();
     const [isOpen, setIsOpen] = useState(false);
-    const [error, setError] = useState(false);
-    const [compelete, setComplete] = useState(false);
-
     const { isTraider, user } = useSelector((state) => state.user);
-    const { message, groups } = useSelector((state) => state.group);
+    const { message, groups, complete } = useSelector((state) => state.group);
 
     useEffect(() => {
         if (user) {
             if (isTraider) {
-                dispatch(getGroups());
+                dispatch(getTraiderGroups());
             } else {
-                dispatch(getMyGroups());
+                dispatch(getInvestorGroups());
             }
         }
     }, [user]);
-
-    useEffect(() => {
-        if (message !== "complete") {
-            setError(true);
-        } else {
-            setComplete(true);
-        }
-    }, [message]);
 
     return groups ? (
         <div className="main">
@@ -134,29 +126,29 @@ const Groups = ({ title }) => {
                     groups % 2 !== 0 ? "length_group" : ""
                 }`}
             >
-                {groups.map((e) => (
-                    <TraiderGroup e={e} />
-                ))}
+                {isTraider
+                    ? groups.map((e) => (
+                          <TraiderGroup
+                              e={e}
+                              className="main__group_content__card"
+                          />
+                      ))
+                    : groups.map((e) => (
+                          <InvestorGroup
+                              e={e}
+                              className="main__group_content__card"
+                          />
+                      ))}
             </div>
             {isOpen ? (
                 <CreateGroupSidebar toggle={() => setIsOpen(!isOpen)} />
             ) : null}
-            {message && error
+            {message
                 ? Object.values(message).map((e) => (
-                      <MessageBox
-                          message={e}
-                          onChange={(e) => setError(e)}
-                          error={true}
-                      />
+                      <MessageBox message={e} error={true} />
                   ))
                 : null}
-            {compelete ? (
-                <MessageBox
-                    message={message}
-                    onChange={(e) => setComplete(e)}
-                    error={false}
-                />
-            ) : null}
+            {complete ? <MessageBox message={message} error={false} /> : null}
         </div>
     ) : (
         <div className="main">

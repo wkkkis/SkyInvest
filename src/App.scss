@@ -26,6 +26,42 @@
     } 
 }
 
+.react-paginate {
+    display: flex;
+    gap: 16px;
+
+    font-size: 16px;
+    list-style: none;
+
+    li {
+        cursor: pointer;
+
+        width: 50px;
+        height: 50px;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        border-radius: 16px;
+        background: #FBFBFB;
+        
+        transition: all 0.5s ease;
+    }
+
+    .disabled {
+        border: none !important;
+        opacity: 0.5;
+    }
+
+    .selected {
+        background: #7972F3;
+        color: white;
+
+        transition: all 0.5s ease;
+    }
+}
+
 .App {
     background-image: url("./assets/img/background.svg");
     background-color: linear-gradient(#EDF1F3, white);
