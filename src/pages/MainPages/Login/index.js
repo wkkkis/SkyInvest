@@ -12,7 +12,7 @@ import "./Login.scss";
 import { useDispatch, useSelector } from "react-redux";
 import TwoFACode from "../../../components/Modals/TwoFACode";
 import MessageBox from "../../../components/MessageBox";
-import { authActions, login } from "../../../store/auth/auth.api";
+import { login } from "../../../store/auth/auth.api";
 
 const Login = () => {
     const dispatch = useDispatch();
@@ -35,10 +35,6 @@ const Login = () => {
         dispatch(login(obj));
         setError("");
     };
-
-    useEffect(() => {
-        dispatch(authActions.message(""));
-    }, []);
 
     useEffect(() => {
         if (messages) {

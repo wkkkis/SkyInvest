@@ -15,7 +15,11 @@ import InsideGroupModal from "../../../components/Modals/InsideGroupModal";
 import InvestorGroup from "../../../components/InvestorComponents/InvestorGroup";
 import LeaveGroup from "../../../components/Modals/LeaveGroup";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllGroups, messageClean } from "../../../store/group/group.api";
+import {
+    getAllGroups,
+    groupActions,
+    messageClean,
+} from "../../../store/group/group.api";
 import SpinnerLoad from "../../../components/SpinnerLoad";
 import MessageBox from "../../../components/MessageBox";
 
@@ -30,6 +34,10 @@ const TradeGroup = () => {
     useEffect(() => {
         dispatch(getAllGroups());
     }, [user]);
+
+    useEffect(() => {
+        dispatch(groupActions.message(""));
+    }, []);
 
     return (
         <div className="main trade_group">
