@@ -1,5 +1,34 @@
 .main {
 
+    &__header {
+        display: flex;
+        justify-content: space-between;
+
+        &__info_verify {
+            width: auto !important;
+            
+            font-weight: 700;
+        }
+
+        .on_consideration {
+            color: #9E68F8;
+        }
+
+        .refused {
+            color: red;
+        }
+
+        .accepted {
+            color: #30AD2D
+        }
+    }
+
+    .on_consideration__block, .accepted__block {
+        opacity: 0.2;
+        user-select: none;
+        pointer-events:none;
+    }
+
     &__verify_content {
         display: flex;
         flex-direction: column;

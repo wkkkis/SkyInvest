@@ -7,8 +7,9 @@ import Button from "@components/Button";
 import "./Modal.scss";
 import { useDispatch } from "react-redux";
 import { logOut } from "../../store/auth/auth.api";
+import SpinnerLoad from "../SpinnerLoad";
 
-const LogoutModal = ({ handleChange }) => {
+const LogoutModal = ({ handleChange, load }) => {
     const dispatch = useDispatch();
 
     const hadnleClick = (toggle) => {
@@ -31,9 +32,10 @@ const LogoutModal = ({ handleChange }) => {
                     <Button
                         className="modal__block__bts_button"
                         theme="aftersubmit"
+                        disabled={load}
                         onClick={() => hadnleClick(true)}
                     >
-                        Выйти
+                        {load ? <SpinnerLoad /> : "Выйти"}
                     </Button>
                     <Button
                         className="modal__block__bts_button"

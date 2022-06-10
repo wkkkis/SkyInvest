@@ -6,7 +6,7 @@ import { useKeenSlider } from "keen-slider/react";
 //Styles
 import "./Slider.scss";
 
-export default function Slider({ children, slides = 1 }) {
+export default function Slider({ children, slides = 1, min = 1, max = 1 }) {
     const [slideNum, setSlideNum] = useState(0);
 
     const [sliderRef, instanceRef] = useKeenSlider(
@@ -17,7 +17,15 @@ export default function Slider({ children, slides = 1 }) {
             },
             loop: true,
             duration: 2000,
-            // slides: slides,
+            breakpoints: {
+                "(min-width: 400px)": {
+                    slides: { perView: min },
+                },
+                "(min-width: 1000px)": {
+                    slides: { perView: max },
+                },
+            },
+            slides: { perView: slides },
         },
         [
             (slider) => {

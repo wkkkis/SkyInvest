@@ -65,7 +65,7 @@ const VisaPaymentForm = ({ fetchData }) => {
                     {...register("cash", {
                         required: true,
                         minLength: 2,
-                        maxLength: 50,
+                        maxLength: 5,
                     })}
                     onChange={onChangeHandler}
                 />

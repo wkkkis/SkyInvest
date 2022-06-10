@@ -1,0 +1,371 @@
+.main {
+
+    &__header {
+        display: flex;
+        justify-content: space-between;
+
+        &__desc {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+
+            span {
+                word-break: keep-all;
+                font-size: 18px;
+            }
+
+            .button {
+                padding: 16px 50px;
+
+                width: auto;
+
+                border-color: #9E68F8;
+            }
+        }
+    }
+
+    &__user_content {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+
+        font-size: 14px;
+
+        &__desc {
+            opacity: 0.5;
+        }
+
+        &__profit {
+            display: flex;
+            gap: 16px;
+
+            .infoblock  {
+                text-align: center;
+            }
+        }
+
+        &__copyinfo {
+            display: flex;
+            justify-content: space-between;
+            gap: 16px;
+
+            &__title {
+                opacity: 0.5;
+            }
+
+            .button {
+                padding: 16px 50px;
+
+                width: auto;
+            }
+        }
+
+        &__tabs {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+           
+            &__links {
+                list-style: none;
+                display: flex;
+
+                .active {
+                    box-shadow: inset 0px -1px 0px #6278F0;
+                    transition: all 0.5s ease;
+                    color: #9E68F8;
+                }
+
+                li {
+                    padding: 16px;
+
+                    cursor: pointer;
+
+                    box-sizing: border-box;
+                    box-shadow: inset 0px -1px 0px #CCD4D8;
+                    transition: all 0.5s ease;
+                }
+            }
+
+            &__block {
+                
+                .user_tab {
+                    width: 100%;
+
+                    display: flex;
+                    flex-direction: column;
+                    gap: 16px;
+                    
+                    .recharts-default-legend {
+                        display: none;
+                    }
+
+                    &__title {
+                        padding: 24px 0;
+
+                        span {
+                            font-size: 16px;
+                            font-weight: 700;
+                            opacity: 0.5;
+                        }
+                    }
+
+                    &__results {
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: flex-start;
+
+                        &__profit {
+                            display: flex;
+                            gap: 16px;
+
+                            .infoblock  {
+                                text-align: center;
+                            }
+                        }
+
+                        &__filter {
+                            display: flex;
+                            flex-direction: column;
+                            align-items: flex-start;
+                            justify-content: space-between;
+                            gap: 8px;
+
+                            width: 20%;
+
+                            .select {
+                                height: 100%;
+                            }
+                        }
+                    }
+
+                    &__chart {
+
+                        .custom_dot {
+                            padding: 10px;
+                            box-sizing: border-box;
+
+                            background: red;
+                            width: 10px;
+                            height: 10px;
+                        }
+                    }
+
+                    &__chart_result {
+                        display: flex;
+                        gap: 16px;
+
+                        &__block {
+                            width: 60%;
+
+                            padding: 16px;
+                            box-sizing: border-box;
+
+                            background: #F8F8F8;
+                            border-radius: 16px;
+
+                            display: flex;
+                            flex-direction: column;
+                            gap: 16px;
+                            
+                            &__title {
+
+                                span {
+                                    font-size: 16px;
+                                    font-weight: 700;
+                                    opacity: 0.5;
+
+                                    text-transform: uppercase;
+                                }
+                            }
+
+                            &__table {
+                                width: 100%;
+
+                                font-size: 14px;
+
+                                table {
+                                    width: 100%;
+                                    border-collapse: collapse;
+
+                                    tr {
+                                        border-bottom: 1px solid #ccc;
+                                    }
+
+                                    thead {
+                                        font-weight: 400;
+
+                                        th {
+                                            opacity: 0.5;
+                                            font-weight: 400;
+                                        }
+                                    }
+
+                                    th, td {
+                                        text-align: left;
+                                        padding: 12px;
+
+                                        color: #575757;
+                                    }
+                                }
+                            }
+
+                            &__chart_pie {
+                                position: relative;
+                             
+                                span {
+                                    top: calc(50% - 48px);
+                                    left: calc(50% - 92px);
+
+                                    font-size: 40px;
+                                    font-weight: 200;
+
+                                    position: absolute;
+
+                                    text-align: center;
+                                    opacity: 0.5;
+                                }
+                            }
+
+                            &__chart_result {
+                                width: 100%;
+
+                                display: flex;
+                                flex-wrap: wrap;
+
+                                .chart_result_item {
+                                    width: 50%;
+
+                                    margin-bottom: 16px;
+
+                                    display: flex;
+                                    align-items: center;
+                                    gap: 10px;
+
+                                    i {
+                                        width: 24px;
+                                        height: 24px;
+
+                                        border-radius: 50%;  
+                                    }
+
+                                    .purple {
+                                        background-color: #B57BFF;
+                                    }
+
+                                    .pink {
+                                        background-color: #FF7B83;
+                                    }
+
+                                    .yellow {
+                                        background-color: #FFEA7B;
+                                    }
+
+                                    .blue {
+                                        background-color: #7BB7FF;
+                                    }
+                                }
+                            }
+
+                            &__list {
+
+                                li {
+                                    list-style: none;
+                                }
+                            }
+
+                            .select_cont {
+
+                                .select {
+                                    padding: 12px;
+                                    box-sizing: border-box;
+                                }
+                            }
+
+                            &:last-child {
+                                width: 40%;
+                            }
+                        }
+                    }
+
+                    &__close_groups, &__open_groups {
+                        display: flex;
+                        flex-direction: column;
+                        gap: 16px;
+
+                        &__title {
+
+                            span {
+                                font-size: 16px;
+                                font-weight: 700;
+                                opacity: 0.5;
+
+                                text-transform: uppercase;
+                            }
+                        }
+
+                        &__filters {
+                            display: flex;
+                            gap: 16px;
+
+                            width: 100%;
+
+                            .select_cont {
+                                width: 100%;
+
+                                display: flex;
+                                flex-direction: column;
+                                gap: 8px;
+
+                                .select {
+                                    width: 100%;
+                                }
+                            }
+
+                            .infoblock {
+                                height: auto;
+
+                                text-align: center;
+
+                                padding: 10px;
+                            }
+                        }
+
+                        &__content {
+                            display: flex;
+                            flex-wrap: wrap;
+                            gap: 16px;
+
+                            .cardinfo  {
+                                width: 30%;
+                                flex-grow: 1;
+
+                                &__title {
+                                    font-weight: 700;
+                                }
+
+                                &__desc {
+                                    opacity: 0.5;
+                                    font-weight: 400;
+                                    font-size: 14px;
+                                }
+
+                                &__content {
+                                    display: flex;
+                                    flex-direction: column;
+                                    gap: 16px;
+                                }
+
+                                .button {
+
+                                    &:last-child {
+                                        padding: 14px;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

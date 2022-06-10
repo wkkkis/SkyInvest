@@ -12,6 +12,9 @@ import balance from "@assets/img/balance.svg";
 
 //Styles
 import "./Modal.scss";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router";
+import router from "../../utils/router";
 
 export const PareButton = () => {
     const [active, setActive] = useState(false);
@@ -29,6 +32,8 @@ export const PareButton = () => {
 
 const CopyTradeModal = ({ handleChange, info }) => {
     const [pareChange, setPareChange] = useState(0);
+    const navigate = useNavigate();
+    const { isAuth } = useSelector((state) => state.auth);
 
     const hadnleClick = (toggle) => {
         if (toggle) {
@@ -93,7 +98,7 @@ const CopyTradeModal = ({ handleChange, info }) => {
                         <PareButton key={e} />
                     ))}
                 </div>
-                <Button>ПОКАЗАТЬ ВСЕ</Button>
+                {/* <Button>ПОКАЗАТЬ ВСЕ</Button> */}
                 <span className="w700 f12">ВАША СУММА КОПИРОВАНИЯ</span>
                 <RangeSlider
                     min={0}
@@ -121,7 +126,13 @@ const CopyTradeModal = ({ handleChange, info }) => {
                     <Button
                         className="modal__block__btns__button"
                         theme="beforesubmit"
-                        onClick={() => hadnleClick(true)}
+                        onClick={() => {
+                            if (isAuth) {
+                                hadnleClick(false);
+                            } else {
+                                navigate(router.login);
+                            }
+                        }}
                     >
                         Копировать
                     </Button>

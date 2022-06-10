@@ -54,8 +54,8 @@ const Group = ({ title, desc, ...props }) => {
             <div className="main__group_content">
                 <CardInfo
                     className="main__group_content__card"
-                    name={"Марсель Борисов"}
-                    email={"nvt.isst.nute@gmail.com"}
+                    name={`${group.first_name} ${group.last_name}`}
+                    email={group.email}
                     logo="https://cdn.dribbble.com/users/24078/screenshots/15522433/media/e92e58ec9d338a234945ae3d3ffd5be3.jpg?compress=1&resize=400x300"
                 >
                     <div className="main__group_content__card__title">
@@ -66,8 +66,10 @@ const Group = ({ title, desc, ...props }) => {
                     </div>
                     <div className="main__group_content__card__linebar">
                         <ProgressBar
-                            completed={group.need_sum / 500 - 1}
-                            from={500}
+                            completed={
+                                (group.amount_collected / group.need_sum) * 100
+                            }
+                            from={group.amount_collected}
                             to={group.need_sum}
                             start={group.start_date}
                             end={group.end_date}

@@ -19,7 +19,10 @@ const CompletedModal = ({ handleChange }) => {
                     <span>Регистрация успешна!</span>
                 </div>
                 <div className="modal__block__desc">
-                    <span>Ссылка для активации отправлена на почту</span>
+                    <span>
+                        Ссылка для активации отправлена на почту.
+                        <br /> Перейдите по ссылке и активируйте свой аккаунт
+                    </span>
                 </div>
                 <div className="modal__block__btns">
                     <Button

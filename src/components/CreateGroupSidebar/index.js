@@ -122,7 +122,7 @@ const CreateGroupSidebar = ({ isOpen, toggle }) => {
                             onChange={(e) => setSelect(e)}
                         >
                             <li>Трейдинг</li>
-                            <li>ISEO</li>
+                            <li>ICO</li>
                             <li>Другое</li>
                         </Select>
                     </div>
@@ -150,8 +150,8 @@ const CreateGroupSidebar = ({ isOpen, toggle }) => {
                         label="Количество людей в группе"
                         {...register("group_size", {
                             required: true,
-                            minLength: 2,
-                            maxLength: 5,
+                            minLength: 1,
+                            maxLength: 2,
                         })}
                         type="user_count"
                         onChange={onChangeHandler}
@@ -162,7 +162,7 @@ const CreateGroupSidebar = ({ isOpen, toggle }) => {
                         {...register("percent_from_income", {
                             required: true,
                             minLength: 1,
-                            maxLength: 5,
+                            maxLength: 2,
                         })}
                         type="number"
                         onChange={onChangeHandler}
@@ -172,7 +172,7 @@ const CreateGroupSidebar = ({ isOpen, toggle }) => {
                         label="Необходимая сумма"
                         {...register("need_sum", {
                             required: true,
-                            minLength: 3,
+                            minLength: 1,
                             maxLength: 5,
                         })}
                         type="money"
@@ -185,7 +185,7 @@ const CreateGroupSidebar = ({ isOpen, toggle }) => {
                             {...register("min_entry_sum", {
                                 required: true,
                                 minLength: 3,
-                                maxLength: 50,
+                                maxLength: 5,
                             })}
                             type="money"
                             onChange={onChangeHandler}
@@ -195,8 +195,8 @@ const CreateGroupSidebar = ({ isOpen, toggle }) => {
                             label="Максимальная сумма входа"
                             {...register("max_entry_sum", {
                                 required: true,
-                                minLength: 3,
-                                maxLength: 50,
+                                minLength: 1,
+                                maxLength: 5,
                             })}
                             type="money"
                             onChange={onChangeHandler}

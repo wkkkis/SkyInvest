@@ -105,7 +105,7 @@ const USDTForm = () => {
                 )}
                 {usdt_for_pay && (
                     <>
-                        <span>Tether TRC20 Адрес</span>
+                        <span>Необходимо отправить USDT на этот адрес</span>
                         <span className="usdt_key">{usdt_for_pay.address}</span>
                     </>
                 )}

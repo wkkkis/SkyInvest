@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 //Components
 import Button from "@components/Button";
@@ -8,6 +8,7 @@ import Checkbox from "../Checkbox";
 import "./Modal.scss";
 
 const AgreeModal = ({ handleChange }) => {
+    const [check, setCheck] = useState(false);
     const hadnleClick = (toggle) => {
         handleChange(toggle);
     };
@@ -25,13 +26,18 @@ const AgreeModal = ({ handleChange }) => {
                     </span>
                 </div>
                 <div className="modal__block__confirm">
-                    <Checkbox onChange={() => console.log("confirm")} />
-                    <span>
-                        Я принимаю условия <a href="#">соглашения</a>
-                    </span>
+                    <Checkbox
+                        checked={check}
+                        onClick={() => setCheck(!check)}
+                        id="register_confirm"
+                        group="register_confirm"
+                        label={`Я принимаю условия`}
+                    />
+                    <a href="#">соглашения</a>
                 </div>
                 <div className="modal__block__btns">
                     <Button
+                        disabled={!check}
                         className="modal__block__bts_button"
                         theme="aftersubmit"
                         onClick={() => hadnleClick(true)}

@@ -11,12 +11,13 @@ import "./AuthLayout.scss";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import router from "../../utils/router";
+import MessageBox from "../../components/MessageBox";
 
 const AuthLayout = ({ children, ...props }) => {
     const { rename } = usePageTitle();
     const navigate = useNavigate();
     const { user } = useSelector((state) => state.user);
-    const { isAuth } = useSelector((state) => state.auth);
+    const { isAuth, messages, complete } = useSelector((state) => state.auth);
 
     useEffect(() => {
         rename(props.title);
@@ -31,7 +32,11 @@ const AuthLayout = ({ children, ...props }) => {
     return (
         <div className="authlayout">
             <Header />
-
+            {messages
+                ? Object.values(messages).map((e) => (
+                      <MessageBox message={e} error={true} />
+                  ))
+                : null}
             <div className="authlayout__content">
                 <div className="authlayout__content__block">{children}</div>
                 <div className="authlayout__content__beautyblock"></div>

@@ -16,6 +16,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import router from "../../utils/router";
 import { paymentVisa } from "../../store/payment/pay.api";
+import MessageBox from "../../components/MessageBox";
 
 const pay_method = [
     {
@@ -41,8 +42,7 @@ const Payments = () => {
         <VisaPaymentForm fetchData={visapay} />
     );
     const { messages, isTraider } = useSelector((state) => state.user);
-    const { visa_key } = useSelector((state) => state.pay);
-    const [err, setErr] = useState(false);
+    const { visa_key, message } = useSelector((state) => state.pay);
 
     function visapay(data) {
         dispatch(paymentVisa(data.cash));
@@ -53,12 +53,6 @@ const Payments = () => {
             window.location.href = visa_key;
         }
     }, [visa_key]);
-
-    useEffect(() => {
-        if (messages === "visa_false") {
-            setErr(true);
-        }
-    }, [messages]);
 
     const tabShow = () => {
         switch (tab) {
@@ -144,6 +138,11 @@ const Payments = () => {
                 <div className="main__payments_content__payments_form">
                     {renderBlock}
                 </div>
+                {message
+                    ? Object.values(message).map((e) => (
+                          <MessageBox message={e[0]} error={true} />
+                      ))
+                    : null}
             </div>
         </div>
     );

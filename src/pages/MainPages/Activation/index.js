@@ -22,7 +22,7 @@ const Activation = () => {
     const [uid, setUid] = useState();
     const [searchParams, setSearchParams] = useSearchParams();
 
-    const { isAuth, messages } = useSelector((state) => state.user);
+    const { isAuth, messages, complete } = useSelector((state) => state.user);
 
     const fetchActivatedData = () => {
         if (token && uid) {
@@ -46,10 +46,10 @@ const Activation = () => {
     }, []);
 
     useEffect(() => {
-        if (messages === "activated") {
+        if (complete === "complete_activation") {
             setCompleted(true);
         }
-    }, [isAuth, messages]);
+    }, [isAuth, messages, complete]);
 
     const activatedHandle = (toggle) => {
         if (toggle) {

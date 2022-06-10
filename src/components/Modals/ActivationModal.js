@@ -7,7 +7,7 @@ import Checkbox from "../Checkbox";
 //Styles
 import "./Modal.scss";
 
-const ActivationModal = ({ handleChange, title, desc }) => {
+const ActivationModal = ({ handleChange }) => {
     const hadnleClick = (toggle) => {
         handleChange(toggle);
     };
@@ -16,10 +16,12 @@ const ActivationModal = ({ handleChange, title, desc }) => {
         <div className="modal">
             <div className="modal__block">
                 <div className="modal__block__title">
-                    <span>{title}</span>
+                    <span>Ваш аккаунт успешно активирован!</span>
                 </div>
                 <div className="modal__block__desc">
-                    <span>{desc}</span>
+                    <span>
+                        Нажмите продолжить чтобы продолжить процесс логинизации.
+                    </span>
                 </div>
                 <div className="modal__block__btns">
                     <Button

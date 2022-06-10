@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 //Component
 import CardInfo from "@components/CardInfo";
@@ -17,11 +17,15 @@ import usdtIcon from "@assets/img/usdt.svg";
 //Styles
 import "./TraiderDashboard.scss";
 import { useNavigate } from "react-router";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import SpinnerLoad from "../../../components/SpinnerLoad";
 import TraiderGroup from "../../../components/TraiderComponents/TraiderGroup";
 import { Link } from "react-router-dom";
 import router from "../../../utils/router";
+import {
+    getInvestorGroups,
+    getTraiderGroups,
+} from "../../../store/group/group.api";
 
 const mockData = {
     userinfo: [
@@ -37,7 +41,16 @@ const mockData = {
 };
 
 const TraiderDashBoard = React.memo(() => {
-    const { user } = useSelector((state) => state.user);
+    const { user, isTraider } = useSelector((state) => state.user);
+    const { message, groups, complete } = useSelector((state) => state.group);
+
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        if (user) {
+            dispatch(getTraiderGroups());
+        }
+    }, [user]);
 
     return user ? (
         <div className="main">
@@ -160,16 +173,22 @@ const TraiderDashBoard = React.memo(() => {
                         opactityValue
                     />
                 </div>
-                <div className="main__dashboard_content__mycopy">
-                    <div className="main__dashboard_content__mycopy__title">
-                        <span>Последние группы</span>
+                {groups && groups?.length ? (
+                    <div className="main__dashboard_content__mycopy">
+                        <div className="main__dashboard_content__mycopy__title">
+                            <span>Последние группы</span>
+                        </div>
+                        <div className="main__dashboard_content__mycopy__content">
+                            {groups.length === 1
+                                ? [groups[0]].map((e) => <TraiderGroup e={e} />)
+                                : groups.length > 2
+                                ? [groups[0], groups[1]].map((e) => (
+                                      <TraiderGroup e={e} />
+                                  ))
+                                : null}
+                        </div>
                     </div>
-                    <div className="main__dashboard_content__mycopy__content">
-                        {mockData.mycopy.map((e) => (
-                            <TraiderGroup e={e} />
-                        ))}
-                    </div>
-                </div>
+                ) : null}
             </div>
         </div>
     ) : (

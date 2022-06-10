@@ -48,8 +48,8 @@ const TraiderGroup = ({ e }) => {
         e && (
             <CardInfo
                 className="main__group_content__card"
-                name={"User Name"}
-                email={"username@mail.com"}
+                name={`${e?.first_name} ${e?.last_name}`}
+                email={e.email}
                 rating={e.rating}
                 onClick={handleClick}
                 logo="https://cdn.dribbble.com/users/24078/screenshots/15522433/media/e92e58ec9d338a234945ae3d3ffd5be3.jpg?compress=1&resize=400x300"
@@ -74,14 +74,14 @@ const TraiderGroup = ({ e }) => {
                 </Button>
                 <div className="main__group_content__card__linebar">
                     <ProgressBar
-                        completed={e.need_sum / 500 - 1}
-                        from={e.from || 500}
+                        completed={(e.amount_collected / e.need_sum) * 100}
+                        from={e?.amount_collected}
                         to={e?.need_sum}
                         start={e?.start_date}
                         end={e?.end_date}
                     />
                 </div>
-                {e?.investors ? (
+                {e?.investors && !e?.investors.length ? (
                     <div style={{ display: "flex", gap: "16px" }}>
                         <Button
                             onClick={() => setRemove(true)}
@@ -96,41 +96,10 @@ const TraiderGroup = ({ e }) => {
                             Подробнее
                         </Button>
                     </div>
-                ) : e?.investors ? (
-                    <div style={{ display: "flex", gap: "16px" }}>
-                        <Button
-                            onClick={() => setRaspus(true)}
-                            theme={"aftersubmit"}
-                        >
-                            Распустить
-                        </Button>
-                        <Button
-                            onClick={() => navigate(`${router.groups}/${e.id}`)}
-                            theme={"aftersubmit"}
-                        >
-                            Подробнее
-                        </Button>
-                    </div>
-                ) : null}
-                {e.rating === "0/50" ? (
+                ) : e?.investors && e?.investors.length ? (
                     <div style={{ display: "flex", gap: "16px" }}>
                         <Button
                             onClick={() => setRemove(true)}
-                            theme={"danger"}
-                        >
-                            Удалить
-                        </Button>
-                        <Button
-                            onClick={() => navigate(`${router.groups}/${e.id}`)}
-                            theme={"aftersubmit"}
-                        >
-                            Подробнее
-                        </Button>
-                    </div>
-                ) : e.rating === "15/50" ? (
-                    <div style={{ display: "flex", gap: "16px" }}>
-                        <Button
-                            onClick={() => setRaspus(true)}
                             theme={"aftersubmit"}
                         >
                             Распустить
@@ -142,16 +111,9 @@ const TraiderGroup = ({ e }) => {
                             Подробнее
                         </Button>
                     </div>
-                ) : e.rating === "50/50" ? (
-                    <Button
-                        onClick={() => navigate(`${router.groups}/${e.id}`)}
-                        theme={"aftersubmit"}
-                    >
-                        Подробнее
-                    </Button>
                 ) : null}
-                {remove ? <RemoveGroup handleChange={handleGroup} /> : null}
 
+                {remove ? <RemoveGroup handleChange={handleGroup} /> : null}
                 {raspus ? <RaspustitModal handleChange={handleRaspus} /> : null}
             </CardInfo>
         )

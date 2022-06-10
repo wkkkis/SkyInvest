@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
+import { authActions } from "../../store/auth/auth.api";
 import {
     confirmClean,
     groupActions,
@@ -14,21 +15,23 @@ const MessageBox = ({ message, error }) => {
     const dispatch = useDispatch();
 
     const handleClick = () => {
-        if (message !== "Введите код Google authenticator") {
-            dispatch(groupActions.message(""));
-            dispatch(groupActions.complete(""));
-            dispatch(userActions.complete(""));
-            dispatch(userActions.message(""));
-        }
+        dispatch(groupActions.message(""));
+        dispatch(groupActions.complete(""));
+        dispatch(userActions.complete(""));
+        dispatch(userActions.message(""));
+        dispatch(authActions.complete(""));
+        dispatch(authActions.message(""));
     };
 
     useEffect(() => {
         setTimeout(() => {
-            if (message !== "Введите код Google authenticator") {
+            if (message[0][0] !== "Введите код Google authenticator") {
                 dispatch(groupActions.message(""));
                 dispatch(groupActions.complete(""));
                 dispatch(userActions.complete(""));
                 dispatch(userActions.message(""));
+                dispatch(authActions.complete(""));
+                dispatch(authActions.message(""));
             }
         }, 3000);
     }, []);

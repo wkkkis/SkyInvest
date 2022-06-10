@@ -54,6 +54,7 @@ import { getBanner, getFaq } from "../../../store/main/main.api";
 import { useDispatch, useSelector } from "react-redux";
 import ReactPaginate from "react-paginate";
 import { getAllGroups } from "../../../store/group/group.api";
+import SpinnerLoad from "../../../components/SpinnerLoad";
 
 const mockData = {
     trade: [
@@ -474,7 +475,7 @@ const Main = () => {
                     <div className="main__content__traider__content">
                         {mockData.trade.map((e, idx) => (
                             <CardInfo
-                                key={idx}
+                                key={idx + 1}
                                 className="content__card"
                                 name={e.name}
                                 email={e.email}
@@ -533,7 +534,7 @@ const Main = () => {
                                     <Button
                                         onClick={() =>
                                             !e.copy
-                                                ? setCopyTradeId(idx)
+                                                ? setCopyTradeId(idx + 1)
                                                 : setFreePlaceChange(idx)
                                         }
                                         theme={
@@ -583,34 +584,31 @@ const Main = () => {
                         </p>
                     </div>
                     <div className="main__content__groups__content">
-                        <Slider>
-                            <div className="groups-item">
-                                {mockData.mygroup.map((e, idx) => (
-                                    <InvestorGroup
-                                        className={
-                                            "main__content__groups__content__card"
-                                        }
-                                        key={idx}
-                                        e={e}
-                                        clean_group={true}
-                                        setgroupid={(e) => setGroupTradeId(e)}
-                                    />
-                                ))}
-                            </div>
-                            <div className="groups-item">
-                                {mockData.mygroup.map((e, idx) => (
-                                    <InvestorGroup
-                                        className={
-                                            "main__content__groups__content__card"
-                                        }
-                                        key={idx}
-                                        e={e}
-                                        clean_group={true}
-                                        setgroupid={(e) => setGroupTradeId(e)}
-                                    />
-                                ))}
-                            </div>
-                        </Slider>
+                        {groups ? (
+                            groups.length ? (
+                                <Slider min={1} max={3}>
+                                    {groups.map((e, idx) => (
+                                        <div className="groups-item">
+                                            <InvestorGroup
+                                                className={
+                                                    "main__content__groups__content__card"
+                                                }
+                                                key={idx}
+                                                e={e}
+                                                clean_group={true}
+                                                setgroupid={(e) =>
+                                                    setGroupTradeId(e)
+                                                }
+                                            />
+                                        </div>
+                                    ))}
+                                </Slider>
+                            ) : (
+                                "Нету открытых групп"
+                            )
+                        ) : (
+                            <SpinnerLoad />
+                        )}
                     </div>
                 </div>
 

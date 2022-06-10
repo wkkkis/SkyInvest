@@ -16,7 +16,6 @@ import { login } from "../../../store/auth/auth.api";
 
 const Login = () => {
     const dispatch = useDispatch();
-    const [error, setError] = useState(false);
     const [data, setData] = useState("");
     const [code, setCode] = useState("");
     const { messages, loaded } = useSelector((state) => state.auth);
@@ -33,32 +32,17 @@ const Login = () => {
             two_fa_otp: token,
         };
         dispatch(login(obj));
-        setError("");
     };
-
-    useEffect(() => {
-        if (messages) {
-            setError(true);
-        }
-    }, [messages]);
 
     return (
         <div className="main_auth">
-            {error && messages
-                ? Object.values(messages).map((e) => (
-                      <MessageBox
-                          message={e[0]}
-                          onChange={(e) => setError(e)}
-                          error={true}
-                      />
-                  ))
-                : null}
             <div className="main_auth__content">
                 <LoginForm fetchData={fetchLoginData} loaded={loaded} />
                 <img src={back} alt="" />
             </div>
-            {messages?.message &&
-                messages?.message[0] === "Введите код Google authenticator" && (
+            {messages?.message?.length &&
+                messages?.message[0][0] ===
+                    "Введите код Google authenticator" && (
                     <TwoFACode handleChange={handleOtp} />
                 )}
             <Footer />

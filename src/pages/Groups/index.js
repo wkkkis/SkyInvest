@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router";
 
 //Components
 import CardInfo from "@components/CardInfo";
@@ -68,6 +69,7 @@ const mockData = {
 
 const Groups = ({ title }) => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const [isOpen, setIsOpen] = useState(false);
     const { isTraider, user } = useSelector((state) => state.user);
     const { message, groups, complete } = useSelector((state) => state.group);
@@ -82,7 +84,13 @@ const Groups = ({ title }) => {
         }
     }, [user]);
 
-    return groups ? (
+    useEffect(() => {
+        if (complete) {
+            setIsOpen(false);
+        }
+    }, [complete]);
+
+    return (
         <div className="main">
             <div className="main__header">
                 <div className="main__header__title">
@@ -126,19 +134,38 @@ const Groups = ({ title }) => {
                     groups % 2 !== 0 ? "length_group" : ""
                 }`}
             >
-                {isTraider
-                    ? groups.map((e) => (
-                          <TraiderGroup
-                              e={e}
-                              className="main__group_content__card"
-                          />
-                      ))
-                    : groups.map((e) => (
-                          <InvestorGroup
-                              e={e}
-                              className="main__group_content__card"
-                          />
-                      ))}
+                {groups ? (
+                    groups.length ? (
+                        isTraider ? (
+                            groups.map((e) => (
+                                <TraiderGroup
+                                    e={e}
+                                    className="main__group_content__card"
+                                />
+                            ))
+                        ) : (
+                            groups.map((e) => (
+                                <InvestorGroup
+                                    e={e}
+                                    className="main__group_content__card"
+                                />
+                            ))
+                        )
+                    ) : isTraider ? (
+                        <></>
+                    ) : (
+                        <div className="main__group_content__investor_btn">
+                            <Button
+                                theme="aftersubmit"
+                                onClick={() => navigate(router.trade_group)}
+                            >
+                                Приступить
+                            </Button>
+                        </div>
+                    )
+                ) : (
+                    <SpinnerLoad />
+                )}
             </div>
             {isOpen ? (
                 <CreateGroupSidebar toggle={() => setIsOpen(!isOpen)} />
@@ -149,10 +176,6 @@ const Groups = ({ title }) => {
                   ))
                 : null}
             {complete ? <MessageBox message={complete} error={false} /> : null}
-        </div>
-    ) : (
-        <div className="main">
-            <SpinnerLoad />
         </div>
     );
 };

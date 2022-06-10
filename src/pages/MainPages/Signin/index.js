@@ -13,37 +13,26 @@ import back from "@assets/img/authbackground.jpg";
 import CompletedModal from "../../../components/Modals/CompletedModal";
 import MessageBox from "../../../components/MessageBox";
 import { regiter } from "../../../store/auth/auth.api";
+import router from "../../../utils/router";
 
 const Signin = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const [completed, setCompleted] = useState(false);
-    const [loaded, setLoaded] = useState(false);
     const [error, setError] = useState(false);
 
-    const { isAuth, messages } = useSelector((state) => state.user);
+    const { isAuth } = useSelector((state) => state.user);
+    const { loaded, complete, messages } = useSelector((state) => state.auth);
 
     useEffect(() => {
-        if (messages === "register_success") {
+        if (complete === "register_success") {
             setCompleted(true);
-            setLoaded(!loaded);
         }
-        if (isAuth) {
-            navigate("/");
-        }
-    }, [isAuth, messages, navigate, dispatch]);
+    }, [isAuth, messages, complete]);
 
     const signinhandler = (data) => {
-        setLoaded(true);
         dispatch(regiter(data));
     };
-
-    useEffect(() => {
-        if (messages) {
-            setLoaded(false);
-            setError(true);
-        }
-    }, [messages]);
 
     return (
         <div className="main_auth">
@@ -61,7 +50,12 @@ const Signin = () => {
                 <img src={back} alt="" />
             </div>
             {completed ? (
-                <CompletedModal handleChange={() => setCompleted(false)} />
+                <CompletedModal
+                    handleChange={() => {
+                        setCompleted(false);
+                        navigate(router.login);
+                    }}
+                />
             ) : null}
 
             <Footer />

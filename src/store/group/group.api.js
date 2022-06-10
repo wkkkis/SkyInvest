@@ -5,6 +5,7 @@ import { groupService } from "./group.service";
 
 let initialState = {
     groups: null,
+    mygroup: null,
     message: "",
     group: null,
     load: false,
@@ -197,6 +198,7 @@ export const createGroup = (data) => async (dispatch) => {
         const token = localStorage.getItem("token");
         let response = await groupService.createGroup(data, token);
         dispatch(groupActions.complete(response.data.message));
+        dispatch(getTraiderGroups());
     } catch (e) {
         dispatch(groupActions.message(e.response.data));
     }
@@ -210,6 +212,7 @@ export const deleteGroup = (id, data) => async (dispatch) => {
         const token = localStorage.getItem("token");
         let response = await groupService.deteleGroup(id, data, token);
         dispatch(groupActions.complete(response.data.message));
+        dispatch(getTraiderGroups());
     } catch (e) {
         dispatch(groupActions.message(e.response.data));
     }

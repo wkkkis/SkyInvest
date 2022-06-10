@@ -22,6 +22,7 @@ import {
 } from "../../../store/group/group.api";
 import SpinnerLoad from "../../../components/SpinnerLoad";
 import MessageBox from "../../../components/MessageBox";
+import { getBalance } from "../../../store/user/user.api";
 
 const TradeGroup = () => {
     const [groupId, setGroupId] = useState();
@@ -38,6 +39,13 @@ const TradeGroup = () => {
     useEffect(() => {
         dispatch(groupActions.message(""));
     }, []);
+
+    useEffect(() => {
+        if (message === "Вы успешно присоединились") {
+            setGroupId("");
+            dispatch(getBalance());
+        }
+    }, [message]);
 
     return (
         <div className="main trade_group">
@@ -61,13 +69,18 @@ const TradeGroup = () => {
 
             <div className="main__trade_group">
                 {groups ? (
-                    groups.map((e) => (
-                        <InvestorGroup
-                            e={e}
-                            setleavegroupid={(e) => setLeaveId(e)}
-                            setgroupid={(e) => setGroupId(e)}
-                        />
-                    ))
+                    groups.length ? (
+                        groups.map((e) => (
+                            <InvestorGroup
+                                className="main__trade_group"
+                                e={e}
+                                setleavegroupid={(e) => setLeaveId(e)}
+                                setgroupid={(e) => setGroupId(e)}
+                            />
+                        ))
+                    ) : (
+                        ""
+                    )
                 ) : (
                     <SpinnerLoad />
                 )}

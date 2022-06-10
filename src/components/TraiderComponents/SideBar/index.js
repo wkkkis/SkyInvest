@@ -190,6 +190,7 @@ const SidebarTraider = () => {
     const [logout, setLogout] = useState(false);
     const navigate = useNavigate();
     const { user } = useSelector((state) => state.user);
+    const { loaded } = useSelector((state) => state.auth);
 
     const handleChange = (toggle) => {
         if (toggle) {
@@ -256,7 +257,9 @@ const SidebarTraider = () => {
                     logo="https://cdn.dribbble.com/users/24078/screenshots/15522433/media/e92e58ec9d338a234945ae3d3ffd5be3.jpg?compress=1&resize=400x300"
                 />
             ) : null}
-            {logout ? <LogoutModal handleChange={handleChange} /> : null}
+            {logout ? (
+                <LogoutModal handleChange={handleChange} load={loaded} />
+            ) : null}
         </div>
     );
 };

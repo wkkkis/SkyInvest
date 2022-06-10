@@ -103,7 +103,7 @@ const LoginForm = ({ fetchData, error, loaded }) => {
                     <span className="form__error">{showPasswordError()}</span>
                 )}
                 {error ? <span className="form__error">{error}</span> : null}
-                <div className="form__confirm">
+                {/* <div className="form__confirm">
                     <Checkbox
                         onClick={handleCheckbox}
                         id="register_confirm"
@@ -112,7 +112,7 @@ const LoginForm = ({ fetchData, error, loaded }) => {
                         {...register("confirm")}
                     />
                     <Link to={router.reset_password}>Забыл пароль</Link>
-                </div>
+                </div> */}
 
                 <Button
                     className="form__button"

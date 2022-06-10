@@ -111,7 +111,7 @@ const Group = () => {
                         />
                     ) : null}
                 </div>
-                {/* <div className="history_page__filter__select">
+                <div className="history_page__filter__select">
                     <label>Статус</label>
                     <Select
                         defaultOption={select}
@@ -122,7 +122,7 @@ const Group = () => {
                         <li>Не успешно</li>
                         <li>Ожидание</li>
                     </Select>
-                </div> */}
+                </div>
             </div>
             <div className="history_page__messages_info">
                 <div className="history_page__messages_info__title opacity f12">

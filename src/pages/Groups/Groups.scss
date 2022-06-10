@@ -38,6 +38,19 @@
         flex-wrap: wrap;
         gap: 16px;
 
+        &__investor_btn {
+            width: 100%;
+            height: 100%;
+            
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            .button {
+                width: auto;
+            }
+        }
+
         &__card {
             width: 40%;
             flex-grow: 1;

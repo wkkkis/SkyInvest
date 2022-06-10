@@ -38,6 +38,7 @@ import Page404 from "@pages/404";
 import router from "@utils/router";
 import Traider from "../pages/Traider";
 import Verify from "../pages/Verify";
+import User from "../pages/User";
 
 export const allRoutes = {
     investor: [
@@ -46,6 +47,12 @@ export const allRoutes = {
             component: MyCopy,
             layout: "investor",
             title: "Мои копирования",
+        },
+        {
+            url: router.verify,
+            component: Verify,
+            layout: "investor",
+            title: "Верификация",
         },
         {
             url: router.investor_page,
@@ -189,5 +196,13 @@ export const allRoutes = {
             layout: "auth",
             title: "Обновление пароля",
         },
+        {
+            url: router.user,
+            component: User,
+            layout: "main",
+            title: "Пользователь",
+        },
     ],
 };
+
+// user

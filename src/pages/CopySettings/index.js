@@ -113,7 +113,7 @@ const CopySettings = () => {
                         <span>Список людей</span>
                     </div>
                     <div className="main__copysettings_content__user_list__content">
-                        {Array.from({ length: 120 }).map((e) => (
+                        {Array.from({ length: 20 }).map((e) => (
                             <div className="main__copysettings_content__user_list__content__item">
                                 <UserInfoBlock
                                     name="User Name"

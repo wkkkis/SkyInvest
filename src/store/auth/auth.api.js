@@ -3,6 +3,7 @@ import authService from "./auth.service";
 
 let initialState = {
     messages: null,
+    complete: null,
     isAuth: false,
     loaded: false,
 };
@@ -13,6 +14,11 @@ const authReducer = (state = initialState, action) => {
             return {
                 ...state,
                 messages: action.payload,
+            };
+        case "SET_CONFIRM":
+            return {
+                ...state,
+                complete: action.payload,
             };
         case "SET_IS_AUTH":
             return {
@@ -39,6 +45,7 @@ export const authActions = {
         payload: toggle,
     }),
     message: (message) => ({ type: "SET_MESSAGE", payload: message }),
+    complete: (message) => ({ type: "SET_CONFIRM", payload: message }),
 };
 
 export const login = (data) => async (dispatch) => {
@@ -65,7 +72,9 @@ export const activation = (data) => async (dispatch) => {
     dispatch(authActions.setLoad(true));
     try {
         let response = await authService.activation(data);
-        dispatch(authActions.message(response.data.message));
+        if (response.status === 204) {
+            dispatch(authActions.complete("complete_activation"));
+        }
     } catch (e) {
         if (e.response.data.message) {
             dispatch(
@@ -83,7 +92,9 @@ export const regiter = (data) => async (dispatch) => {
     dispatch(authActions.setLoad(true));
     try {
         let response = await authService.register(data);
-        dispatch(authActions.message(response.data.message));
+        if (response.status === 201) {
+            dispatch(authActions.complete("register_success"));
+        }
     } catch (e) {
         dispatch(authActions.setLoad(false));
         if (e.response.data.message) {
@@ -103,9 +114,11 @@ export const logOut = () => async (dispatch) => {
     try {
         const token = localStorage.getItem("token");
         let response = await authService.logout(token);
-        localStorage.removeItem("token");
-        dispatch(userActions.resetUser());
-        dispatch(authActions.setIsAuth(false));
+        if (response) {
+            localStorage.removeItem("token");
+            dispatch(userActions.resetUser());
+            dispatch(authActions.setIsAuth(false));
+        }
     } catch (e) {
         dispatch(authActions.setLoad(false));
         if (e.response.data.message) {

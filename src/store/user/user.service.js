@@ -81,12 +81,52 @@ const trader_apply = async (token, userData) => {
     return res;
 };
 
-const verification = async (userData, token) => {
-    const res = await instance.post(`${USER_URL}verification/`, userData, {
+const imageVerification = async (userData, token) => {
+    const res = await instance.post(`${USER_URL}upload_image/`, userData, {
         headers: {
             "Content-Type": "multipart/form-data",
             Authorization: `Token ${token}`,
         },
+    });
+
+    return res;
+};
+
+const verification = async (userData, token) => {
+    const res = await instance.post(`${USER_URL}verification/`, userData, {
+        headers: {
+            Authorization: `Token ${token}`,
+        },
+    });
+
+    return res;
+};
+
+const getVerificationStatus = async (token) => {
+    const res = await instance.get(`${USER_URL}verification/`, {
+        headers: {
+            Authorization: `Token ${token}`,
+        },
+    });
+
+    return res;
+};
+
+const getBalance = async (token) => {
+    const res = await instance.get(`${USER_URL}balance/`, {
+        headers: {
+            Authorization: `Token ${token}`,
+        },
+    });
+
+    return res;
+};
+
+const getAnyUser = async (id) => {
+    const res = await instance.get(`${USER_URL}trader/${id}/trader_info/`, {
+        // headers: {
+        //     Authorization: `Token ${id}`,
+        // },
     });
 
     return res;
@@ -146,11 +186,15 @@ const userService = {
     paymentVisa,
     trader_apply,
     login,
+    getBalance,
     reset_password,
+    getAnyUser,
     confirm_password,
     activation,
     verification,
     getTraiderGroup,
+    imageVerification,
+    getVerificationStatus,
 };
 
 export default userService;

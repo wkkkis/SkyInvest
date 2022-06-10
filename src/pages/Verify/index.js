@@ -18,7 +18,12 @@ import "./Verify.scss";
 import { useForm } from "react-hook-form";
 import { Calendar } from "react-calendar";
 import FileUpload from "../../components/FileUpload";
-import { verification } from "../../store/user/user.api";
+import {
+    getVerificationStatus,
+    imageVerification,
+    verification,
+    verificationFetch,
+} from "../../store/user/user.api";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import router from "../../utils/router";
@@ -26,7 +31,6 @@ import router from "../../utils/router";
 const Verify = () => {
     const [dateTwoShow, setDateTwoShow] = useState(false);
     const [dateOne, setDateOne] = useState(null);
-    const [loaded, setLoaded] = useState(false);
     const [select, setSelect] = useState("Кыргызстан");
     const [filePerson, setFilePerson] = useState(null);
     const [locationPerson, setLocationPerson] = useState(null);
@@ -39,7 +43,9 @@ const Verify = () => {
     const [address, setAddress] = useState("");
     const [city, setCity] = useState("");
 
-    const { isTraider } = useSelector((state) => state.user);
+    const { isTraider, loaded, verification } = useSelector(
+        (state) => state.user
+    );
 
     const [errors, setErrors] = useState({
         name: "",
@@ -72,6 +78,25 @@ const Verify = () => {
         }
     });
 
+    useEffect(() => {
+        dispatch(getVerificationStatus());
+    }, []);
+
+    useEffect(() => {
+        if (
+            verification.status === "on_consideration" ||
+            verification.status === "accepted"
+        ) {
+            setName(verification.first_name);
+            setLastName(verification.last_name);
+            setPasportNum(verification.passport_number);
+            setInn(verification.inn);
+            setCity(verification.city);
+            setAddress(verification.address);
+            setDateOne(verification.birth_day);
+        }
+    }, [verification]);
+
     const showError = (name, valid = "", msg = "") => {
         setErrors((prev) => {
             return {
@@ -84,7 +109,6 @@ const Verify = () => {
 
     const onSubmitHandler = async (e) => {
         e.preventDefault();
-        setLoaded(true);
         let validate = 0;
         Object.entries(errors).forEach((e) => {
             if (e[1] !== "true") {
@@ -109,12 +133,11 @@ const Verify = () => {
             }
         });
 
-        if (validate === 9) {
+        if (validate >= 9) {
             const filePersons = new FormData();
-            filePersons.append("image", filePerson);
-            const fileLocation = new FormData();
-            fileLocation.append("image", locationPerson);
-            console.log(filePersons, fileLocation);
+            [filePerson, locationPerson].forEach((e) => {
+                filePersons.append("image", e);
+            });
 
             const obj = {
                 first_name: name,
@@ -125,23 +148,12 @@ const Verify = () => {
                 country: select,
                 city: city,
                 address: address,
-                // images: [
-                //     {
-                //         image: filePerson,
-                //     },
-                //     {
-                //         image: locationPerson,
-                //     },
-                // ],
             };
 
-            dispatch(verification(obj));
+            dispatch(verificationFetch(obj));
+            dispatch(imageVerification(filePersons));
         }
-
-        setLoaded(false);
     };
-
-    console.log(filePerson);
 
     return (
         <div className="main">
@@ -171,8 +183,23 @@ const Verify = () => {
 
                     <span>Верификация</span>
                 </div>
+                <div
+                    className={`main__header__info_verify ${
+                        verification && verification.status
+                    }`}
+                >
+                    {verification.status === "on_consideration" ? (
+                        <span>ОЖИДАНИЕ</span>
+                    ) : verification.status === "refused" ? (
+                        <span>ОТКЛОНЕНА</span>
+                    ) : verification.status === "accepted" ? (
+                        <span>ВЕРИФИЦИРОВАН</span>
+                    ) : null}
+                </div>
             </div>
-            <div className="main__verify_content">
+            <div
+                className={`main__verify_content ${verification.status}__block`}
+            >
                 <div className="main__verify_content__title">
                     <svg
                         width="26"
@@ -217,6 +244,7 @@ const Verify = () => {
                     <div className="main__verify_content__data__fio">
                         <Field
                             label="Имя"
+                            value={name}
                             onChange={(e) => {
                                 showError("name", e.target.value);
                                 setName(e.target.value);
@@ -225,6 +253,7 @@ const Verify = () => {
                         />
                         <Field
                             label="Фамилия"
+                            value={lastName}
                             onChange={(e) => {
                                 showError("lastname", e.target.value);
                                 setLastName(e.target.value);
@@ -269,6 +298,7 @@ const Verify = () => {
                     <div className="main__verify_content__data__card_num">
                         <Field
                             label="Номер паспорта"
+                            value={pasportNum}
                             onChange={(e) => {
                                 showError("passnum", e.target.value);
                                 setPasportNum(e.target.value);
@@ -279,6 +309,7 @@ const Verify = () => {
                         />
                         <Field
                             label="ИНН"
+                            value={inn}
                             onChange={(e) => {
                                 showError("inn", e.target.value);
                                 setInn(e.target.value);
@@ -311,6 +342,7 @@ const Verify = () => {
                         </div>
                         <Field
                             label="Город"
+                            value={city}
                             onChange={(e) => {
                                 showError("city", e.target.value);
                                 setCity(e.target.value);
@@ -319,6 +351,7 @@ const Verify = () => {
                         />
                         <Field
                             label="Адрес"
+                            value={address}
                             onChange={(e) => {
                                 showError("address", e.target.value);
                                 setAddress(e.target.value);

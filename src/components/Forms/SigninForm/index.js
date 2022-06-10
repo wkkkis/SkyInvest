@@ -21,6 +21,7 @@ import Checkbox from "../../Checkbox";
 import { useValidator } from "../../../hooks/useValidator";
 import Radio from "../../Radio";
 import { useSelector } from "react-redux";
+import AgreeModal from "../../Modals/AgreeModal";
 
 const SigninForm = ({ fetchData }) => {
     const navigate = useNavigate();
@@ -30,8 +31,9 @@ const SigninForm = ({ fetchData }) => {
     const [firstName, setFirstName] = useState("");
     const [secondName, setSecondName] = useState("");
     const [confirm, setConfirm] = useState(false);
-    const [role, setRole] = useState(true);
+    const [role, setRole] = useState(false);
     const [phone, setPhone] = useState("+7");
+    const [agree, setAgree] = useState(false);
     const {
         setError,
         errorData: { fields, error },
@@ -82,16 +84,20 @@ const SigninForm = ({ fetchData }) => {
             return;
         }
 
-        const body = {
-            email,
-            password,
-            first_name: firstName,
-            last_name: secondName,
-            phone_number: phone,
-            is_traider: role,
-        };
+        if (!confirm) {
+            setAgree(true);
+        } else {
+            const body = {
+                email,
+                password,
+                first_name: firstName,
+                last_name: secondName,
+                phone_number: phone,
+                is_trader: role,
+            };
 
-        fetchData(body);
+            fetchData(body);
+        }
     };
 
     return (
@@ -109,16 +115,16 @@ const SigninForm = ({ fetchData }) => {
                     <Radio
                         id="traider_radio"
                         group="role_change"
-                        label="Трейдер"
-                        checked={role}
-                        onClick={() => handleRole(true)}
+                        label="Инвестор"
+                        checked={!role}
+                        onClick={() => handleRole(false)}
                     />
                     <Radio
                         id="investor_radio"
                         group="role_change"
-                        label="Инвестор"
-                        checked={!role}
-                        onClick={() => handleRole(false)}
+                        label="Трейдер"
+                        checked={role}
+                        onClick={() => handleRole(true)}
                     />
                 </div>
                 <Field
@@ -215,6 +221,14 @@ const SigninForm = ({ fetchData }) => {
                     <img src={key} alt="key" />
                     {loaded ? <SpinnerLoad /> : "ЗАРЕГИСТРИРОВАТЬСЯ"}
                 </Button>
+                {agree && (
+                    <AgreeModal
+                        handleChange={() => {
+                            setConfirm(true);
+                            setAgree(false);
+                        }}
+                    />
+                )}
             </form>
         </div>
     );

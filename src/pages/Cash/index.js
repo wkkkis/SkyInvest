@@ -40,6 +40,10 @@ const Cash = () => {
     }, [message]);
 
     const cashFetch = (data) => {
+        setData({
+            sum: data.sum,
+            card_number: data.card_number,
+        });
         const obj = {
             amount: data.sum,
             address: data.card_number,
@@ -86,8 +90,9 @@ const Cash = () => {
                   ))
                 : null}
             {complete ? <MessageBox message={complete} error={false} /> : null}
-            {message?.message &&
-                message?.message[0] === "Введите код Google authenticator" && (
+            {message?.message?.length &&
+                message?.message[0][0] ===
+                    "Введите код Google authenticator" && (
                     <TwoFACode handleChange={handleOtp} />
                 )}
         </div>

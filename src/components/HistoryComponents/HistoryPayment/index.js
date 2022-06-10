@@ -54,7 +54,13 @@ const Payment = () => {
 
     useEffect(() => {
         if (history && history.payments) {
-            setData([...history.payments, ...history.tether_payments]);
+            setData(
+                [...history.payments, ...history.tether_payments].sort(
+                    function (a, b) {
+                        return new Date(b.created) - new Date(a.created);
+                    }
+                )
+            );
         }
     }, [history]);
 

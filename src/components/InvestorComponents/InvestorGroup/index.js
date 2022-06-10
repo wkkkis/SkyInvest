@@ -18,12 +18,12 @@ const InvestorGroup = ({ e, clean_group, setgroupid, className }) => {
     const [leaveToggle, setLeaveToggle] = useState(false);
 
     const handleClick = () => {
-        navigate(`${router.groups}/${e.id}`);
+        navigate(`${router.profile}/${e?.trader}`);
     };
 
     const leave = (toggle) => {
         if (e.status_for_user && toggle) {
-            dispatch(leaveFromGroup(e.id));
+            dispatch(leaveFromGroup(e?.id));
         }
     };
 
