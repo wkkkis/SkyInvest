@@ -24,6 +24,7 @@ import RemoveOtpModal from "../../components/Modals/RemoveOtp";
 import TwoFACode from "../../components/Modals/TwoFACode";
 import { Link } from "react-router-dom";
 import router from "../../utils/router";
+import MessageBox from "../../components/MessageBox";
 
 const Security = () => {
     const [tab, setTab] = useState(1);
@@ -135,17 +136,6 @@ const Security = () => {
                     />
                 ) : null}
             </div>
-            <div className="form__error">
-                {messages === "delete_2fa"
-                    ? "Ошибка с отключением двухфакторной аунтификации"
-                    : messages === "info_error"
-                    ? "Ошибка с получением данных о двухфакторной аунтификации"
-                    : messages === "verify_2fa"
-                    ? "Ошибка с подтвержением двухфакторной аунтификации"
-                    : messages === "update_2fa"
-                    ? "Ошибка с редактированием двухфакторной аунтификации"
-                    : null}
-            </div>
             {otp_cancel && (
                 <RemoveOtpModal
                     handleChange={(e) => {
@@ -165,6 +155,11 @@ const Security = () => {
                     }}
                 />
             )}
+            {messages
+                ? Object.values(messages).map((e) => (
+                      <MessageBox message={e[0]} error={true} />
+                  ))
+                : null}
         </div>
     ) : (
         <div className="main">

@@ -166,6 +166,16 @@ const editUser = async (data, token) => {
     return res;
 };
 
+const changePassword = async (data, token) => {
+    const res = await instance.patch(`${USER_URL}change_password/`, data, {
+        headers: {
+            Authorization: `Token ${token}`,
+        },
+    });
+
+    return res;
+};
+
 const getTraiderGroup = async (token) => {
     const res = await instance.get(`${TRAID_URL}trade_group/`, {
         headers: {
@@ -189,6 +199,7 @@ const userService = {
     getBalance,
     reset_password,
     getAnyUser,
+    changePassword,
     confirm_password,
     activation,
     verification,

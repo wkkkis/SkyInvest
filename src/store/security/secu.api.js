@@ -6,6 +6,7 @@ let initialState = {
     auth: false,
     pay: false,
     messages: "",
+    complete: "",
 };
 
 const secuReducer = (state = initialState, action) => {

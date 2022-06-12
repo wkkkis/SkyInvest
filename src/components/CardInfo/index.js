@@ -12,7 +12,7 @@ const CardInfo = ({
     name,
     email,
     rating,
-    result,
+    result = "",
     logo,
     className,
     onClick,
@@ -47,9 +47,11 @@ const CardInfo = ({
                             <img src={userlogo} alt="userlogo" />
                             <span>{rating}</span>
                         </div>
-                        <div className="cardinfo__header__rating">
-                            <span>+ {result} %</span>
-                        </div>
+                        {result && (
+                            <div className="cardinfo__header__rating">
+                                <span>+ {result} %</span>
+                            </div>
+                        )}
                     </div>
                 ) : null}
             </div>

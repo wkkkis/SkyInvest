@@ -118,6 +118,10 @@ const Field = ({
                 <div className="field__money">
                     <span>USDT</span>
                 </div>
+            ) : type === "usd" ? (
+                <div className="field__money">
+                    <span>USD</span>
+                </div>
             ) : null}
         </div>
     );

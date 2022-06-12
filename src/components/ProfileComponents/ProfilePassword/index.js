@@ -11,26 +11,28 @@ import Button from "@components/Button";
 import SpinnerLoad from "@components/SpinnerLoad";
 import Select from "@components/Select";
 import UserInfoBlock from "@components/UI/UserInfoBlock";
+import { useDispatch, useSelector } from "react-redux";
+import { changePassword } from "../../../store/user/user.api";
 
 const ProfilePassword = () => {
-    const [loaded, setLoaded] = useState(true);
+    const dispatch = useDispatch();
     const {
         register,
         handleSubmit,
         formState: { errors },
         setValue,
+        reset,
     } = useForm();
+
+    const { loaded } = useSelector((state) => state.user);
 
     const onChangeHandler = (ev) => {
         setValue(ev.currentTarget.name, ev.currentTarget.value);
     };
 
     const onSubmitHandler = async (data) => {
-        setLoaded(false);
-
-        console.log(data);
-
-        setLoaded(true);
+        dispatch(changePassword(data));
+        reset();
     };
 
     const showFioError = () => {
@@ -119,14 +121,14 @@ const ProfilePassword = () => {
                     <div className="main__content__form__phone">
                         <Field
                             label="Повторите новый пароль"
-                            {...register("return_new_password", {
+                            {...register("new_password2", {
                                 required: true,
                                 minLength: 2,
                                 maxLength: 50,
                             })}
                             onChange={onChangeHandler}
                         />
-                        {errors.return_new_password && (
+                        {errors.new_password2 && (
                             <span className="form__error">
                                 {showPhoneError()}
                             </span>
@@ -136,6 +138,7 @@ const ProfilePassword = () => {
                         type="submit"
                         className="googleauth_edit__button"
                         theme="beforesubmit"
+                        disabled={loaded}
                     >
                         <svg
                             width="14"

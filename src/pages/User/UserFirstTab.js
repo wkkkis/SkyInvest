@@ -261,7 +261,7 @@ const UserFirstTab = () => {
                         data.length ? (
                             data.map((e) => (
                                 <InvestorGroup
-                                    className="main__trade_group"
+                                    className="open_group_item"
                                     e={e}
                                     setleavegroupid={(e) => setLeaveId(e)}
                                     setgroupid={(e) => setGroupId(e)}
@@ -279,7 +279,7 @@ const UserFirstTab = () => {
                 <div className="user_tab__open_groups__title">
                     <span>ЗАКРЫТЫЕ ГРУППЫ</span>
                 </div>
-                <div className="user_tab__open_groups__filters">
+                <div className="user_tab__close_groups__filters">
                     <div className="select_cont">
                         <span>Показать за время</span>
                         <Select defaultOption="Поледние 24 часа">

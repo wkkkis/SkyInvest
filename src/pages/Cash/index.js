@@ -29,14 +29,17 @@ const Cash = () => {
             address: data.card_number,
             two_fa_otp: token,
         };
+        setError(false);
         dispatch(cashUsd(obj));
         setError("");
     };
 
     useEffect(() => {
-        if (message) {
-            setError(true);
-        }
+        Object.values(message).forEach((e) => {
+            if (e[0] === "Введите код Google authenticator") {
+                setError(true);
+            }
+        });
     }, [message]);
 
     const cashFetch = (data) => {
@@ -84,17 +87,13 @@ const Cash = () => {
             <div className="main__cash_content">
                 <CashForm fetchData={cashFetch} loaded={loaded} />
             </div>
-            {error && message
+            {message
                 ? Object.values(message).map((e) => (
-                      <MessageBox message={e[0]} error={true} />
+                      <MessageBox message={e} error={true} />
                   ))
                 : null}
             {complete ? <MessageBox message={complete} error={false} /> : null}
-            {message?.message?.length &&
-                message?.message[0][0] ===
-                    "Введите код Google authenticator" && (
-                    <TwoFACode handleChange={handleOtp} />
-                )}
+            {error && <TwoFACode handleChange={handleOtp} />}
         </div>
     );
 };

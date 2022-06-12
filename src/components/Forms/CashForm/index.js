@@ -79,7 +79,7 @@ const CashForm = ({ fetchData, loaded }) => {
                 <div className="form__cash_fields">
                     <Field
                         label="Сумма вывода"
-                        type="money"
+                        type="usd"
                         {...register("sum", {
                             required: true,
                             minLength: 2,

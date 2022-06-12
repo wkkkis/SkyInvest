@@ -109,6 +109,110 @@
                         }
                     }
 
+                    &__btns {
+                        display: flex;
+                        gap: 16px;
+
+                        .button {
+                            width: 10%;
+                            transition: all 0.5s ease;
+                        }
+
+                        .active { 
+                            border: 2px solid #9E68F8;
+                            transition: all 0.5s ease;
+                        }
+
+                        .noactive {
+                            color: #8B8B8B;
+                            transition: all 0.5s ease;
+                        }
+                    }
+
+                    &__table {
+                        width: 100%;
+
+                        font-size: 14px;
+
+                        .green {
+                            color: #2CC067;
+                        }
+
+                        .yellow {
+                            color: #C3AC2F;
+                        }
+                        
+                        .red_text {
+                            color: #C02C2C;
+
+                            span {
+                                font-weight: 700;
+                            }
+                        }
+
+                        .marga {
+                            font-weight: 700;
+                        }
+
+                        .simbol {
+                            display: flex;
+                            align-items: center;
+                            justify-content: space-between;
+
+                            border-left: 2px solid #2CC067;
+                            
+                            span {
+                                font-size: 14px;
+                                font-weight: 700;
+                            }
+
+                            icon {
+                                padding: 3px;
+                                background-color: #FFDD2A;
+                                border-radius: 6px;
+
+                                color: white;
+
+                                font-size: 12px;
+                            }
+                        }
+
+                        p {
+                            font-size: 12px;
+                            font-weight: 400;
+                        }
+
+                        table {
+                            width: 100%;
+                            border-collapse: collapse;
+
+                            tr {
+                                border-bottom: 1px solid #ccc;
+                            }
+
+                            thead {
+                                font-weight: 400;
+
+                                th {
+                                    opacity: 0.5;
+                                    font-weight: 400;
+                                }
+                            }
+
+                            th, td {
+                                text-align: left;
+                                padding: 12px;
+
+                                color: #575757;
+                            }
+                        }
+                    }
+
+                    &__paginate {
+                        display: flex;
+                        justify-content: center;
+                    }
+
                     &__results {
                         display: flex;
                         justify-content: space-between;
@@ -331,12 +435,12 @@
                         }
 
                         &__content {
-                            display: flex;
-                            flex-wrap: wrap;
-                            gap: 16px;
+                            display: grid;
+                            grid-template-columns: repeat(3, minmax(200px, 1fr));
+                            grid-gap: 16px;
 
                             .cardinfo  {
-                                width: 30%;
+                                width: 100%;
                                 flex-grow: 1;
 
                                 &__title {
@@ -364,6 +468,175 @@
                             }
                         }
                     }
+
+                    &__mobile_table {
+                        display: flex;
+                        flex-direction: column;
+                        gap: 16px;
+    
+                        &__card {
+                            width: 100%;
+
+                            color: #575757;
+
+                            padding: 16px;
+                            box-sizing: border-box;
+    
+                            display: flex;
+                            flex-direction: column;
+                            gap: 16px;
+    
+                            border-radius: 8px;
+                            background: #FBFBFB;
+                            border: 1px solid #EDF1F3;
+
+                            .green {
+                                color: #2CC067;
+                            }
+    
+                            .yellow {
+                                color: #C3AC2F;
+                            }
+                            
+                            .red_text {
+                                color: #C02C2C;
+    
+                                span {
+                                    font-weight: 700;
+                                }
+                            }
+    
+                            .marga {
+                                font-weight: 700;
+                            }
+
+                            &__line {
+                                display: flex;
+                                justify-content: space-between;
+                                align-items: center;
+
+                                .line {
+                                    font-size: 14px;
+
+                                    &__title {
+
+                                    }
+
+                                    &__desc {
+                                        display: flex;
+                                        gap: 8px;
+                                    }
+                                }
+
+                                .simbol {
+                                        
+                                    span {
+                                        font-weight: 700;
+                                    }
+
+                                    icon {
+                                        padding: 3px;
+                                        box-sizing: border-box;
+                                        border-radius: 6px;
+                                        background: #FFDD2A;
+
+                                        color: white;
+
+                                        font-size: 12px;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 930px) {
+    
+    .main {
+
+        &__user_content {
+
+            &__profit {
+                width: 100%;
+                flex-wrap: wrap;
+                
+                .infoblock {
+                    width: 40%;
+                    flex-grow: 1;
+                }
+            }
+
+            .user_tab {
+                
+                &__results {
+                    flex-direction: column;
+                    gap: 16px;
+
+                    width: 100%;
+
+                    &__profit {
+                        width: 100%;
+                        flex-wrap: wrap;
+                        
+                        .infoblock {
+                            width: 40%;
+                            flex-grow: 1;
+                        }
+                    }
+
+                    &__filter {
+                        width: 100%;
+    
+                        .select {
+                            width: 100%;
+                        }
+                    }
+                }
+
+                &__chart_result {
+                    flex-direction: column;
+
+                    &__block {
+                        width: 100%;
+
+                        &:last-child {
+                            width: 100%;
+                        }
+                    }
+                }
+
+                &__close_groups, &__open_groups {
+
+                    &__content {
+                        grid-template-columns: repeat(2, minmax(200px, 1fr));
+                    }
+                }
+
+                &__close_groups {
+
+                    &__filters {
+                        flex-wrap: wrap;
+
+                        .infoblock {
+                            width: 40%;
+                            flex-grow: 1;
+                        }
+                    }
+                }
+
+                &__btns {
+                    
+                    .button {
+                        width: 100%;
+                    }
+                }
+
+                &__table {
+                    display: none;
                 }
             }
         }

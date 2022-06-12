@@ -190,4 +190,17 @@ export const editUser = (data) => async (dispatch) => {
     dispatch(userActions.setLoad(false));
 };
 
+export const changePassword = (data) => async (dispatch) => {
+    dispatch(userActions.message(""));
+    dispatch(userActions.setLoad(true));
+    try {
+        const token = localStorage.getItem("token");
+        let response = await userService.changePassword(data, token);
+        dispatch(userActions.complete(response.data.message));
+    } catch (e) {
+        dispatch(userActions.message(e.response.data));
+    }
+    dispatch(userActions.setLoad(false));
+};
+
 export default userReducer;

@@ -8,14 +8,16 @@
 .main {
 
     &__trade_group {
-        display: flex;
-        flex-wrap: wrap;
-        flex-direction: column;
-        gap: 16px;
+        display: grid;
+        grid-template-columns: repeat(3, minmax(200px, 1fr));
+        grid-gap: 16px;
 
         .cardinfo  {
-            width: 30%;
+            width: 100%;
             flex-grow: 1;
+
+            display: flex;
+            flex-direction: column;
 
             &__title {
                 font-weight: 700;
@@ -43,29 +45,22 @@
     }
 }
 
-@media screen and (max-width: 680px) {
-    
-    .main {
-
-        &__trade_group {
-            flex-direction: column;
-            
-            .cardinfo {
-                width: 100% !important;
-            }
-        }
-    }
-}
-
 @media screen and (max-width: 980px) {
     
     .main {
 
         &__trade_group {
-            
-            .cardinfo {
-                width: 40%;
-            }
+            grid-template-columns: repeat(2, minmax(200px, 1fr));
+        }
+    }
+}
+
+@media screen and (max-width: 680px) {
+    
+    .main {
+
+        &__trade_group {
+            grid-template-columns: repeat(1, minmax(200px, 1fr));
         }
     }
 }

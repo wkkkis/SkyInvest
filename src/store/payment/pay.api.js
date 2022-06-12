@@ -91,13 +91,7 @@ export const cashUsd = (data) => async (dispatch) => {
         dispatch(payActions.complete(response.data.message));
         dispatch(me());
     } catch (e) {
-        if (e.response.data.message) {
-            dispatch(
-                payActions.message({ message: [e.response.data.message] })
-            );
-        } else {
-            dispatch(payActions.message(e.response.data));
-        }
+        dispatch(payActions.message(e.response.data));
     }
     dispatch(payActions.setLoad(false));
 };
@@ -123,13 +117,7 @@ export const ustdConfirm = () => async (dispatch) => {
         let response = await payService.usdtForConfirm(token);
         dispatch(payActions.setConfirm(response.data.message));
     } catch (e) {
-        if (e.response.data.message) {
-            dispatch(
-                payActions.message({ message: [e.response.data.message] })
-            );
-        } else {
-            dispatch(payActions.message(e.response.data));
-        }
+        dispatch(payActions.message(e.response.data));
     }
     dispatch(payActions.setLoad(false));
 };
@@ -142,13 +130,7 @@ export const ustdDeposit = (data) => async (dispatch) => {
         let response = await payService.usdtForDeposit(data, token);
         dispatch(payActions.setUsdtKey(response.data));
     } catch (e) {
-        if (e.response.data.message) {
-            dispatch(
-                payActions.message({ message: [e.response.data.message] })
-            );
-        } else {
-            dispatch(payActions.message(e.response.data));
-        }
+        dispatch(payActions.message(e.response.data));
     }
     dispatch(payActions.setLoad(false));
 };

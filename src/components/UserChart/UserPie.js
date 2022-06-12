@@ -13,7 +13,7 @@ const UserPie = () => {
 
     return (
         <div>
-            <ResponsiveContainer width="100%" aspect={1.3}>
+            <ResponsiveContainer width="100%" aspect={1}>
                 <PieChart width="100%" data={data}>
                     <Pie
                         data={data}
