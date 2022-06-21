@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 //Components
 import CardInfo from "@components/CardInfo";
@@ -61,6 +61,17 @@ const mockData = {
     ],
 };
 
+const Pare = ({ id }) => {
+    const [check, setCheck] = useState(false);
+
+    return (
+        <Button theme="aftersubmit" onClick={() => setCheck(!check)}>
+            <CryptoPick />
+            <Checkbox id={id} group={"copystting"} checked={check} />
+        </Button>
+    );
+};
+
 const CopySettings = () => {
     const { isTraider } = useSelector((state) => state.user);
 
@@ -101,10 +112,7 @@ const CopySettings = () => {
 
                     <div className="main__copysettings_content__setting__pare">
                         {[1, 2, 3, 4].map((e) => (
-                            <Button key={e} theme="aftersubmit">
-                                <CryptoPick />
-                                <Checkbox id={e} group={"copystting"} />
-                            </Button>
+                            <Pare id={e} key={e} />
                         ))}
                     </div>
                 </div>

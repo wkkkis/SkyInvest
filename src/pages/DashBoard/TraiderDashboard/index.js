@@ -52,6 +52,8 @@ const TraiderDashBoard = React.memo(() => {
         }
     }, [user]);
 
+    console.log(groups);
+
     return user ? (
         <div className="main">
             <div className="main__header">
@@ -174,20 +176,21 @@ const TraiderDashBoard = React.memo(() => {
                     />
                 </div>
                 {groups && groups?.length ? (
-                    <div className="main__dashboard_content__mycopy">
-                        <div className="main__dashboard_content__mycopy__title">
-                            <span>Последние группы</span>
+                    <>
+                        <div className="main__dashboard_content__mycopy">
+                            <div className="main__dashboard_content__mycopy__title">
+                                <span>Последние группы</span>
+                            </div>
+                            <div className="main__dashboard_content__mycopy__content">
+                                {groups.length
+                                    ? groups.map((e) => <TraiderGroup e={e} />)
+                                    : null}
+                            </div>
                         </div>
-                        <div className="main__dashboard_content__mycopy__content">
-                            {groups.length === 1
-                                ? [groups[0]].map((e) => <TraiderGroup e={e} />)
-                                : groups.length > 2
-                                ? [groups[0], groups[1]].map((e) => (
-                                      <TraiderGroup e={e} />
-                                  ))
-                                : null}
+                        <div className="main__dashboard_content__btns">
+                            <Button theme="aftersubmit">Показать еще</Button>
                         </div>
-                    </div>
+                    </>
                 ) : null}
             </div>
         </div>

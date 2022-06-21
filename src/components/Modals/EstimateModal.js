@@ -27,7 +27,7 @@ const EstimateModal = ({ handleChange, info }) => {
     const [toggle, setToggle] = useState(0);
 
     const hadnleClick = (toggle) => {
-        handleChange(toggle);
+        handleChange(Array.from(Array(toggle + 1).keys()));
     };
 
     return (

@@ -9,7 +9,8 @@ let initialState = {
     complete: "",
     balance: 0,
     verification: "",
-    profile: "",
+    profile: null,
+    profile_tabs: null,
 };
 
 const userReducer = (state = initialState, action) => {
@@ -55,6 +56,11 @@ const userReducer = (state = initialState, action) => {
                 ...state,
                 loaded: action.payload,
             };
+        case "SET_PROFILE_TABS":
+            return {
+                ...state,
+                profile_tabs: action.payload,
+            };
         default:
             return state;
     }
@@ -67,6 +73,10 @@ export const userActions = {
     }),
     setAnyUser: (data) => ({
         type: "SET_PROFILE",
+        payload: data,
+    }),
+    setProfileTabs: (data) => ({
+        type: "SET_PROFILE_TABS",
         payload: data,
     }),
     resetUser: () => ({
@@ -125,6 +135,17 @@ export const getBalance = () => async (dispatch) => {
 };
 
 export const getProfileInfo = (id) => async (dispatch) => {
+    dispatch(userActions.setLoad(true));
+    try {
+        let response = await userService.getAnyUser(id);
+        dispatch(userActions.setAnyUser(response.data));
+    } catch (e) {
+        dispatch(userActions.message(e.response.data));
+    }
+    dispatch(userActions.setLoad(false));
+};
+
+export const getProfileStatistik = (id) => async (dispatch) => {
     dispatch(userActions.setLoad(true));
     try {
         let response = await userService.getAnyUser(id);
@@ -196,6 +217,19 @@ export const changePassword = (data) => async (dispatch) => {
     try {
         const token = localStorage.getItem("token");
         let response = await userService.changePassword(data, token);
+        dispatch(userActions.complete(response.data.message));
+    } catch (e) {
+        dispatch(userActions.message(e.response.data));
+    }
+    dispatch(userActions.setLoad(false));
+};
+
+export const changeRate = (id, data) => async (dispatch) => {
+    dispatch(userActions.message(""));
+    dispatch(userActions.setLoad(true));
+    try {
+        const token = localStorage.getItem("token");
+        let response = await userService.changeRate(id, data, token);
         dispatch(userActions.complete(response.data.message));
     } catch (e) {
         dispatch(userActions.message(e.response.data));

@@ -74,7 +74,6 @@ const InsideGroupModal = ({ handleChange, info }) => {
                             logo="https://cdn.dribbble.com/users/24078/screenshots/15522433/media/e92e58ec9d338a234945ae3d3ffd5be3.jpg?compress=1&resize=400x300"
                         />
                         <div className="modal__block__line"></div>
-                        <span className="w700 f12">Пары:</span>
                         <span className="w400 f12">120 дней</span>
                         <ProgressBar
                             completed={
@@ -82,8 +81,8 @@ const InsideGroupModal = ({ handleChange, info }) => {
                             }
                             from={group.amount_collected}
                             to={group.need_sum}
-                            start="2019-06-11T00:00"
-                            end="2019-06-11T00:00"
+                            start={group.start_date}
+                            end={group.end_date}
                         />
                         <span className="w700 f12">ВАША СУММА ВСТУПЛЕНИЯ</span>
                         <RangeSlider

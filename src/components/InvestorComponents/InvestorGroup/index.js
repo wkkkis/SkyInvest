@@ -36,14 +36,10 @@ const InvestorGroup = ({ e, clean_group, setgroupid, className }) => {
             onClick={handleClick}
             logo="https://cdn.dribbble.com/users/24078/screenshots/15522433/media/e92e58ec9d338a234945ae3d3ffd5be3.jpg?compress=1&resize=400x300"
         >
-            <div className="main__group_content__card__title">
+            <div className={`${className}__title`}>
                 <span>{e.title}</span>
             </div>
-            <div
-                className={`main__group_content__card__desc ${
-                    readMore && "active"
-                }`}
-            >
+            <div className={`${className}__desc ${readMore && "active"}`}>
                 <p>{e.description}</p>
             </div>
             {e?.description?.split("").length > 100 ? (
@@ -51,7 +47,7 @@ const InvestorGroup = ({ e, clean_group, setgroupid, className }) => {
                     ПОКАЗАТЬ ВСЕ
                 </Button>
             ) : null}
-            <div className="main__group_content__card__linebar">
+            <div className={`${className}__linebar`}>
                 <ProgressBar
                     completed={(e.amount_collected / e.need_sum) * 100}
                     from={e.amount_collected}

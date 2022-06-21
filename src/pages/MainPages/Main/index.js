@@ -11,32 +11,20 @@ import tradeIcon from "@assets/img/tradeIcon.svg";
 import arrowTop from "@assets/img/arrowTop.svg";
 import usdtIcon from "@assets/img/usdt.svg";
 import premium from "@assets/img/premium.svg";
-import groups from "@assets/img/groupsMain.svg";
-import product from "@assets/img/product.svg";
-import security from "@assets/img/securityMain.svg";
-import help from "@assets/img/helpMain.svg";
-import lider from "@assets/img/liderMain.svg";
+import groupsLogo from "@assets/img/groupsMain.svg";
+import product from "@assets/img/unicy.png";
+import security from "@assets/img/security.png";
+import help from "@assets/img/helpproduct.png";
+import lider from "@assets/img/lider.png";
 import control from "@assets/img/control.svg";
 import reliability from "@assets/img/reliability.svg";
-import faq from "@assets/img/faq.svg";
+import faqLogo from "@assets/img/faq.svg";
 
 //Components
 import Button from "@components/Button";
 import CardInfo from "@components/CardInfo";
 import InfoBlock from "@components/UI/InfoBlock";
 import CryptoPick from "@components/CryptoPick";
-import ProgressBar from "@components/ProgressBar";
-import {
-    EditPhone,
-    ForgotPassword,
-    Logout,
-    NoCodeMessage,
-    NoEmailPhone,
-    Signin,
-    Signup,
-    TwoFactor,
-    VerifyPerson,
-} from "@components/FaqComponents";
 import Footer from "@components/Footer";
 import CopyTradeModal from "@components/Modals/CopyTradeModal";
 import FreePlaceModal from "@components/Modals/FreePlaceModal";
@@ -46,7 +34,6 @@ import "./Main.scss";
 import { useNavigate } from "react-router";
 import router from "../../../utils/router";
 import Slider from "../../../components/Slider";
-import useSlider from "../../../hooks/useSlider";
 import YouTube from "react-youtube";
 import InsideGroupModal from "../../../components/Modals/InsideGroupModal";
 import InvestorGroup from "../../../components/InvestorComponents/InvestorGroup";
@@ -69,41 +56,6 @@ const mockData = {
             name: "User Name",
             email: "username@mail.com",
             rating: "50/50",
-            copy: false,
-            price: 300,
-        },
-        {
-            name: "User Name",
-            email: "username@mail.com",
-            rating: "50/50",
-            copy: false,
-            price: 300,
-        },
-        {
-            name: "User Name",
-            email: "username@mail.com",
-            rating: "50/50",
-            copy: false,
-            price: 300,
-        },
-        {
-            name: "User Name",
-            email: "username@mail.com",
-            rating: "50/50",
-            copy: false,
-            price: 300,
-        },
-        {
-            name: "User Name",
-            email: "username@mail.com",
-            rating: "50/50",
-            copy: false,
-            price: 300,
-        },
-        {
-            name: "User Name",
-            email: "username@mail.com",
-            rating: "50/50",
             copy: true,
             price: 300,
         },
@@ -113,156 +65,6 @@ const mockData = {
             rating: "50/50",
             copy: true,
             price: 300,
-        },
-        {
-            name: "User Name",
-            email: "username@mail.com",
-            rating: "50/50",
-            copy: true,
-            price: 300,
-        },
-    ],
-    mygroup: [
-        {
-            first_name: "User",
-            last_name: "Name",
-            email: "username@mail.com",
-            description: "HIHIONBONONIOBIPNI HU JNL",
-            rating: "50/50",
-            amount_collected: "100",
-            need_sum: "700",
-            started: "open",
-            status_for_user: false,
-            status: "recruited",
-        },
-        {
-            first_name: "User",
-            last_name: "Name",
-            email: "username@mail.com",
-            description: "HIHIONBONONIOBIPNI HU JNL",
-            rating: "50/50",
-            amount_collected: "100",
-            need_sum: "700",
-            started: "open",
-            status_for_user: false,
-            status: "recruited",
-        },
-        {
-            first_name: "User",
-            last_name: "Name",
-            email: "username@mail.com",
-            description: "HIHIONBONONIOBIPNI HU JNL",
-            rating: "50/50",
-            amount_collected: "100",
-            need_sum: "700",
-            started: "open",
-            status_for_user: false,
-            status: "recruited",
-        },
-    ],
-    premium: [
-        {
-            img: product,
-            title: "Уникальный продукт",
-        },
-        {
-            img: security,
-            title: "Безопасность",
-        },
-        {
-            img: help,
-            title: "Клиентская поддержка",
-        },
-        {
-            img: lider,
-            title: "Лидеры на рынке деривативов",
-        },
-        {
-            img: control,
-            title: "Регулирование",
-        },
-        {
-            img: reliability,
-            title: "Надёжность",
-        },
-    ],
-};
-
-const mockFaq = {
-    faqLinks: [
-        {
-            tab: 1,
-            title: "Как войти в учетную запись?",
-        },
-        {
-            tab: 2,
-            title: "Как зарегистрироваться?",
-        },
-        {
-            tab: 3,
-            title: "Нет доступа к номеру мобильного телефона или email?",
-        },
-        {
-            tab: 4,
-            title: "Как привязать или изменить номер мобильного телефона?",
-        },
-        {
-            tab: 5,
-            title: "Как пройти верификации личности?",
-        },
-        {
-            tab: 6,
-            title: "Как включить двухфакторную верификацию?",
-        },
-        {
-            tab: 7,
-            title: "Не приходит код подтверждения или другие уведомления?",
-        },
-        {
-            tab: 8,
-            title: "Забыли пароль для входа?",
-        },
-        {
-            tab: 9,
-            title: "Как выйти из учётной записи?",
-        },
-    ],
-    faq_blocks: [
-        {
-            tab: 1,
-            block: <Signin />,
-        },
-        {
-            tab: 2,
-            block: <Signup />,
-        },
-        {
-            tab: 3,
-            block: <NoEmailPhone />,
-        },
-        {
-            tab: 4,
-            block: <EditPhone />,
-        },
-        {
-            tab: 5,
-            block: <VerifyPerson />,
-        },
-        {
-            tab: 6,
-            block: <TwoFactor />,
-        },
-        {
-            tab: 7,
-            block: <NoCodeMessage />,
-        },
-        {
-            tab: 8,
-            block: <ForgotPassword />,
-        },
-        {
-            tab: 9,
-            block: <Logout />,
         },
     ],
 };
@@ -273,6 +75,8 @@ const Main = () => {
     const [groupTradeId, setGroupTradeId] = useState();
     const [copyTradeId, setCopyTradeId] = useState();
     const [freePlaceChange, setFreePlaceChange] = useState();
+    const [faqQues, setFaqQues] = useState();
+    const [faqAnswer, setFaqAnswer] = useState();
 
     const dispatch = useDispatch();
     const { bunner, faq } = useSelector((state) => state.main);
@@ -303,10 +107,31 @@ const Main = () => {
         setItemOffset(newOffset);
     };
 
+    useEffect(() => {
+        const ques = [];
+        const ans = [];
+        if (faq) {
+            faq?.forEach((e) => {
+                ques.push({
+                    id: e.id,
+                    value: e.question,
+                    label: e.answer,
+                });
+                ans.push({
+                    id: e.id,
+                    value: e.answer,
+                });
+            });
+
+            setFaqQues(ques);
+            setFaqAnswer(ans);
+        }
+    }, [faq]);
+
     return (
         <div className="main main_page">
             <Slider>
-                <div className="main__intro">
+                <div className="main__intro" key="10">
                     <div className="intro-item">
                         <div className="main__intro__welcome">
                             <span>Добро пожаловать в</span>
@@ -340,7 +165,7 @@ const Main = () => {
                         </div>
                     </div>
                 </div>
-                <div className="main__intro">
+                <div className="main__intro" key="15">
                     <div className="intro-item">
                         <div className="main__intro__welcome">
                             <span>Добро пожаловать в</span>
@@ -379,7 +204,9 @@ const Main = () => {
             <div className="main__content">
                 <div className="main__content__instruct">
                     <div className="main__title">
-                        <img src={instructTitle} alt="instruct" />
+                        <div className="main__title__logo">
+                            <img src={instructTitle} alt="instruct" />
+                        </div>
                         <div className="main__title__text">
                             <p>Можно начать</p>
                             <span>с инструкции </span>
@@ -457,7 +284,9 @@ const Main = () => {
 
                 <div className="main__content__traider">
                     <div className="main__title">
-                        <img src={tradeIcon} alt="instruct" />
+                        <div className="main__title__logo">
+                            <img src={tradeIcon} alt="instruct" />
+                        </div>
                         <div className="main__title__text">
                             <p>Список ТОП трейдеров</p>
                             <span>этой недели </span>
@@ -568,7 +397,9 @@ const Main = () => {
 
                 <div className="main__content__groups">
                     <div className="main__title">
-                        <img src={groups} alt="instruct" />
+                        <div className="main__title__logo">
+                            <img src={groupsLogo} alt="instruct" />
+                        </div>
                         <div className="main__title__text">
                             <p>У нас есть</p>
                             <span>открытые группы </span>
@@ -586,23 +417,21 @@ const Main = () => {
                     <div className="main__content__groups__content">
                         {groups ? (
                             groups.length ? (
-                                <Slider min={1} max={3}>
-                                    {groups.map((e, idx) => (
-                                        <div className="groups-item">
-                                            <InvestorGroup
-                                                className={
-                                                    "main__content__groups__content__card"
-                                                }
-                                                key={idx}
-                                                e={e}
-                                                clean_group={true}
-                                                setgroupid={(e) =>
-                                                    setGroupTradeId(e)
-                                                }
-                                            />
-                                        </div>
-                                    ))}
-                                </Slider>
+                                groups.map((e, idx) => (
+                                    <div className="groups-item" key={idx + 1}>
+                                        <InvestorGroup
+                                            className={
+                                                "main__content__groups__content__card"
+                                            }
+                                            key={idx}
+                                            e={e}
+                                            clean_group={true}
+                                            setgroupid={(e) =>
+                                                setGroupTradeId(e)
+                                            }
+                                        />
+                                    </div>
+                                ))
                             ) : (
                                 "Нету открытых групп"
                             )
@@ -610,11 +439,24 @@ const Main = () => {
                             <SpinnerLoad />
                         )}
                     </div>
+                    <div className="main__content__traider__content__pagination">
+                        <ReactPaginate
+                            className="react-paginate"
+                            breakLabel="..."
+                            nextLabel=">"
+                            onPageChange={handlePageClick}
+                            pageRangeDisplayed={5}
+                            pageCount={5}
+                            previousLabel="<"
+                            renderOnZeroPageCount={null}
+                        />
+                    </div>
                 </div>
-
                 <div className="main__content__premium">
                     <div className="main__title">
-                        <img src={premium} alt="instruct" />
+                        <div className="main__title__logo">
+                            <img src={premium} alt="instruct" />
+                        </div>
                         <div className="main__title__text">
                             <p>Какие у нас</p>
                             <span>преимущества </span>
@@ -635,28 +477,80 @@ const Main = () => {
                         </p>
                     </div>
                     <div className="main__content__premium__content">
-                        {mockData.premium.map((e) => (
-                            <div
-                                key={e.title}
-                                className="main__content__premium__content__card"
-                            >
-                                <img src={e.img} alt={e.title} />
-                                <span>{e.title}</span>
-                                <p>
-                                    Копитрейдинг в один клик объединяющий более
-                                    10 тыс. трейдеров Единый контракт позволяет
-                                    размещать сделки без дополнительной
-                                    конвертации Единственные на рынке
-                                    поддерживаем USDC в качестве маржи.
-                                </p>
-                            </div>
-                        ))}
+                        <div className="main__content__premium__content__card">
+                            <img src={product} alt={"product"} />
+                            <span>Уникальный продукт</span>
+                            <p>
+                                Копитрейдинг в один клик объединяющий более 10
+                                тыс. трейдеров Единый контракт позволяет
+                                размещать сделки без дополнительной конвертации
+                                Единственные на рынке поддерживаем USDC в
+                                качестве маржи.
+                            </p>
+                        </div>
+                        <div className="main__content__premium__content__card">
+                            <img src={security} alt={"security"} />
+                            <span>Безопасность</span>
+                            <p>
+                                Копитрейдинг в один клик объединяющий более 10
+                                тыс. трейдеров Единый контракт позволяет
+                                размещать сделки без дополнительной конвертации
+                                Единственные на рынке поддерживаем USDC в
+                                качестве маржи.
+                            </p>
+                        </div>
+                        <div className="main__content__premium__content__card">
+                            <img src={help} alt={"help"} />
+                            <span>Клиентская поддержка</span>
+                            <p>
+                                Копитрейдинг в один клик объединяющий более 10
+                                тыс. трейдеров Единый контракт позволяет
+                                размещать сделки без дополнительной конвертации
+                                Единственные на рынке поддерживаем USDC в
+                                качестве маржи.
+                            </p>
+                        </div>
+                        <div className="main__content__premium__content__card">
+                            <img src={lider} alt={"lider"} />
+                            <span>Лидеры на рынке деривативов</span>
+                            <p>
+                                Копитрейдинг в один клик объединяющий более 10
+                                тыс. трейдеров Единый контракт позволяет
+                                размещать сделки без дополнительной конвертации
+                                Единственные на рынке поддерживаем USDC в
+                                качестве маржи.
+                            </p>
+                        </div>
+                        <div className="main__content__premium__content__card">
+                            <img src={control} alt={"control"} />
+                            <span>Лидеры на рынке деривативов</span>
+                            <p>
+                                Копитрейдинг в один клик объединяющий более 10
+                                тыс. трейдеров Единый контракт позволяет
+                                размещать сделки без дополнительной конвертации
+                                Единственные на рынке поддерживаем USDC в
+                                качестве маржи.
+                            </p>
+                        </div>
+                        <div className="main__content__premium__content__card">
+                            <img src={reliability} alt={"reliability"} />
+                            <span>Надёжность</span>
+                            <p>
+                                Копитрейдинг в один клик объединяющий более 10
+                                тыс. трейдеров Единый контракт позволяет
+                                размещать сделки без дополнительной конвертации
+                                Единственные на рынке поддерживаем USDC в
+                                качестве маржи.
+                            </p>
+                        </div>
                     </div>
                 </div>
 
                 <div className="main__content__faq">
                     <div className="main__title">
-                        <img src={faq} alt="instruct" />
+                        <div className="main__title__logo">
+                            <img src={faqLogo} alt="instruct" />
+                        </div>
                         <div className="main__title__text">
                             <p>Самые часто задаваемые</p>
                             <span>вопросы и ответы </span>
@@ -675,52 +569,55 @@ const Main = () => {
                     </div>
                     <div className="main__content__faq__content">
                         <div className="main__content__faq__content__links">
-                            {mockFaq.faqLinks.map((e) => (
-                                <div
-                                    key={e.tab}
-                                    className={`faq_btn_block ${
-                                        faqTab === e.tab ? "active" : ""
-                                    }`}
-                                >
-                                    <Button
-                                        theme={
-                                            faqTab === e.tab
-                                                ? "beforesubmit"
-                                                : "usually"
-                                        }
-                                        onClick={() => toggleFaqTab(e.tab)}
+                            {faqQues &&
+                                faqQues.map((e, idx) => (
+                                    <div
+                                        key={e.id}
+                                        className={`faq_btn_block ${
+                                            faqTab === e.id ? "active" : ""
+                                        }`}
                                     >
-                                        {e.title}
-
-                                        <svg
-                                            width="12"
-                                            height="7"
-                                            viewBox="0 0 12 7"
-                                            fill="none"
-                                            xmlns="http://www.w3.org/2000/svg"
-                                        >
-                                            <path
-                                                d="M11.3125 1.375L6.34375 5.875C6.15625 6.0625 5.875 6.0625 5.6875 5.875L0.65625 1.375C0.4375 1.1875 0.4375 0.875 0.625 0.6875C0.8125 0.46875 1.125 0.46875 1.3125 0.65625L6 4.84375L10.6562 0.65625C10.8438 0.46875 11.1562 0.46875 11.3438 0.6875C11.5312 0.875 11.5312 1.1875 11.3125 1.375Z"
-                                                fill="black"
-                                            />
-                                        </svg>
-                                    </Button>
-                                    <div className="faq_block_main">
-                                        {mockFaq.faq_blocks.map((e) => {
-                                            if (e.tab === faqTab) {
-                                                return e.block;
+                                        <Button
+                                            theme={
+                                                faqTab === e.id
+                                                    ? "beforesubmit"
+                                                    : "usually"
                                             }
-                                        })}
+                                            onClick={() => toggleFaqTab(e.id)}
+                                        >
+                                            {e.value}
+
+                                            <svg
+                                                width="12"
+                                                height="7"
+                                                viewBox="0 0 12 7"
+                                                fill="none"
+                                                xmlns="http://www.w3.org/2000/svg"
+                                            >
+                                                <path
+                                                    d="M11.3125 1.375L6.34375 5.875C6.15625 6.0625 5.875 6.0625 5.6875 5.875L0.65625 1.375C0.4375 1.1875 0.4375 0.875 0.625 0.6875C0.8125 0.46875 1.125 0.46875 1.3125 0.65625L6 4.84375L10.6562 0.65625C10.8438 0.46875 11.1562 0.46875 11.3438 0.6875C11.5312 0.875 11.5312 1.1875 11.3125 1.375Z"
+                                                    fill="black"
+                                                />
+                                            </svg>
+                                        </Button>
+                                        <div className="faq_block_main">
+                                            {faqAnswer.map((e) => {
+                                                if (e.id === faqTab) {
+                                                    return e.value;
+                                                }
+                                            })}
+                                            {e?.label}
+                                        </div>
                                     </div>
-                                </div>
-                            ))}
+                                ))}
                         </div>
                         <div className="main__content__faq__content__block">
-                            {mockFaq.faq_blocks.map((e) => {
-                                if (e.tab === faqTab) {
-                                    return e.block;
-                                }
-                            })}
+                            {faqAnswer &&
+                                faqAnswer.map((e) => {
+                                    if (e.id === faqTab) {
+                                        return e.value;
+                                    }
+                                })}
                         </div>
                     </div>
                 </div>

@@ -136,7 +136,7 @@ const InvestorDashBoard = React.memo(() => {
                     <LineChart />
                 </div>
                 <div className="main__dashboard_content__mycopy">
-                    {/* <div className="main__dashboard_content__mycopy__title">
+                    <div className="main__dashboard_content__mycopy__title">
                         <span>Последние копирования</span>
                     </div>
                     <div className="main__dashboard_content__mycopy__content">
@@ -195,7 +195,10 @@ const InvestorDashBoard = React.memo(() => {
                                 <Button theme="aftersubmit">Отписаться</Button>
                             </CardInfo>
                         ))}
-                    </div> */}
+                    </div>
+                </div>
+                <div className="main__dashboard_content__btns">
+                    <Button theme="aftersubmit">Показать еще</Button>
                 </div>
             </div>
         </div>

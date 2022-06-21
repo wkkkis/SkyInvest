@@ -8,7 +8,7 @@
         }
     }
 
-    &__group_create {
+    &__groups_create {
         display: flex;
         justify-content: center;
 
@@ -19,24 +19,12 @@
         }
     }
 
-    .length_group {
-            
-        .main__group_content__card {
-
-            &:last-child {
-                width: calc(50% - 8px);
-                flex-grow: 0;
-            }
-        }
-    }
- 
-    &__group_content {
-
+    &__groups_content {
         width: 100%;
 
-        display: flex;
-        flex-wrap: wrap;
-        gap: 16px;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(200px, 1fr));
+        grid-gap: 16px;
 
         &__investor_btn {
             width: 100%;
@@ -52,8 +40,7 @@
         }
 
         &__card {
-            width: 40%;
-            flex-grow: 1;
+            width: 100%;
 
             &__content {
                 display: flex;
@@ -90,16 +77,22 @@
     }
 }
 
-@media screen and (max-width: 650px) {
+@media screen and (max-width: 980px) {
     
     .main {
 
-        &__group_content {
-            flex-direction: column;
+        &__groups_content {
+            grid-template-columns: repeat(2, minmax(200px, 1fr));
+        }
+    }
+}
 
-            &__card {
-                width: 100%;
-            }
+@media screen and (max-width: 680px) {
+    
+    .main {
+
+        &__groups_content {
+            grid-template-columns: repeat(1, minmax(200px, 1fr));
         }
     }
 }

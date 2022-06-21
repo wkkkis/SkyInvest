@@ -72,9 +72,7 @@ export const activation = (data) => async (dispatch) => {
     dispatch(authActions.setLoad(true));
     try {
         let response = await authService.activation(data);
-        if (response.status === 204) {
-            dispatch(authActions.complete("complete_activation"));
-        }
+        dispatch(authActions.complete("complete_activation"));
     } catch (e) {
         if (e.response.data.message) {
             dispatch(

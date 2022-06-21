@@ -36,6 +36,14 @@ const Payment = () => {
     document.addEventListener("click", (e) => {
         if (e.target.localName !== "input") {
             if (
+                e.path[0].className.includes(
+                    "react-calendar__month-view__days__day"
+                )
+            ) {
+                setDateOneShow(false);
+                setDateTwoShow(false);
+            }
+            if (
                 e.path[1].className.includes("react-calendar") ||
                 e.path[3].className.includes("react-calendar") ||
                 e.path[4].className.includes("react-calendar")
@@ -112,7 +120,7 @@ const Payment = () => {
                         onFocus={setDateTwoToggle}
                         value={
                             dateTwo
-                                ? new Date(dateOne).toLocaleDateString()
+                                ? new Date(dateTwo).toLocaleDateString()
                                 : ""
                         }
                     />
@@ -132,7 +140,7 @@ const Payment = () => {
                     >
                         <li>Все</li>
                         <li>Успешно</li>
-                        <li>Не успешно</li>
+                        <li>Неуспешно</li>
                         <li>Ожидание</li>
                     </Select>
                 </div>

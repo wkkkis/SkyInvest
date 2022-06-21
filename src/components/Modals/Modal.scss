@@ -59,10 +59,19 @@
         &__pare {
             display: flex;
             gap: 16px;
+
+            .beforesubmit {
+                border: 1px solid #537aee00;
+            }
+
+            .aftersubmit {
+                border: 1px dashed #CDCDCF;
+            }
             
             .button {
                 display: flex;
                 align-items: center;
+                justify-content: center;
                 gap: 5px;
 
                 padding: 5px;
@@ -139,7 +148,9 @@
         
         &__profit {
             padding: 0;
-            background: transparent;
+            background: transparent !important;
+            border: none !important;
+            padding: 0 !important;
 
             border: none;
 
@@ -148,6 +159,7 @@
                 
                 .infoblock {
                     background: transparent;
+                    text-align: center;
                 }
             }
         }
@@ -155,7 +167,7 @@
         &__confirm {
             display: flex;
             align-items: center;
-            justify-content: space-between;
+            gap: 5px;
         }
 
         .load {

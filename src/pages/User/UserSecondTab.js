@@ -1,11 +1,15 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import Button from "@components/Button";
 import ReactPaginate from "react-paginate";
+import { useDispatch } from "react-redux";
+import { getOpenTrades } from "../../store/group/group.api";
 
-const UserSecondTab = () => {
+const UserSecondTab = ({ id }) => {
     const [itemOffset, setItemOffset] = useState(0);
     const [filter, setFilter] = useState("days");
+
+    const dispatch = useDispatch();
 
     const handlePageClick = (event) => {
         const newOffset = event.selected;
@@ -14,6 +18,10 @@ const UserSecondTab = () => {
         );
         setItemOffset(newOffset);
     };
+
+    useEffect(() => {
+        dispatch(getOpenTrades(id));
+    }, []);
 
     return (
         <div className="user_tab">
@@ -83,7 +91,7 @@ const UserSecondTab = () => {
                     <tbody>
                         {Array.from({ length: 18 }).map((e) => (
                             <tr>
-                                <td className="simbol">
+                                <td className="simbol green_left_border">
                                     <div>
                                         <span>GMTUSDT</span>
                                         <p>Бессрочный</p>

@@ -12,8 +12,9 @@ import back from "@assets/img/authbackground.jpg";
 //Functions
 import CompletedModal from "../../../components/Modals/CompletedModal";
 import MessageBox from "../../../components/MessageBox";
-import { regiter } from "../../../store/auth/auth.api";
+import { authActions, regiter } from "../../../store/auth/auth.api";
 import router from "../../../utils/router";
+import { groupActions } from "../../../store/group/group.api";
 
 const Signin = () => {
     const navigate = useNavigate();
@@ -33,6 +34,12 @@ const Signin = () => {
     const signinhandler = (data) => {
         dispatch(regiter(data));
     };
+
+    useEffect(() => {
+        dispatch(groupActions.message(""));
+        dispatch(authActions.message(""));
+        dispatch(authActions.complete(""));
+    }, []);
 
     return (
         <div className="main_auth">

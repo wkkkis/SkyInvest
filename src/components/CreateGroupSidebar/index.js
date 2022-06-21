@@ -15,6 +15,7 @@ import { createGroup } from "../../store/group/group.api";
 import BinanceActivation from "../Modals/BinanceActivation";
 import { binanceApiActive } from "../../store/user/user.api";
 import SpinnerLoad from "../SpinnerLoad";
+import MessageBox from "../MessageBox";
 
 const CreateGroupSidebar = ({ isOpen, toggle }) => {
     const dispatch = useDispatch();
@@ -35,12 +36,12 @@ const CreateGroupSidebar = ({ isOpen, toggle }) => {
     } = useForm();
 
     useEffect(() => {
-        if (
-            message?.detail ===
-            "You do not have permission to perform this action."
-        ) {
-            set_active_binance(true);
-        }
+        message?.message?.forEach((e) => {
+            if (e === "Необходимо указать binance api ключи") {
+                set_active_binance(true);
+            }
+        });
+
         if (complete === "Вы успешно стали трейдером") {
             set_active_binance(false);
         }
@@ -82,14 +83,22 @@ const CreateGroupSidebar = ({ isOpen, toggle }) => {
     document.addEventListener("click", (e) => {
         if (e.target.localName !== "input") {
             if (
+                e.path[0].className.includes(
+                    "react-calendar__month-view__days__day"
+                )
+            ) {
+                setDateTwoShow(false);
+                setDateOneShow(false);
+            }
+            if (
                 e.path[1].className.includes("react-calendar") ||
                 e.path[3].className.includes("react-calendar") ||
                 e.path[4].className.includes("react-calendar")
             ) {
                 return;
             } else {
-                setDateOneShow(false);
                 setDateTwoShow(false);
+                setDateOneShow(false);
             }
         }
     });
@@ -184,7 +193,7 @@ const CreateGroupSidebar = ({ isOpen, toggle }) => {
                             label="Минимальная сумма входа"
                             {...register("min_entry_sum", {
                                 required: true,
-                                minLength: 3,
+                                minLength: 2,
                                 maxLength: 5,
                             })}
                             type="money"
@@ -195,7 +204,7 @@ const CreateGroupSidebar = ({ isOpen, toggle }) => {
                             label="Максимальная сумма входа"
                             {...register("max_entry_sum", {
                                 required: true,
-                                minLength: 1,
+                                minLength: 2,
                                 maxLength: 5,
                             })}
                             type="money"
@@ -266,6 +275,9 @@ const CreateGroupSidebar = ({ isOpen, toggle }) => {
                 {active_binance && (
                     <BinanceActivation handleChange={binanceActivation} />
                 )}
+                {complete ? (
+                    <MessageBox message={complete} error={false} />
+                ) : null}
             </div>
         </div>
     );

@@ -17,7 +17,24 @@
 
                 .cardinfo {
                     width: 100%;
+                    
+                    &__content {
+                        display: flex;
+                        flex-direction: column;
+                        gap: 16px;
+                    }
                 }
+            }
+        }
+
+        &__btns {
+            display: flex;
+            justify-content: center;
+
+            .button {
+                width: auto !important;
+                border-color: #6C767B;
+                color: #6C767B;
             }
         }
     }

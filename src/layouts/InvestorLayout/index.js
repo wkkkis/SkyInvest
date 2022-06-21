@@ -32,36 +32,6 @@ const InvestorLayout = ({ children, ...props }) => {
         rename(props.title);
     }, [document.title]);
 
-    const clickOnBack = () => {
-        if (document.body.offsetWidth <= 1115) {
-            document.addEventListener("click", (e) => {
-                if (e.target.classList[0] === "main__header__title__back") {
-                    if (user) {
-                        if (isTraider) {
-                            navigate(router.traider_page);
-                        } else {
-                            navigate(router.investor_page);
-                        }
-                    }
-                }
-            });
-        } else if (location.pathname) {
-            if (location.pathname === router.investor_page) {
-                navigate(router.dashboard);
-            } else if (location.pathname === router.traider_page) {
-                navigate(router.dashboard);
-            }
-        }
-    };
-
-    useEffect(() => {
-        clickOnBack();
-    }, [location.search]);
-
-    useEffect(() => {
-        clickOnBack();
-    }, []);
-
     return (
         <div className="investorlayout">
             <Header />

@@ -67,6 +67,13 @@ const Verify = () => {
     document.addEventListener("click", (e) => {
         if (e.target.localName !== "input") {
             if (
+                e.path[0].className.includes(
+                    "react-calendar__month-view__days__day"
+                )
+            ) {
+                setDateTwoShow(false);
+            }
+            if (
                 e.path[1].className.includes("react-calendar") ||
                 e.path[3].className.includes("react-calendar") ||
                 e.path[4].className.includes("react-calendar")

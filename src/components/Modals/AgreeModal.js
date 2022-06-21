@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 
 //Components
 import Button from "@components/Button";
@@ -7,7 +7,7 @@ import Checkbox from "../Checkbox";
 //Styles
 import "./Modal.scss";
 
-const AgreeModal = ({ handleChange }) => {
+const AgreeModal = React.memo(({ handleChange }) => {
     const [check, setCheck] = useState(false);
     const hadnleClick = (toggle) => {
         handleChange(toggle);
@@ -28,9 +28,10 @@ const AgreeModal = ({ handleChange }) => {
                 <div className="modal__block__confirm">
                     <Checkbox
                         checked={check}
-                        onClick={() => setCheck(!check)}
-                        id="register_confirm"
-                        group="register_confirm"
+                        // onClick={() => setCheck(!check)}
+                        onChange={(e) => setCheck(e.target.checked)}
+                        id="register_confirm_agree"
+                        group="register_confirm_agree"
                         label={`Я принимаю условия`}
                     />
                     <a href="#">соглашения</a>
@@ -48,6 +49,6 @@ const AgreeModal = ({ handleChange }) => {
             </div>
         </div>
     );
-};
+});
 
 export default AgreeModal;

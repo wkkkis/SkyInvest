@@ -3,9 +3,9 @@ import React from "react";
 //Styles
 import "./SpinnerLoad.scss";
 
-const SpinnerLoad = () => {
+const SpinnerLoad = ({ isLayout = false }) => {
     return (
-        <div className="load">
+        <div className={`load ${isLayout ? "forlayout" : ""}`}>
             <div className="load__spinner"></div>
         </div>
     );

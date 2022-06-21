@@ -8,14 +8,16 @@ import { usePageTitle } from "@hooks/useTitle";
 
 //Style
 import "./AuthLayout.scss";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import router from "../../utils/router";
 import MessageBox from "../../components/MessageBox";
+import { groupActions } from "../../store/group/group.api";
 
 const AuthLayout = ({ children, ...props }) => {
     const { rename } = usePageTitle();
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const { user } = useSelector((state) => state.user);
     const { isAuth, messages, complete } = useSelector((state) => state.auth);
 

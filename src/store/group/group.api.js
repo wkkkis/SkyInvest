@@ -163,6 +163,45 @@ export const getGroupInfo = (id) => async (dispatch) => {
     dispatch(groupActions.setload(false));
 };
 
+export const getTraderDashBoardGroups = (id) => async (dispatch) => {
+    dispatch(groupActions.message(""));
+    dispatch(groupActions.setload(true));
+    try {
+        const token = localStorage.getItem("token");
+        let response = await groupService.getUserDashboardGroups(id, token);
+        dispatch(groupActions.setGroups(response.data));
+    } catch (e) {
+        dispatch(groupActions.message(e.response.data));
+    }
+    dispatch(groupActions.setload(false));
+};
+
+export const getOpenTrades = (id) => async (dispatch) => {
+    dispatch(groupActions.message(""));
+    dispatch(groupActions.setload(true));
+    try {
+        const token = localStorage.getItem("token");
+        let response = await groupService.getOpenTrades(id, token);
+        dispatch(groupActions.setGroups(response.data));
+    } catch (e) {
+        dispatch(groupActions.message(e.response.data));
+    }
+    dispatch(groupActions.setload(false));
+};
+
+export const getTraderHistpry = (id) => async (dispatch) => {
+    dispatch(groupActions.message(""));
+    dispatch(groupActions.setload(true));
+    try {
+        const token = localStorage.getItem("token");
+        let response = await groupService.getOpenTrades(id, token);
+        dispatch(groupActions.setGroups(response.data));
+    } catch (e) {
+        dispatch(groupActions.message(e.response.data));
+    }
+    dispatch(groupActions.setload(false));
+};
+
 export const getTraiderGroups = () => async (dispatch) => {
     dispatch(groupActions.message(""));
     dispatch(groupActions.setload(true));

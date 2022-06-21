@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunkskyinvest=self.webpackChunkskyinvest||[]).push([[213],{1213:function(n,s,e){e.r(s),e.d(s,{default:function(){return i}});e(72791);var t=e(85040),u=e(80184),i=function(){return(0,u.jsx)("div",{className:"investor",children:(0,u.jsx)(t.Z,{})})}}}]);
+//# sourceMappingURL=213.74cb9b8b.chunk.js.map

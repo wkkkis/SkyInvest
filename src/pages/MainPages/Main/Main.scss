@@ -17,7 +17,7 @@
         display: flex;
         align-items: center;
 
-        background-image: url("../../../assets/img/mainBack.svg");
+        background-image: url("../../../assets/img/mainBack.jpg");
         background-position: right;
         background-repeat: no-repeat;
         background-size: cover;
@@ -150,6 +150,7 @@
     
             &__block {
                 display: flex;
+                height: 350px;
                 gap: 16px;
     
                 &__gide {
@@ -161,6 +162,8 @@
                         display: flex;
                         flex-direction: column;
                         gap: 10px;
+
+                        height: 350px;
         
                         padding: 16px;
                         padding-bottom: 32px;

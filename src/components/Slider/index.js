@@ -67,7 +67,11 @@ export default function Slider({ children, slides = 1, min = 1, max = 1 }) {
         <div className="slider">
             <div ref={sliderRef} className="keen-slider">
                 {children.map((e, index) => (
-                    <div className="keen-slider__slide" data-key={index}>
+                    <div
+                        className="keen-slider__slide"
+                        key={index + 1}
+                        data-key={index}
+                    >
                         {e}
                     </div>
                 ))}
@@ -75,6 +79,7 @@ export default function Slider({ children, slides = 1, min = 1, max = 1 }) {
             <div className="slider__dots">
                 {Array.from({ length: children.length }).map((e, idx) => (
                     <div
+                        key={idx + 1}
                         className={`slider__dots__dot ${
                             slideNum === idx ? "active" : ""
                         }`}

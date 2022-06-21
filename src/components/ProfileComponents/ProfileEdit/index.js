@@ -110,10 +110,6 @@ const ProfileEdit = () => {
                             label="Email"
                             value={email}
                             error={fields.email && error}
-                            onChange={(e) => {
-                                validator.isEmailValid(e.target.value);
-                                setEmail(e.target.value);
-                            }}
                         />
                     </div>
                     <div className="main__content__form__phone">
@@ -121,10 +117,6 @@ const ProfileEdit = () => {
                             label="Телефон"
                             value={phone}
                             error={fields.phone && error}
-                            onChange={(e) => {
-                                validator.isPhoneValid(e.target.value);
-                                setPhone(e.target.value);
-                            }}
                         />
                     </div>
                     <Button

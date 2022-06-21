@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import { useLocation } from "react-router";
 
@@ -11,6 +11,7 @@ import InvestorLayout from "@layouts/InvestorLayout";
 import AuthLayout from "@layouts/AuthLayout";
 import { useDispatch, useSelector } from "react-redux";
 import { me } from "../store/user/user.api";
+import SpinnerLoad from "../components/SpinnerLoad";
 
 const AppRoutes = () => {
     const dispatch = useDispatch();
@@ -91,7 +92,13 @@ const AppRoutes = () => {
                     <Route
                         path={route.url}
                         key={route.url}
-                        element={routeInner}
+                        element={
+                            <Suspense
+                                fallback={<SpinnerLoad isLayout={true} />}
+                            >
+                                {routeInner}
+                            </Suspense>
+                        }
                     />
                 );
             })}

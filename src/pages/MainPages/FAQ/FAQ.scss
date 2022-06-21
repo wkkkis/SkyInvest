@@ -8,3 +8,312 @@
         width: 100%;
     }
 }
+
+.main {
+
+    &__content {
+
+        &__faq {
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+    
+            &__title {
+                display: flex;
+                gap: 20px;
+    
+                &__text {
+                    line-height: 35px;
+    
+                    p {
+                        font-size: 30px;
+                        opacity: 0.5;
+                    }
+    
+                    span {
+                        font-size: 55px;
+                        font-weight: 700;
+    
+                        margin-top: 20px;
+    
+                        opacity: 0.8;
+    
+                        &::after {
+                            content: ":";
+                            color: #7972F3;
+                        }
+                    }
+                }
+            }
+    
+            &__desc {
+                font-size: 12px;
+                opacity: 0.8;
+            }
+    
+            &__content {
+                width: 100%;
+                display: grid;
+                grid-template-columns: 35% 65%;
+                grid-gap: 16px;
+    
+                &__links {
+                    width: 100%;
+    
+                    display: flex;
+                    flex-direction: column;
+                    gap: 8px;
+    
+                    font-size: 12px;
+    
+                    .button {
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+    
+                        padding: 16px;
+    
+                        svg {
+                            transform: rotate(-90deg);
+                        }
+                    }
+    
+                    .usually {
+    
+                        svg {
+                            stroke: #AEC9D6;;
+                        }
+                    }
+    
+                    .beforesubmit {
+    
+                        svg {
+                            stroke: white;
+                        }
+                    }
+    
+                    .faq_block_main {
+                        display: none;
+                    }
+                }
+    
+                &__block {
+                    width: 100%;
+                    height: 100%;
+    
+                    flex-grow: 1;
+                    flex: 1;
+    
+                    .faq_block {
+                        width: 100%;
+                        height: 100%;
+    
+                        background: #FBFBFB;
+                        border-radius: 8px;
+    
+                        padding: 16px;
+                        box-sizing: border-box;
+    
+                        &__title {
+                            font-size: 20px;
+                            font-weight: 700;
+    
+                            padding-bottom: 16px;
+                            box-shadow: inset 0px -1px 0px #CCD4D8;
+                        }
+    
+                        &__desk {
+                            width: 100%;
+                            height: 100%;
+    
+                            max-height: 440px;
+    
+                            overflow-y: scroll;
+    
+                            font-size: 14px;
+                            font-weight: 400;
+    
+                            line-height: 17px;
+                            
+                            p {
+                                padding: 16px 0;
+                            }
+    
+                            span {
+                                font-weight: 700;
+                            }
+    
+                            ul {
+                                padding: 16px 0;
+    
+                                display: flex;
+                                flex-direction: column;
+                                gap: 8px;
+    
+                                li {
+                                    list-style: none;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 934px) {
+    
+    .main {
+
+        &__intro {
+
+            &__content {
+
+                &__desc {
+                    padding-right: 10px;
+                }
+            }
+        }
+
+        &__content {
+
+            &__instruct {
+
+                &__block {
+                    flex-direction: column;
+
+                    &__gide {
+                        img {
+                            width: 20%;
+                        }
+                    }
+
+                    &__video {
+                        width: 100%;
+                        height: 40vh;
+                    }
+                }
+            }
+
+            &__traider {
+            
+                &__content {
+
+                    .content__card {
+                        width: 40%;
+                    }
+                }
+
+                &__info {
+                    display: none;
+                }
+            }
+
+            &__groups {
+
+                &__content {
+
+                    &__card {
+                        width: 40%;
+                    }
+                }
+            }
+
+            &__premium {
+
+                &__content {
+
+                    &__card {
+                        width: 40%;
+                    }
+                }
+            }
+
+            &__faq {
+
+                &__content {
+                    grid-template-columns: 100%;
+
+                    &__block {
+                        display: none;
+                    }
+
+                    &__links {
+                        
+                        .active {
+
+                            svg {
+                                transform: rotate(360deg);
+                            }
+
+                            .faq_block_main {
+                                display: flex !important;
+                            
+                                .faq_block {
+                                    width: 100%;
+                                    height: 100%;
+            
+                                    background: #FBFBFB;
+                                    border-radius: 8px;
+            
+                                    padding: 16px;
+                                    box-sizing: border-box;
+            
+                                    &__title {
+                                        font-size: 20px;
+                                        font-weight: 700;
+            
+                                        padding-bottom: 16px;
+                                        box-shadow: inset 0px -1px 0px #CCD4D8;
+                                    }
+            
+                                    &__desk {
+                                        width: 100%;
+                                        height: 100%;
+            
+                                        max-height: 440px;
+            
+                                        overflow-y: scroll;
+            
+                                        font-size: 14px;
+                                        font-weight: 400;
+            
+                                        line-height: 17px;
+                                        
+                                        p {
+                                            padding: 16px 0;
+                                        }
+            
+                                        span {
+                                            font-weight: 700;
+                                        }
+            
+                                        ul {
+                                            padding: 16px 0;
+            
+                                            display: flex;
+                                            flex-direction: column;
+                                            gap: 8px;
+            
+                                            li {
+                                                list-style: none;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                        .faq_btn_block {
+
+                            .faq_block_main {
+                                display: none;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

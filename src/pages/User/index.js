@@ -13,9 +13,14 @@ import UserSecondTab from "./UserSecondTab";
 import UserThirtTab from "./UserThirtTab";
 import CopyTradeModal from "../../components/Modals/CopyTradeModal";
 import FreePlaceModal from "../../components/Modals/FreePlaceModal";
-import { getProfileInfo, userActions } from "../../store/user/user.api";
+import {
+    changeRate,
+    getProfileInfo,
+    userActions,
+} from "../../store/user/user.api";
 import { useParams } from "react-router";
 import EstimateModal from "../../components/Modals/EstimateModal";
+import SpinnerLoad from "../../components/SpinnerLoad";
 
 const User = () => {
     const [copyTradeId, setCopyTradeId] = useState();
@@ -24,15 +29,15 @@ const User = () => {
     const [renderBlock, setRenderBlock] = useState();
     const [estimate, setEstimate] = useState(false);
 
-    const { user, isTraider } = useSelector((state) => state.user);
+    const { user, isTraider, profile } = useSelector((state) => state.user);
     const { groups, message, complete } = useSelector((state) => state.group);
 
     const dispatch = useDispatch();
     const params = useParams();
 
-    // useEffect(() => {
-    //     dispatch(getProfileInfo(params.id));
-    // }, [user]);
+    useEffect(() => {
+        dispatch(getProfileInfo(params.id));
+    }, [user]);
 
     useEffect(() => {
         dispatch(userActions.message(""));
@@ -41,16 +46,16 @@ const User = () => {
     const getTab = () => {
         switch (tab) {
             case 0:
-                setRenderBlock(<UserFirstTab />);
+                setRenderBlock(<UserFirstTab id={params.id} />);
                 break;
             case 1:
-                setRenderBlock(<UserSecondTab />);
+                setRenderBlock(<UserSecondTab id={params.id} />);
                 break;
             case 2:
-                setRenderBlock(<UserThirtTab />);
+                setRenderBlock(<UserThirtTab id={params.id} />);
                 break;
             default:
-                setRenderBlock(<UserFirstTab />);
+                setRenderBlock(<UserFirstTab id={params.id} />);
                 break;
         }
     };
@@ -63,19 +68,24 @@ const User = () => {
         getTab();
     }, [tab]);
 
-    return (
+    const estimateChange = (data) => {
+        dispatch(changeRate(params.id, data));
+        setEstimate(false);
+    };
+
+    return profile ? (
         <div className="main">
             <div className="main__header">
                 <div className="main__header__title">
                     <UserInfoBlock
-                        email={"fefe@gmail.com"}
-                        name={`${"Feda"} ${"Anata"}`}
+                        email={profile?.user?.email}
+                        name={`${profile?.user?.first_name} ${profile?.user?.last_name}`}
                         logo="https://cdn.dribbble.com/users/24078/screenshots/15522433/media/e92e58ec9d338a234945ae3d3ffd5be3.jpg?compress=1&resize=400x300"
                     />
                 </div>
                 <div className="main__header__desc">
                     <span>
-                        ОЦЕНКА: 10/10{" "}
+                        ОЦЕНКА: {profile?.rate}/10{" "}
                         <svg
                             width="19"
                             height="19"
@@ -104,7 +114,7 @@ const User = () => {
                 <div className="main__user_content__profit">
                     <InfoBlock
                         label="Общий ROI"
-                        value={`0 %`}
+                        value={`${profile?.roi_statistic} %`}
                         vWeigth="700"
                         color="green"
                         opactityLabel
@@ -162,7 +172,7 @@ const User = () => {
                     </div>
                     <Button
                         theme="beforesubmit"
-                        onClick={() => setCopyTradeId("2")}
+                        onClick={() => setCopyTradeId()}
                     >
                         Копировать
                     </Button>
@@ -208,11 +218,13 @@ const User = () => {
             )}
             {estimate && (
                 <EstimateModal
-                    handleChange={(e) => setEstimate(e)}
-                    info={"2"}
+                    handleChange={(e) => estimateChange(e)}
+                    info={params.id}
                 />
             )}
         </div>
+    ) : (
+        <SpinnerLoad />
     );
 };
 

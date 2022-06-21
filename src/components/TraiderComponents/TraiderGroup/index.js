@@ -12,7 +12,7 @@ import { Link } from "react-router-dom";
 import RaspustitModal from "../../Modals/RaspustitModal";
 import { deleteGroup } from "../../../store/group/group.api";
 
-const TraiderGroup = ({ e }) => {
+const TraiderGroup = ({ e, className }) => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const [readMore, setReadMore] = useState(true);
@@ -47,14 +47,14 @@ const TraiderGroup = ({ e }) => {
     return (
         e && (
             <CardInfo
-                className="main__group_content__card"
+                className={className}
                 name={`${e?.first_name} ${e?.last_name}`}
                 email={e.email}
                 rating={e.rating}
                 onClick={handleClick}
                 logo="https://cdn.dribbble.com/users/24078/screenshots/15522433/media/e92e58ec9d338a234945ae3d3ffd5be3.jpg?compress=1&resize=400x300"
             >
-                <div className="main__group_content__card__title">
+                <div className={`${className}__title`}>
                     <span>{e.title || "Название группы"}</span>
                 </div>
                 <div
@@ -72,7 +72,7 @@ const TraiderGroup = ({ e }) => {
                 <Button onClick={() => setReadMore(!readMore)}>
                     ПОКАЗАТЬ ВСЕ
                 </Button>
-                <div className="main__group_content__card__linebar">
+                <div className={`${className}__linebar`}>
                     <ProgressBar
                         completed={(e.amount_collected / e.need_sum) * 100}
                         from={e?.amount_collected}

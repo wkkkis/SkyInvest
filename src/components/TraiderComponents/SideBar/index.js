@@ -163,7 +163,7 @@ const sideBarRouter = {
                     />
                 </svg>
             ),
-            title: "Безопастность",
+            title: "Безопасность",
         },
         {
             url: router.profile,

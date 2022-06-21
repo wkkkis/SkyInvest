@@ -48,8 +48,8 @@ const SigninForm = ({ fetchData }) => {
         setValue,
     } = useForm();
 
-    const handleCheckbox = () => {
-        setConfirm(!confirm);
+    const handleCheckbox = (e) => {
+        setConfirm(e.target.checked);
     };
 
     const handleRole = (toggle) => {
@@ -204,7 +204,8 @@ const SigninForm = ({ fetchData }) => {
                 )}
                 <div className="form__confirm">
                     <Checkbox
-                        onClick={handleCheckbox}
+                        checked={confirm}
+                        onChange={handleCheckbox}
                         id="register_confirm"
                         group="register_confirm"
                         label={`Я принимаю условия`}

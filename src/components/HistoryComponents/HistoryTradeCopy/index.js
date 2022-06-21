@@ -111,7 +111,7 @@ const TradeCopy = () => {
                     >
                         <li>Все</li>
                         <li>Успешно</li>
-                        <li>Не успешно</li>
+                        <li>Неуспешно</li>
                         <li>Ожидание</li>
                     </Select>
                 </div>

@@ -42,7 +42,7 @@ const Payments = () => {
         <VisaPaymentForm fetchData={visapay} />
     );
     const { messages, isTraider } = useSelector((state) => state.user);
-    const { visa_key, message } = useSelector((state) => state.pay);
+    const { visa_key, message, complete } = useSelector((state) => state.pay);
 
     function visapay(data) {
         dispatch(paymentVisa(data.cash));
@@ -140,9 +140,12 @@ const Payments = () => {
                 </div>
                 {message
                     ? Object.values(message).map((e) => (
-                          <MessageBox message={e[0]} error={true} />
+                          <MessageBox message={e} error={true} />
                       ))
                     : null}
+                {complete ? (
+                    <MessageBox message={complete} error={false} />
+                ) : null}
             </div>
         </div>
     );

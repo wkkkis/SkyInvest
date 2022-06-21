@@ -59,3 +59,13 @@
         margin-top: -15px;
     }
 }
+
+@media screen and (max-width: 680px) {
+    
+    .form {
+
+        &__cash_fields {
+            flex-direction: column;
+        }
+    }
+}

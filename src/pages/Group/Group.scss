@@ -1,8 +1,21 @@
 .main {
  
     &__group_content {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
 
         &__card {
+
+            &__content {
+                display: flex;
+                flex-direction: column;
+                gap: 16px;
+            }
+
+            &__title {
+                font-weight: 700;
+            }
 
             &__payment {
                 padding: 16px;

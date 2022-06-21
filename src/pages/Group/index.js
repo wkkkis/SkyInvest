@@ -18,6 +18,7 @@ import SpinnerLoad from "../../components/SpinnerLoad";
 import { useParams } from "react-router";
 import { Link } from "react-router-dom";
 import router from "../../utils/router";
+import { dateFormatter, numberWithSpaces } from "../../utils/stringHelper";
 
 const Group = ({ title, desc, ...props }) => {
     const dispatch = useDispatch();
@@ -71,27 +72,35 @@ const Group = ({ title, desc, ...props }) => {
                             }
                             from={group.amount_collected}
                             to={group.need_sum}
-                            start={group.start_date}
-                            end={group.end_date}
                         />
                     </div>
                 </CardInfo>
-                <div className="main__group_content__card__payment">
-                    <span>Группа заполнена, начните торговать на Binance</span>
-                    <Button theme="whitebg">Вывести на Binance</Button>
-                </div>
-                <div className="main__group_content__card__list">
-                    <div className="main__group_content__card__list__item">
-                        <UserInfoBlock
-                            name={"Марсель Борисов"}
-                            email={"nvt.isst.nute@gmail.com"}
-                            logo="https://cdn.dribbble.com/users/24078/screenshots/15522433/media/e92e58ec9d338a234945ae3d3ffd5be3.jpg?compress=1&resize=400x300"
-                        />
-                        <div className="item_date">
-                            <span>15.08.2022</span>
-                            <span>10 000 $</span>
-                        </div>
+                {group.amount_collected === group.need_sum && (
+                    <div className="main__group_content__card__payment">
+                        <span>
+                            Группа заполнена, начните торговать на Binance
+                        </span>
+                        <Button theme="whitebg">Вывести на Binance</Button>
                     </div>
+                )}
+                <div className="main__group_content__card__list">
+                    {group.memberships.map((e) => (
+                        <div className="main__group_content__card__list__item">
+                            <UserInfoBlock
+                                name={`${e.investor.first_name} ${e.investor.last_name}`}
+                                email={e.investor.email}
+                                logo="https://cdn.dribbble.com/users/24078/screenshots/15522433/media/e92e58ec9d338a234945ae3d3ffd5be3.jpg?compress=1&resize=400x300"
+                            />
+                            <div className="item_date">
+                                <span>
+                                    {dateFormatter(new Date(e.date_joined))}
+                                </span>
+                                <span>
+                                    {numberWithSpaces(e.invested_sum, "$")}
+                                </span>
+                            </div>
+                        </div>
+                    ))}
                 </div>
             </div>
         </div>

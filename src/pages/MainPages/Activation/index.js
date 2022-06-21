@@ -22,7 +22,8 @@ const Activation = () => {
     const [uid, setUid] = useState();
     const [searchParams, setSearchParams] = useSearchParams();
 
-    const { isAuth, messages, complete } = useSelector((state) => state.user);
+    const { isAuth, messages } = useSelector((state) => state.user);
+    const { complete } = useSelector((state) => state.auth);
 
     const fetchActivatedData = () => {
         if (token && uid) {

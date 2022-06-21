@@ -54,11 +54,15 @@ const usdtForConfirm = async (token) => {
 };
 
 const usdtForDeposit = async (data, token) => {
-    const res = await instance.patch(`${APP_URL}tether/${data}/confirm/`, {
-        headers: {
-            Authorization: `Token ${token}`,
-        },
-    });
+    const res = await instance.patch(
+        `${APP_URL}tether/${data}/confirm/`,
+        data,
+        {
+            headers: {
+                Authorization: `Token ${token}`,
+            },
+        }
+    );
 
     return res;
 };

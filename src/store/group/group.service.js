@@ -49,6 +49,36 @@ export const groupService = {
             },
         });
     },
+    getUserDashboardGroups: async (id, token) => {
+        return await instance.get(
+            `${INVESTOR_URL}trader/${id}/dashboard_groups/`,
+            {
+                headers: {
+                    Authorization: `Token ${token}`,
+                },
+            }
+        );
+    },
+    getOpenTrades: async (id, token) => {
+        return await instance.get(
+            `${INVESTOR_URL}trader/${id}/get_open_trades/`,
+            {
+                headers: {
+                    Authorization: `Token ${token}`,
+                },
+            }
+        );
+    },
+    getTradesHistory: async (id, token) => {
+        return await instance.get(
+            `${INVESTOR_URL}trader/${id}/get_trades_history/`,
+            {
+                headers: {
+                    Authorization: `Token ${token}`,
+                },
+            }
+        );
+    },
     getTraiderGroups: async (token) => {
         return await instance.get(`${APP_URL}`, {
             headers: {

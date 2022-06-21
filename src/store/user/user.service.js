@@ -186,6 +186,22 @@ const getTraiderGroup = async (token) => {
     return res;
 };
 
+const changeRate = async (id, data, token) => {
+    const res = await instance.post(
+        `${USER_URL}trader/${id}/rate/`,
+        {
+            star: data,
+        },
+        {
+            headers: {
+                Authorization: `Token ${token}`,
+            },
+        }
+    );
+
+    return res;
+};
+
 const userService = {
     me,
     getMyGroups,
@@ -201,6 +217,7 @@ const userService = {
     getAnyUser,
     changePassword,
     confirm_password,
+    changeRate,
     activation,
     verification,
     getTraiderGroup,

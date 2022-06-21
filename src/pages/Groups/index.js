@@ -122,15 +122,25 @@ const Groups = ({ title }) => {
                     <span>Прибыль за 24 часа: +958 USDT</span>
                 </div> */}
             </div>
-            <div className="main__group_create">
+            <div className="main__groups_create">
                 {isTraider ? (
                     <Button theme="aftersubmit" onClick={() => setIsOpen(true)}>
                         Создать группу
                     </Button>
                 ) : null}
             </div>
+            {!groups?.length && !isTraider && (
+                <div className="main__groups_content__investor_btn">
+                    <Button
+                        theme="aftersubmit"
+                        onClick={() => navigate(router.trade_group)}
+                    >
+                        Приступить
+                    </Button>
+                </div>
+            )}
             <div
-                className={`main__group_content ${
+                className={`main__groups_content ${
                     groups % 2 !== 0 ? "length_group" : ""
                 }`}
             >
@@ -140,29 +150,20 @@ const Groups = ({ title }) => {
                             groups.map((e) => (
                                 <TraiderGroup
                                     e={e}
-                                    className="main__group_content__card"
+                                    className="main__groups_content__card"
                                 />
                             ))
                         ) : (
                             groups.map((e) => (
                                 <InvestorGroup
                                     e={e}
-                                    className="main__group_content__card"
+                                    className="main__groups_content__card"
                                 />
                             ))
                         )
                     ) : isTraider ? (
                         <></>
-                    ) : (
-                        <div className="main__group_content__investor_btn">
-                            <Button
-                                theme="aftersubmit"
-                                onClick={() => navigate(router.trade_group)}
-                            >
-                                Приступить
-                            </Button>
-                        </div>
-                    )
+                    ) : null
                 ) : (
                     <SpinnerLoad />
                 )}

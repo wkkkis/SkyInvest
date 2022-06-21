@@ -7,6 +7,7 @@ let initialState = {
     usdt_for_pay: null,
     complete: false,
     loaded: false,
+    confirm: "",
 };
 
 const payReducer = (state = initialState, action) => {
@@ -20,6 +21,11 @@ const payReducer = (state = initialState, action) => {
             return {
                 ...state,
                 complete: action.payload,
+            };
+        case "SET_COMPLETE":
+            return {
+                ...state,
+                confirm: action.payload,
             };
         case "SET_USDT_KEY":
             return {
@@ -60,6 +66,7 @@ export const payActions = {
     }),
     message: (message) => ({ type: "SET_MESSAGE", payload: message }),
     complete: (message) => ({ type: "SET_CONFIRM", payload: message }),
+    usdtActive: (message) => ({ type: "SET_COMPLETE", payload: message }),
 };
 
 export const paymentVisa = (data) => async (dispatch) => {
@@ -115,7 +122,9 @@ export const ustdConfirm = () => async (dispatch) => {
     try {
         const token = localStorage.getItem("token");
         let response = await payService.usdtForConfirm(token);
-        dispatch(payActions.setConfirm(response.data.message));
+        if (response.status === 201) {
+            dispatch(payActions.usdtActive("usdt_active"));
+        }
     } catch (e) {
         dispatch(payActions.message(e.response.data));
     }

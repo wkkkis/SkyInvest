@@ -14,7 +14,11 @@ import {
     getProfileInfo,
     userActions,
 } from "../../store/user/user.api";
-import { groupActions } from "../../store/group/group.api";
+import {
+    getGroupInfo,
+    getTraderDashBoardGroups,
+    groupActions,
+} from "../../store/group/group.api";
 import { useParams } from "react-router";
 import InsideGroupModal from "../../components/Modals/InsideGroupModal";
 import LeaveGroup from "../../components/Modals/LeaveGroup";
@@ -63,7 +67,7 @@ const data = [
     },
 ];
 
-const UserFirstTab = () => {
+const UserFirstTab = ({ id }) => {
     const [groupId, setGroupId] = useState();
     const [leaveId, setLeaveId] = useState();
     const [closeId, setCloseId] = useState();
@@ -79,6 +83,10 @@ const UserFirstTab = () => {
             dispatch(getBalance());
         }
     }, [message]);
+
+    useEffect(() => {
+        dispatch(getTraderDashBoardGroups(id));
+    }, []);
 
     return (
         <div className="user_tab">
@@ -257,71 +265,73 @@ const UserFirstTab = () => {
                     <span>ОТКРЫТЫЕ ГРУППЫ</span>
                 </div>
                 <div className="user_tab__open_groups__content">
-                    {data ? (
-                        data.length ? (
-                            data.map((e) => (
-                                <InvestorGroup
-                                    className="open_group_item"
-                                    e={e}
-                                    setleavegroupid={(e) => setLeaveId(e)}
-                                    setgroupid={(e) => setGroupId(e)}
-                                />
-                            ))
-                        ) : (
-                            ""
-                        )
-                    ) : (
-                        <SpinnerLoad />
-                    )}
+                    {groups?.open?.length
+                        ? groups?.open?.length
+                            ? groups?.open.map((e) => (
+                                  <InvestorGroup
+                                      className="open_group_item"
+                                      e={e}
+                                      setleavegroupid={(e) => setLeaveId(e)}
+                                      setgroupid={(e) => setGroupId(e)}
+                                  />
+                              ))
+                            : ""
+                        : "Не найдено"}
                 </div>
             </div>
             <div className="user_tab__close_groups">
                 <div className="user_tab__open_groups__title">
                     <span>ЗАКРЫТЫЕ ГРУППЫ</span>
                 </div>
-                <div className="user_tab__close_groups__filters">
-                    <div className="select_cont">
-                        <span>Показать за время</span>
-                        <Select defaultOption="Поледние 24 часа">
-                            <li>jojo</li>
-                            <li>jojo</li>
-                            <li>jojo</li>
-                        </Select>
-                    </div>
-                    <InfoBlock
-                        label="Количество групп"
-                        value={`15`}
-                        vWeigth="700"
-                        opactityLabel
-                    />
-                    <InfoBlock
-                        label="Процент завершенных групп"
-                        value={`0 %`}
-                        vWeigth="700"
-                        opactityLabel
-                    />
-                    <InfoBlock
-                        label="Коэфициент прыбльных и убыточных групп"
-                        value={`12 %`}
-                        vWeigth="700"
-                        opactityLabel
-                    />
-                </div>
-                <div className="user_tab__close_groups__content">
-                    {data ? (
-                        data.length ? (
-                            data.map((e) => (
-                                <CloseGroup
-                                    className="close_groups_item"
-                                    e={e}
-                                    setgroupid={(e) => setCloseId(e)}
-                                />
-                            ))
-                        ) : null
-                    ) : (
-                        <SpinnerLoad />
-                    )}
-                </div>
+                {groups?.close?.length ? (
+                    <>
+                        <div className="user_tab__close_groups__filters">
+                            <div className="select_cont">
+                                <span>Показать за время</span>
+                                <Select defaultOption="Поледние 24 часа">
+                                    <li>jojo</li>
+                                    <li>jojo</li>
+                                    <li>jojo</li>
+                                </Select>
+                            </div>
+                            <InfoBlock
+                                label="Количество групп"
+                                value={`15`}
+                                vWeigth="700"
+                                opactityLabel
+                            />
+                            <InfoBlock
+                                label="Процент завершенных групп"
+                                value={`0 %`}
+                                vWeigth="700"
+                                opactityLabel
+                            />
+                            <InfoBlock
+                                label="Коэфициент прыбльных и убыточных групп"
+                                value={`12 %`}
+                                vWeigth="700"
+                                opactityLabel
+                            />
+                        </div>
+                        <div className="user_tab__close_groups__content">
+                            {groups ? (
+                                groups?.close?.length ? (
+                                    data?.close.map((e) => (
+                                        <CloseGroup
+                                            className="close_groups_item"
+                                            e={e}
+                                            setgroupid={(e) => setCloseId(e)}
+                                        />
+                                    ))
+                                ) : null
+                            ) : (
+                                <SpinnerLoad />
+                            )}
+                        </div>
+                    </>
+                ) : (
+                    "Не найдено"
+                )}
             </div>
             {groupId && (
                 <InsideGroupModal

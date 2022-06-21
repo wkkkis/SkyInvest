@@ -12,7 +12,8 @@ import "./Login.scss";
 import { useDispatch, useSelector } from "react-redux";
 import TwoFACode from "../../../components/Modals/TwoFACode";
 import MessageBox from "../../../components/MessageBox";
-import { login } from "../../../store/auth/auth.api";
+import { authActions, login } from "../../../store/auth/auth.api";
+import { groupActions } from "../../../store/group/group.api";
 
 const Login = () => {
     const dispatch = useDispatch();
@@ -33,6 +34,12 @@ const Login = () => {
         };
         dispatch(login(obj));
     };
+
+    useEffect(() => {
+        dispatch(groupActions.message(""));
+        dispatch(authActions.message(""));
+        dispatch(authActions.complete(""));
+    }, []);
 
     return (
         <div className="main_auth">

@@ -17,6 +17,15 @@
     }
 }
 
+.forlayout {
+    position: fixed;
+    width: 100%;
+    height: 100vh !important;
+
+    top: 0;
+    left: 0;
+}
+
 @keyframes loadingspin {
 	100% {
         transform: rotate(360deg)
