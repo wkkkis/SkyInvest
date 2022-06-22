@@ -17,6 +17,7 @@ import usdtIcon from "@assets/img/usdt.svg";
 import "./Verify.scss";
 import { useForm } from "react-hook-form";
 import { Calendar } from "react-calendar";
+import "react-calendar/dist/Calendar.css";
 import FileUpload from "../../components/FileUpload";
 import {
     getVerificationStatus,

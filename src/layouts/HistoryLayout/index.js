@@ -19,6 +19,7 @@ import { usePageTitle } from "@hooks/useTitle";
 
 //Style
 import "./HistoryLayout.scss";
+import "react-calendar/dist/Calendar.css";
 import { useSelector } from "react-redux";
 import TraiderSideBar from "../../components/HistoryComponents/TraiderHistory";
 
