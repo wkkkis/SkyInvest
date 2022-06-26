@@ -231,6 +231,7 @@ export const changeRate = (id, data) => async (dispatch) => {
         const token = localStorage.getItem("token");
         let response = await userService.changeRate(id, data, token);
         dispatch(userActions.complete(response.data.message));
+        dispatch(getProfileInfo(id));
     } catch (e) {
         dispatch(userActions.message(e.response.data));
     }

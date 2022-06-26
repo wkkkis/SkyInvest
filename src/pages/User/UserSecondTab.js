@@ -2,14 +2,17 @@ import React, { useEffect, useState } from "react";
 
 import Button from "@components/Button";
 import ReactPaginate from "react-paginate";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getOpenTrades } from "../../store/group/group.api";
+import MessageBox from "../../components/MessageBox";
 
 const UserSecondTab = ({ id }) => {
     const [itemOffset, setItemOffset] = useState(0);
     const [filter, setFilter] = useState("days");
 
     const dispatch = useDispatch();
+
+    const { groups, message, complete } = useSelector((state) => state.group);
 
     const handlePageClick = (event) => {
         const newOffset = event.selected;
@@ -223,6 +226,12 @@ const UserSecondTab = ({ id }) => {
                     renderOnZeroPageCount={null}
                 />
             </div>
+            {message
+                ? Object.values(message).map((e) => (
+                      <MessageBox message={e[0]} error={true} />
+                  ))
+                : null}
+            {complete ? <MessageBox message={complete} error={false} /> : null}
         </div>
     );
 };

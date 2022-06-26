@@ -21,6 +21,7 @@ import {
 import { useParams } from "react-router";
 import EstimateModal from "../../components/Modals/EstimateModal";
 import SpinnerLoad from "../../components/SpinnerLoad";
+import MessageBox from "../../components/MessageBox";
 
 const User = () => {
     const [copyTradeId, setCopyTradeId] = useState();
@@ -29,8 +30,10 @@ const User = () => {
     const [renderBlock, setRenderBlock] = useState();
     const [estimate, setEstimate] = useState(false);
 
-    const { user, isTraider, profile } = useSelector((state) => state.user);
-    const { groups, message, complete } = useSelector((state) => state.group);
+    const { user, isTraider, profile, complete, messages } = useSelector(
+        (state) => state.user
+    );
+    const { groups } = useSelector((state) => state.group);
 
     const dispatch = useDispatch();
     const params = useParams();
@@ -224,6 +227,12 @@ const User = () => {
                     info={profile?.rate}
                 />
             )}
+            {messages
+                ? Object.values(messages).map((e) => (
+                      <MessageBox message={e[0]} error={true} />
+                  ))
+                : null}
+            {complete ? <MessageBox message={complete} error={false} /> : null}
         </div>
     ) : (
         <SpinnerLoad />

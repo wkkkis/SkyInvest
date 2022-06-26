@@ -1,11 +1,15 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import Button from "@components/Button";
 import ReactPaginate from "react-paginate";
+import { useDispatch } from "react-redux";
+import { getTraderHistpry } from "../../store/group/group.api";
 
-const UserThirdTab = () => {
+const UserThirdTab = ({ id }) => {
     const [itemOffset, setItemOffset] = useState(0);
     const [filter, setFilter] = useState("days");
+
+    const dispatch = useDispatch();
 
     const handlePageClick = (event) => {
         const newOffset = event.selected;
@@ -14,6 +18,10 @@ const UserThirdTab = () => {
         );
         setItemOffset(newOffset);
     };
+
+    useEffect(() => {
+        dispatch(getTraderHistpry(id));
+    }, []);
 
     return (
         <div className="user_tab">

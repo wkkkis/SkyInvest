@@ -194,7 +194,7 @@ export const getTraderHistpry = (id) => async (dispatch) => {
     dispatch(groupActions.setload(true));
     try {
         const token = localStorage.getItem("token");
-        let response = await groupService.getOpenTrades(id, token);
+        let response = await groupService.getTradesHistory(id, token);
         dispatch(groupActions.setGroups(response.data));
     } catch (e) {
         dispatch(groupActions.message(e.response.data));

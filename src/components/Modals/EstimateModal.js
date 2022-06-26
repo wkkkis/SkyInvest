@@ -28,7 +28,7 @@ const EstimateModal = ({ handleChange, info }) => {
 
     const hadnleClick = (toggle) => {
         if (toggle) {
-            handleChange(Array.from({ length: starArr + 1 }, (_, i) => i + 1));
+            handleChange(starArr);
         } else {
             handleChange(false);
         }

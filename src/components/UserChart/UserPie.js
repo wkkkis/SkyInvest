@@ -55,16 +55,16 @@ const UserPie = () => {
                         />
                     ))}
                 </Pie>
-                {/* {showTooltip && ( */}
-                <Tooltip
-                    content={<Tip setShowTooltip={setShowTooltip} />}
-                    wrapperStyle={{
-                        visibility: "visible",
-                        pointerEvents: "auto",
-                        zIndex: "100",
-                    }}
-                />
-                {/* )} */}
+                {showTooltip && (
+                    <Tooltip
+                        content={<Tip setShowTooltip={setShowTooltip} />}
+                        wrapperStyle={{
+                            visibility: "visible",
+                            pointerEvents: "auto",
+                            zIndex: "100",
+                        }}
+                    />
+                )}
             </PieChart>
         </ResponsiveContainer>
     );
