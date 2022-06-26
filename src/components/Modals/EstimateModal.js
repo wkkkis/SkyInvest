@@ -24,10 +24,14 @@ const StartClick = () => {
 };
 
 const EstimateModal = ({ handleChange, info }) => {
-    const [toggle, setToggle] = useState(0);
+    const [starArr, setToggle] = useState(info);
 
     const hadnleClick = (toggle) => {
-        handleChange(Array.from(Array(toggle + 1).keys()));
+        if (toggle) {
+            handleChange(Array.from({ length: starArr + 1 }, (_, i) => i + 1));
+        } else {
+            handleChange(false);
+        }
     };
 
     return (
@@ -39,9 +43,9 @@ const EstimateModal = ({ handleChange, info }) => {
                 <div className="modal__block__estimate">
                     {Array.from({ length: 10 }).map((e, idx) => (
                         <img
-                            src={toggle > idx - 1 ? star : starBorder}
+                            src={starArr >= idx + 1 ? star : starBorder}
                             alt={idx}
-                            onClick={() => setToggle(idx)}
+                            onClick={() => setToggle(idx + 1)}
                         />
                     ))}
                 </div>
@@ -49,7 +53,7 @@ const EstimateModal = ({ handleChange, info }) => {
                     <Button
                         className="modal__block__bts_button"
                         theme="beforesubmit"
-                        onClick={() => hadnleClick(false)}
+                        onClick={() => hadnleClick(true)}
                     >
                         Продолжить
                     </Button>

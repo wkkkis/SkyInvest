@@ -69,7 +69,9 @@ const User = () => {
     }, [tab]);
 
     const estimateChange = (data) => {
-        dispatch(changeRate(params.id, data));
+        if (data) {
+            dispatch(changeRate(params.id, data));
+        }
         setEstimate(false);
     };
 
@@ -172,7 +174,7 @@ const User = () => {
                     </div>
                     <Button
                         theme="beforesubmit"
-                        onClick={() => setCopyTradeId()}
+                        onClick={() => setCopyTradeId(params.id)}
                     >
                         Копировать
                     </Button>
@@ -219,7 +221,7 @@ const User = () => {
             {estimate && (
                 <EstimateModal
                     handleChange={(e) => estimateChange(e)}
-                    info={params.id}
+                    info={profile?.rate}
                 />
             )}
         </div>

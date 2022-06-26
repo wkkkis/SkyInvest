@@ -81,28 +81,15 @@ const CreateGroupSidebar = ({ isOpen, toggle }) => {
         setLoaded(false);
     };
 
-    document.addEventListener("click", (e) => {
-        if (e.target.localName !== "input") {
-            if (
-                e.path[0].className.includes(
-                    "react-calendar__month-view__days__day"
-                )
-            ) {
+    useEffect(() => {
+        let d = document.querySelector(".react-calendar__month-view__days");
+        d?.addEventListener("click", (e) => {
+            setTimeout(() => {
                 setDateTwoShow(false);
                 setDateOneShow(false);
-            }
-            if (
-                e.path[1].className.includes("react-calendar") ||
-                e.path[3].className.includes("react-calendar") ||
-                e.path[4].className.includes("react-calendar")
-            ) {
-                return;
-            } else {
-                setDateTwoShow(false);
-                setDateOneShow(false);
-            }
-        }
-    });
+            }, 0.5);
+        });
+    }, [dateOneShow, dateTwoShow]);
 
     return (
         <div className="create_group">
@@ -147,6 +134,7 @@ const CreateGroupSidebar = ({ isOpen, toggle }) => {
                         error={errors.title && "Заполните поле"}
                     />
                     <Field
+                        area={true}
                         label="Описание группы"
                         {...register("description", {
                             required: true,
@@ -234,6 +222,7 @@ const CreateGroupSidebar = ({ isOpen, toggle }) => {
                                 className="calendar_one"
                                 onChange={(e) => {
                                     setDateOne(e);
+                                    console.log(e);
                                 }}
                                 value={dateOne}
                             />

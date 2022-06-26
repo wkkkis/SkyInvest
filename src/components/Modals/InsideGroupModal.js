@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 //Components
 import Button from "@components/Button";
@@ -53,6 +54,10 @@ const InsideGroupModal = ({ handleChange, info }) => {
         }
     };
 
+    const handleClick = () => {
+        navigate(`${router.profile}/${group?.trader}`);
+    };
+
     return (
         <div className="modal">
             <div className="modal__block">
@@ -70,6 +75,7 @@ const InsideGroupModal = ({ handleChange, info }) => {
                             className="modal__block__profit"
                             name={`${group.first_name} ${group.last_name}`}
                             email={group.email}
+                            onClick={handleClick}
                             rating={`${group.investors.length}/${group.group_size}`}
                             logo="https://cdn.dribbble.com/users/24078/screenshots/15522433/media/e92e58ec9d338a234945ae3d3ffd5be3.jpg?compress=1&resize=400x300"
                         />

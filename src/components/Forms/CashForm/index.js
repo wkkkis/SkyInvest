@@ -60,7 +60,7 @@ const CashForm = ({ fetchData, loaded }) => {
             case "maxLength":
                 return "Введите меньше";
             case "required":
-                return "Поле сумма пополнения обязательна";
+                return "Поле номер кошелька обязательна";
             default:
                 return null;
         }
@@ -79,7 +79,7 @@ const CashForm = ({ fetchData, loaded }) => {
                 <div className="form__cash_fields">
                     <Field
                         label="Сумма вывода"
-                        type="usd"
+                        type="money"
                         {...register("sum", {
                             required: true,
                             minLength: 2,

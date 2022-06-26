@@ -24,7 +24,7 @@ const pay_method = [
         title: "VISA/MaterCard",
         icon: visaIcon,
         desc: "Оплата картой",
-        procent: "10.00%",
+        procent: "2.5%",
     },
     {
         id_tab: 2,

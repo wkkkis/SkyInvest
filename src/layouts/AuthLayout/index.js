@@ -26,9 +26,11 @@ const AuthLayout = ({ children, ...props }) => {
     }, []);
 
     useEffect(() => {
-        if (isAuth || user) {
-            navigate(router.dashboard);
-        }
+        setTimeout(() => {
+            if (isAuth || user) {
+                navigate(router.dashboard);
+            }
+        }, 0.5);
     }, [isAuth, user]);
 
     return (

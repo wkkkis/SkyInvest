@@ -112,11 +112,9 @@ export const logOut = () => async (dispatch) => {
     try {
         const token = localStorage.getItem("token");
         let response = await authService.logout(token);
-        if (response) {
-            localStorage.removeItem("token");
-            dispatch(userActions.resetUser());
-            dispatch(authActions.setIsAuth(false));
-        }
+        localStorage.removeItem("token");
+        dispatch(userActions.resetUser());
+        dispatch(authActions.setIsAuth(false));
     } catch (e) {
         dispatch(authActions.setLoad(false));
         if (e.response.data.message) {

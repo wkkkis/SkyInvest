@@ -80,7 +80,7 @@ export const groupService = {
         );
     },
     getTraiderGroups: async (token) => {
-        return await instance.get(`${APP_URL}`, {
+        return await instance.get(`${INVESTOR_URL}trader/groups/`, {
             headers: {
                 Authorization: `Token ${token}`,
             },

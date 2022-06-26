@@ -12,7 +12,7 @@
         width: 100%;
     }
 
-    input {
+    input, textarea {
         padding: 16px;
         border: 1px solid transparent;
 
@@ -28,6 +28,13 @@
             border: 1px solid #7972F3;;
             box-shadow: none;
         }
+    }
+
+    textarea {
+        resize: none;
+        overflow: hidden;
+        min-height: 50px;
+        max-height: 100px;
     }
 
     input::-webkit-outer-spin-button,

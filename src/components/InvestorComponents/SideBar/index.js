@@ -193,9 +193,6 @@ const Sidebar = () => {
     const { loaded } = useSelector((state) => state.auth);
 
     const handleChange = (toggle) => {
-        if (toggle) {
-            navigate(router.login);
-        }
         setLogout(false);
     };
 

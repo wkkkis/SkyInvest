@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { ReactComponent as Visible } from "@assets/img/visibility.svg";
+import TextareaAutosize from "react-textarea-autosize";
 
 //Styles
 import "./Field.scss";
@@ -16,6 +17,7 @@ const Field = ({
     defaultValue = "",
     error = "",
     type,
+    area = false,
     ...props
 }) => {
     const ref = useRef();
@@ -44,18 +46,34 @@ const Field = ({
     return (
         <div className={`field ${type} ${classNames}`}>
             <label>{label}</label>
-            <input
-                name={name}
-                ref={ref}
-                defaultValue={defaultValue}
-                placeholder={placeholder}
-                type={checkType()}
-                onClick={onClick}
-                onFocus={onFocus}
-                onChange={onChange}
-                value={value}
-                {...props}
-            />
+            {!area ? (
+                <input
+                    name={name}
+                    ref={ref}
+                    defaultValue={defaultValue}
+                    placeholder={placeholder}
+                    type={checkType()}
+                    onClick={onClick}
+                    onFocus={onFocus}
+                    onChange={onChange}
+                    value={value}
+                    {...props}
+                />
+            ) : (
+                <TextareaAutosize
+                    name={name}
+                    ref={ref}
+                    elastic
+                    defaultValue={defaultValue}
+                    placeholder={placeholder}
+                    type={checkType()}
+                    onClick={onClick}
+                    onFocus={onFocus}
+                    onChange={onChange}
+                    value={value}
+                    {...props}
+                />
+            )}
             <span>{error}</span>
             {type === "password" ? (
                 passwordVisible ? (

@@ -61,7 +61,7 @@ const VisaPaymentForm = ({ fetchData }) => {
             >
                 <Field
                     label="Сумма пополнения"
-                    type="money"
+                    type="usd"
                     {...register("cash", {
                         required: true,
                         minLength: 2,

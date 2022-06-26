@@ -23,6 +23,7 @@ import Field from "@components/Field";
 
 //Styles
 import "./CopyTrade.scss";
+import "../Main/Main.scss";
 
 const mockData = {
     trade: [
