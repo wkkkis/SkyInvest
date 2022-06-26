@@ -122,13 +122,13 @@ const Groups = ({ title }) => {
                     <span>Прибыль за 24 часа: +958 USDT</span>
                 </div> */}
             </div>
-            <div className="main__groups_create">
-                {isTraider ? (
+            {isTraider ? (
+                <div className="main__groups_create">
                     <Button theme="aftersubmit" onClick={() => setIsOpen(true)}>
                         Создать группу
                     </Button>
-                ) : null}
-            </div>
+                </div>
+            ) : null}
             {!groups?.length && !isTraider && (
                 <div className="main__groups_content__investor_btn">
                     <Button

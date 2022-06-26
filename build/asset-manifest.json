@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/static/css/main.c908846c.css",
-    "main.js": "/static/js/main.3bbecac1.js",
+    "main.js": "/static/js/main.1d1236a7.js",
     "static/css/430.80d123c7.chunk.css": "/static/css/430.80d123c7.chunk.css",
     "static/js/430.ee3f3f19.chunk.js": "/static/js/430.ee3f3f19.chunk.js",
     "static/css/874.3fb0c174.chunk.css": "/static/css/874.3fb0c174.chunk.css",
     "static/js/874.fc2320b1.chunk.js": "/static/js/874.fc2320b1.chunk.js",
     "static/css/478.31376120.chunk.css": "/static/css/478.31376120.chunk.css",
-    "static/js/478.853345be.chunk.js": "/static/js/478.853345be.chunk.js",
+    "static/js/478.91fd7c41.chunk.js": "/static/js/478.91fd7c41.chunk.js",
     "static/css/676.4d9e0cf0.chunk.css": "/static/css/676.4d9e0cf0.chunk.css",
     "static/js/676.dc04ef28.chunk.js": "/static/js/676.dc04ef28.chunk.js",
     "static/css/941.9a1e3b6a.chunk.css": "/static/css/941.9a1e3b6a.chunk.css",
@@ -116,13 +116,13 @@
     "static/media/selectArrow.svg": "/static/media/selectArrow.ae23720cf94e9a4a189a9f48306aa76c.svg",
     "static/media/slidebar.svg": "/static/media/slidebar.707d2eacd40f2430437cbd4417fa7110.svg",
     "main.c908846c.css.map": "/static/css/main.c908846c.css.map",
-    "main.3bbecac1.js.map": "/static/js/main.3bbecac1.js.map",
+    "main.1d1236a7.js.map": "/static/js/main.1d1236a7.js.map",
     "430.80d123c7.chunk.css.map": "/static/css/430.80d123c7.chunk.css.map",
     "430.ee3f3f19.chunk.js.map": "/static/js/430.ee3f3f19.chunk.js.map",
     "874.3fb0c174.chunk.css.map": "/static/css/874.3fb0c174.chunk.css.map",
     "874.fc2320b1.chunk.js.map": "/static/js/874.fc2320b1.chunk.js.map",
     "478.31376120.chunk.css.map": "/static/css/478.31376120.chunk.css.map",
-    "478.853345be.chunk.js.map": "/static/js/478.853345be.chunk.js.map",
+    "478.91fd7c41.chunk.js.map": "/static/js/478.91fd7c41.chunk.js.map",
     "676.4d9e0cf0.chunk.css.map": "/static/css/676.4d9e0cf0.chunk.css.map",
     "676.dc04ef28.chunk.js.map": "/static/js/676.dc04ef28.chunk.js.map",
     "941.9a1e3b6a.chunk.css.map": "/static/css/941.9a1e3b6a.chunk.css.map",
@@ -185,6 +185,6 @@
   },
   "entrypoints": [
     "static/css/main.c908846c.css",
-    "static/js/main.3bbecac1.js"
+    "static/js/main.1d1236a7.js"
   ]
 }
