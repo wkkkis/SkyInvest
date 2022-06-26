@@ -47,20 +47,15 @@ const GroupCash = () => {
         setDateTwoShow(false);
     };
 
-    document.addEventListener("click", (e) => {
-        if (e.target.localName !== "input") {
-            if (
-                e.path[1].className.includes("react-calendar") ||
-                e.path[3].className.includes("react-calendar") ||
-                e.path[4].className.includes("react-calendar")
-            ) {
-                return;
-            } else {
-                setDateOneShow(false);
+    useEffect(() => {
+        let d = document.querySelector(".react-calendar__month-view__days");
+        d?.addEventListener("click", (e) => {
+            setTimeout(() => {
                 setDateTwoShow(false);
-            }
-        }
-    });
+                setDateOneShow(false);
+            }, 0.5);
+        });
+    }, [dateOneShow, dateTwoShow]);
 
     return (
         <div className="history_page history_payment">

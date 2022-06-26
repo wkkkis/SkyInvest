@@ -1,6 +1,6 @@
 import { authActions } from "../auth/auth.api";
 import { payActions } from "../payment/pay.api";
-import { userActions } from "../user/user.api";
+import { getBalance, userActions } from "../user/user.api";
 import { groupService } from "./group.service";
 
 let initialState = {
@@ -69,7 +69,6 @@ export const messageClean = () => async (dispatch) => {
 };
 
 export const confirmClean = () => async (dispatch) => {
-    debugger;
     dispatch(groupActions.complete(""));
 };
 
@@ -99,6 +98,7 @@ export const joinToGroup = (id, sum) => async (dispatch) => {
         const token = localStorage.getItem("token");
         let response = await groupService.join(id, sum, token);
         dispatch(groupActions.complete(response.data.message));
+        dispatch(getBalance());
     } catch (e) {
         if (e.response.data.message) {
             dispatch(
@@ -118,6 +118,7 @@ export const leaveFromGroup = (id) => async (dispatch) => {
         const token = localStorage.getItem("token");
         let response = await groupService.leave(id, token);
         dispatch(groupActions.complete(response.data.message));
+        dispatch(getBalance());
     } catch (e) {
         if (e.response.data.message) {
             dispatch(
