@@ -25,6 +25,7 @@ const InvestorGroup = ({ e, clean_group, setgroupid, className }) => {
         if (e.status_for_user && toggle) {
             dispatch(leaveFromGroup(e?.id));
         }
+        setLeaveToggle(false);
     };
 
     return e ? (

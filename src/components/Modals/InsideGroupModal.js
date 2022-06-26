@@ -30,7 +30,7 @@ const InsideGroupModal = ({ handleChange, info }) => {
 
     const hadnleClick = (toggle) => {
         if (toggle) {
-            console.log(toggle);
+            handleChange(0);
         } else {
             handleChange(0);
         }

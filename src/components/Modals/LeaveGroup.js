@@ -9,7 +9,7 @@ import "./Modal.scss";
 
 const LeaveGroup = ({ handleChange, info }) => {
     const hadnleClick = (toggle) => {
-        handleChange(true);
+        handleChange(toggle);
     };
 
     return (
