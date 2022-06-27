@@ -209,7 +209,9 @@ const TraiderDashBoard = React.memo(() => {
                             </div>
                             <div className="main__dashboard_content__mycopy__content">
                                 {groups.length
-                                    ? groups.map((e) => <TraiderGroup e={e} />)
+                                    ? groups
+                                          .reverse()
+                                          .map((e) => <TraiderGroup e={e} />)
                                     : null}
                             </div>
                         </div>

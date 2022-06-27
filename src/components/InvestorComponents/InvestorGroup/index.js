@@ -71,24 +71,26 @@ const InvestorGroup = ({ e, clean_group, setgroupid, className }) => {
                 }}
                 disabled={e.status === "end"}
                 theme={
-                    !e.status_for_user
-                        ? e.status === "recruited"
+                    e.status_for_user
+                        ? e.status === "completed"
+                            ? "disabled"
+                            : e.status === "recruited"
                             ? "beforesubmit"
                             : e.status === "was"
                             ? "aftersubmit"
-                            : e.status === "end"
+                            : e.status === "completed"
                             ? "disabled"
                             : ""
                         : "aftersubmit"
                 }
             >
-                {!e.status_for_user
-                    ? e.status === "recruited"
+                {e.status_for_user
+                    ? e.status === "completed"
+                        ? "Группа завершена"
+                        : e.status === "recruited"
                         ? "Вступить в группу"
                         : e.status === "was"
                         ? "Выйти из группы"
-                        : e.status === "end"
-                        ? "Группа старотовала"
                         : ""
                     : "Выйти из группы"}
             </Button>
