@@ -3,6 +3,7 @@ import userService from "./user.service";
 
 let initialState = {
     user: null,
+    traider_data: null,
     messages: null,
     isTraider: false,
     loaded: false,
@@ -24,6 +25,11 @@ const userReducer = (state = initialState, action) => {
             return {
                 ...state,
                 profile: action.payload,
+            };
+        case "SET_TRAIDER_DATA":
+            return {
+                ...state,
+                traider_data: action.payload,
             };
         case "SET_BALANCE":
             return {
@@ -73,6 +79,10 @@ export const userActions = {
     }),
     setAnyUser: (data) => ({
         type: "SET_PROFILE",
+        payload: data,
+    }),
+    setTraiderData: (data) => ({
+        type: "SET_TRAIDER_DATA",
         payload: data,
     }),
     setProfileTabs: (data) => ({
@@ -139,6 +149,19 @@ export const getProfileInfo = (id) => async (dispatch) => {
     try {
         let response = await userService.getAnyUser(id);
         dispatch(userActions.setAnyUser(response.data));
+    } catch (e) {
+        dispatch(userActions.message(e.response.data));
+    }
+    dispatch(userActions.setLoad(false));
+};
+
+export const getTraderDashboard = () => async (dispatch) => {
+    dispatch(userActions.setLoad(true));
+    try {
+        const token = localStorage.getItem("token");
+        let response = await userService.traderDashboard(token);
+        dispatch(userActions.setDataUser(response.data.user));
+        dispatch(userActions.setTraiderData(response.data));
     } catch (e) {
         dispatch(userActions.message(e.response.data));
     }

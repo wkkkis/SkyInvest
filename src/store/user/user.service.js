@@ -24,6 +24,16 @@ const getMyGroups = async (token) => {
     return res;
 };
 
+const traderDashboard = async (token) => {
+    const res = await instance.get(`${USER_URL}trader/dashboard/`, {
+        headers: {
+            Authorization: `Token ${token}`,
+        },
+    });
+
+    return res;
+};
+
 const register = async (userData) => {
     const res = await instance.post(`${AUTH_URL}register/`, userData);
 
@@ -223,6 +233,7 @@ const userService = {
     getTraiderGroup,
     imageVerification,
     getVerificationStatus,
+    traderDashboard,
 };
 
 export default userService;

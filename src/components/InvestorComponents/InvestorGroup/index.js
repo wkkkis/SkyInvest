@@ -10,12 +10,14 @@ import { useDispatch } from "react-redux";
 import { joinToGroup, leaveFromGroup } from "../../../store/group/group.api";
 import SpinnerLoad from "../../SpinnerLoad";
 import LeaveGroup from "../../Modals/LeaveGroup";
+import InsideGroupModal from "../../Modals/InsideGroupModal";
 
 const InvestorGroup = ({ e, clean_group, setgroupid, className }) => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const [readMore, setReadMore] = useState(true);
     const [leaveToggle, setLeaveToggle] = useState(false);
+    const [InsideToggle, setInsideToggle] = useState(false);
 
     const handleClick = () => {
         navigate(`${router.profile}/${e?.trader}`);
@@ -43,7 +45,7 @@ const InvestorGroup = ({ e, clean_group, setgroupid, className }) => {
             <div className={`${className}__desc ${readMore && "active"}`}>
                 <p>{e.description}</p>
             </div>
-            {e?.description?.split("").length > 100 ? (
+            {e?.description?.length > 30 ? (
                 <Button onClick={() => setReadMore(!readMore)}>
                     ПОКАЗАТЬ ВСЕ
                 </Button>
@@ -63,7 +65,7 @@ const InvestorGroup = ({ e, clean_group, setgroupid, className }) => {
                         setLeaveToggle(true);
                     } else {
                         if (e.status === "recruited") {
-                            setgroupid(e.id);
+                            setInsideToggle(true);
                         }
                     }
                 }}
@@ -91,6 +93,12 @@ const InvestorGroup = ({ e, clean_group, setgroupid, className }) => {
                     : "Выйти из группы"}
             </Button>
 
+            {InsideToggle ? (
+                <InsideGroupModal
+                    handleChange={() => setInsideToggle(false)}
+                    info={e.id}
+                />
+            ) : null}
             {leaveToggle ? <LeaveGroup handleChange={leave} /> : null}
         </CardInfo>
     ) : (

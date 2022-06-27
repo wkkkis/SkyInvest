@@ -1,6 +1,11 @@
 .main {
 
     &__dashboard_content {
+        .red {
+            color: red;
+            background: transparent;
+            border: none;
+        }
 
         &__payments {
             display: flex;
@@ -22,6 +27,22 @@
                         display: flex;
                         flex-direction: column;
                         gap: 16px;
+                    }
+
+                    .active {
+                
+                        p {
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                            transition: all 0.5s ease;
+                        }
+                    }
+        
+                    .false {
+        
+                        p {
+                            word-wrap: break-word;
+                        }
                     }
                 }
             }

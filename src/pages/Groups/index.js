@@ -147,19 +147,23 @@ const Groups = ({ title }) => {
                 {groups ? (
                     groups.length ? (
                         isTraider ? (
-                            groups.map((e) => (
-                                <TraiderGroup
-                                    e={e}
-                                    className="main__groups_content__card"
-                                />
-                            ))
+                            groups
+                                .reverse()
+                                .map((e) => (
+                                    <TraiderGroup
+                                        e={e}
+                                        className="main__groups_content__card"
+                                    />
+                                ))
                         ) : (
-                            groups.map((e) => (
-                                <InvestorGroup
-                                    e={e}
-                                    className="main__groups_content__card"
-                                />
-                            ))
+                            groups
+                                .reverse()
+                                .map((e) => (
+                                    <InvestorGroup
+                                        e={e}
+                                        className="main__groups_content__card"
+                                    />
+                                ))
                         )
                     ) : isTraider ? (
                         <></>

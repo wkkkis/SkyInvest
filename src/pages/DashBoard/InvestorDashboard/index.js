@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
 
 //Component
 import CardInfo from "@components/CardInfo";
@@ -21,6 +22,8 @@ import { useSelector } from "react-redux";
 import SpinnerLoad from "../../../components/SpinnerLoad";
 import { Link } from "react-router-dom";
 import router from "../../../utils/router";
+import { getInvestorGroups } from "../../../store/group/group.api";
+import InvestorGroup from "../../../components/InvestorComponents/InvestorGroup";
 
 const mockData = {
     userinfo: [
@@ -39,6 +42,13 @@ const mockData = {
 
 const InvestorDashBoard = React.memo(() => {
     const { user } = useSelector((state) => state.user);
+    const { message, groups, complete } = useSelector((state) => state.group);
+
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(getInvestorGroups());
+    }, [user]);
 
     return user ? (
         <div className="main">
@@ -200,6 +210,32 @@ const InvestorDashBoard = React.memo(() => {
                 <div className="main__dashboard_content__btns">
                     <Button theme="aftersubmit">Показать еще</Button>
                 </div>
+                <div className="main__dashboard_content__mycopy">
+                    <div className="main__dashboard_content__mycopy__title">
+                        <span>Последние группы</span>
+                    </div>
+                    <div className="main__dashboard_content__mycopy__content">
+                        {groups ? (
+                            groups.length ? (
+                                groups
+                                    .reverse()
+                                    .map((e) => (
+                                        <InvestorGroup
+                                            e={e}
+                                            className="main__groups_content__card"
+                                        />
+                                    ))
+                            ) : null
+                        ) : (
+                            <SpinnerLoad />
+                        )}
+                    </div>
+                </div>
+                {groups?.length >= 4 && (
+                    <div className="main__dashboard_content__btns">
+                        <Button theme="aftersubmit">Показать еще</Button>
+                    </div>
+                )}
             </div>
         </div>
     ) : (

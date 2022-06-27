@@ -451,9 +451,9 @@
             }
 
             &__content {
-                display: flex;
-                gap: 16px;
-                flex-wrap: wrap;
+                display: grid;
+                grid-template-columns: repeat(3, minmax(200px, 1fr));
+                grid-gap: 16px;
 
                 .slider__dots {
                     bottom: -40px;
@@ -463,20 +463,29 @@
                     justify-content: center
                 }
                 
-                .groups-item {
-                    display: flex;
-                    gap: 16px;
-                    flex-wrap: wrap;
-                }
-
                 &__card {
-                    width: 30%;
-                    flex-grow: 1;
+                    width: 100%;
 
                     &__content {
                         display: flex;
                         flex-direction: column;
                         gap: 16px;
+                    }
+
+                    .active {
+                
+                        p {
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                            transition: all 0.5s ease;
+                        }
+                    }
+        
+                    .false {
+        
+                        p {
+                            word-wrap: break-word;
+                        }
                     }
 
                     .button {
@@ -723,98 +732,6 @@
     }
 }
 
-@media screen and (max-width: 500px) {
-
-    .main {
-        padding: 16px;
-
-        &__intro {
-            
-            .intro-item {
-                padding: 180px 16px;
-            }
-        }
-
-        &__content {
-            padding: 16px;
-        }
-    }
-}
-
-@media screen and (max-width: 650px) {
-
-    .main {
-
-        &__intro {
-            background-position: center;            
-
-            &__content {
-                width: 100%;
-                align-items: flex-start;
-
-                .button {
-                    width: auto;
-                }
-            }
-        }
-
-        &__content {
-
-            &__instruct {
-
-                &__block {
-
-                    &__gide {
-                        align-items: flex-start;
-                        width: 100%;
-
-                        .gide-item {
-                            width: 100%;
-                        }
-
-                        .button {
-                            width: auto;
-                        }
-                    }
-                }
-            }
-
-            &__traider {
-            
-                &__content {
-                    flex-direction: column;
-
-                    .content__card {
-                        width: 100% !important;
-                    }
-                }
-            }
-
-            &__groups {
-
-                &__content {
-                    flex-direction: column;
-
-                    &__card {
-                        width: 100% !important;
-                    }
-                }
-            }
-
-            &__premium {
-
-                &__content {
-                    flex-direction: column;
-
-                    &__card {
-                        width: 100% !important;
-                    }
-                }
-            }
-        }
-    }
-}
-
 @media screen and (max-width: 934px) {
     
     .main {
@@ -835,6 +752,7 @@
 
                 &__block {
                     flex-direction: column;
+                    height: 100%;
 
                     &__gide {
                         img {
@@ -866,10 +784,9 @@
             &__groups {
 
                 &__content {
-
-                    &__card {
-                        width: 40%;
-                    }
+                    display: grid;
+                    grid-template-columns: repeat(2, minmax(200px, 1fr));
+                    grid-gap: 16px;
                 }
             }
 
@@ -964,6 +881,113 @@
                                 display: none;
                             }
                         }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 500px) {
+
+    .main {
+        padding: 16px;
+
+        &__intro {
+            
+            .intro-item {
+                padding: 180px 16px;
+            }
+        }
+
+        &__content {
+            padding: 16px;
+
+            &__groups {
+
+                &__content {
+                    display: grid;
+                    grid-template-columns: repeat(1, minmax(200px, 1fr));
+                    grid-gap: 16px;
+
+                    &__card {
+                        width: 100% !important;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 650px) {
+
+    .main {
+
+        &__intro {
+            background-position: center;            
+
+            &__content {
+                width: 100%;
+                align-items: flex-start;
+
+                .button {
+                    width: auto;
+                }
+            }
+        }
+
+        &__content {
+
+            &__instruct {
+
+                &__block {
+
+                    &__gide {
+                        align-items: flex-start;
+                        width: 100%;
+
+                        .gide-item {
+                            width: 100%;
+                        }
+
+                        .button {
+                            width: auto;
+                        }
+                    }
+                }
+            }
+
+            &__traider {
+            
+                &__content {
+                    flex-direction: column;
+
+                    .content__card {
+                        width: 100% !important;
+                    }
+                }
+            }
+
+            &__groups {
+
+                &__content {
+                    display: grid;
+                    grid-template-columns: repeat(1, minmax(200px, 1fr));
+                    grid-gap: 16px;
+
+                    &__card {
+                        width: 100% !important;
+                    }
+                }
+            }
+
+            &__premium {
+
+                &__content {
+                    flex-direction: column;
+
+                    &__card {
+                        width: 100% !important;
                     }
                 }
             }

@@ -83,12 +83,6 @@ const UserSecondTab = ({ id }) => {
                             <th>
                                 <span>PNL(ROE%)</span>
                             </th>
-                            <th>
-                                <span>Прибыль</span>
-                            </th>
-                            <th>
-                                <span>Процент</span>
-                            </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -120,12 +114,6 @@ const UserSecondTab = ({ id }) => {
                                 <td className="red_text">
                                     <span>GMTUSDT</span>
                                     <p>(-5.23% +10 USDT)</p>
-                                </td>
-                                <td className="green">
-                                    <span>+10 USDT</span>
-                                </td>
-                                <td className="green">
-                                    <span>+10%</span>
                                 </td>
                             </tr>
                         ))}
@@ -193,22 +181,6 @@ const UserSecondTab = ({ id }) => {
                             <div className="line__desc">
                                 <span>GMTUSDT</span>
                                 <p>(-5.23% +10 USDT)</p>
-                            </div>
-                        </div>
-                        <div className="user_tab__mobile_table__card__line">
-                            <div className="line__title">
-                                <span>Прибыль</span>
-                            </div>
-                            <div className="line__desc">
-                                <span>+10 USDT</span>
-                            </div>
-                        </div>
-                        <div className="user_tab__mobile_table__card__line">
-                            <div className="line__title">
-                                <span>Процент</span>
-                            </div>
-                            <div className="line__desc">
-                                <span>+10%</span>
                             </div>
                         </div>
                     </div>

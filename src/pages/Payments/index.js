@@ -31,7 +31,7 @@ const pay_method = [
         title: "USDT",
         icon: usdtIcon,
         desc: "USDT",
-        procent: "4.50%",
+        procent: "0%",
     },
 ];
 

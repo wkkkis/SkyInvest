@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 
 //Icons
 import logo from "@assets/img/logo.svg";
-import balance from "@assets/img/balance.svg";
+import balanceIcon from "@assets/img/balance.svg";
 
 //Style
 import "./SideBar.scss";
@@ -189,7 +189,7 @@ const sideBarRouter = {
 const SidebarTraider = () => {
     const [logout, setLogout] = useState(false);
     const navigate = useNavigate();
-    const { user } = useSelector((state) => state.user);
+    const { user, balance } = useSelector((state) => state.user);
     const { loaded } = useSelector((state) => state.auth);
 
     const handleChange = (toggle) => {
@@ -203,7 +203,7 @@ const SidebarTraider = () => {
             </div>
             <div className="sidebar__balance">
                 <div className="sidebar__balance__logo">
-                    <img src={balance} alt="" />
+                    <img src={balanceIcon} alt="" />
                 </div>
                 <div className="sidebar__balance__information">
                     <div className="sidebar__balance__information__text">
@@ -211,7 +211,7 @@ const SidebarTraider = () => {
                     </div>
                     <div className="sidebar__balance__information__number">
                         <p>На вашем счету:</p>
-                        <span>{user?.balance?.balance} USDT</span>
+                        <span>{balance || user?.balance?.balance} USDT</span>
                     </div>
                 </div>
             </div>

@@ -62,16 +62,13 @@ const TraiderGroup = ({ e, className }) => {
                         readMore && "active"
                     }`}
                 >
-                    <p>
-                        {e.description ||
-                            `Внеси свой первый депозит на Bitget и получи +5% кешбэка на
-                    счет USDT-M. Макс.выплата торгового бонуса составляет до
-                    100$.`}
-                    </p>
+                    <p>{e.description}</p>
                 </div>
-                <Button onClick={() => setReadMore(!readMore)}>
-                    ПОКАЗАТЬ ВСЕ
-                </Button>
+                {e?.description?.length > 30 && (
+                    <Button onClick={() => setReadMore(!readMore)}>
+                        ПОКАЗАТЬ ВСЕ
+                    </Button>
+                )}
                 <div className={`${className}__linebar`}>
                     <ProgressBar
                         completed={(e.amount_collected / e.need_sum) * 100}

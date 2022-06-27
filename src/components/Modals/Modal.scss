@@ -43,6 +43,7 @@
 
         &__desc {
             font-weight: 400;
+            word-break: break-all;
         }
 
         &__btns {
@@ -104,6 +105,7 @@
 
         &__estimate {
             display: flex;
+            justify-items: center;
             gap: 16px;
 
             img {
@@ -190,6 +192,40 @@
         &__block {
             max-width: 100%;
             width: 100%;
+        }
+    }
+}
+
+@media screen and (max-width: 500px) {
+    
+    .modal {
+
+        &__block {
+            
+            &__estimate {
+
+                img {
+                    width: 25px;
+                    height: 25px;
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 405px) {
+    
+    .modal {
+
+        &__block {
+            
+            &__estimate {
+
+                img {
+                    width: 18px;
+                    height: 18px;
+                }
+            }
         }
     }
 }

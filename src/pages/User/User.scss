@@ -411,6 +411,22 @@
                             }
                         }
 
+                        .active {
+                
+                            p {
+                                overflow: hidden;
+                                text-overflow: ellipsis;
+                                transition: all 0.5s ease;
+                            }
+                        }
+            
+                        .false {
+            
+                            p {
+                                word-wrap: break-word;
+                            }
+                        }
+
                         &__filters {
                             display: flex;
                             gap: 16px;

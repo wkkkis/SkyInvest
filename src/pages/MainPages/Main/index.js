@@ -418,19 +418,15 @@ const Main = () => {
                         {groups ? (
                             groups.length ? (
                                 groups.map((e, idx) => (
-                                    <div className="groups-item" key={idx + 1}>
-                                        <InvestorGroup
-                                            className={
-                                                "main__content__groups__content__card"
-                                            }
-                                            key={idx}
-                                            e={e}
-                                            clean_group={true}
-                                            setgroupid={(e) =>
-                                                setGroupTradeId(e)
-                                            }
-                                        />
-                                    </div>
+                                    <InvestorGroup
+                                        className={
+                                            "main__content__groups__content__card"
+                                        }
+                                        key={idx}
+                                        e={e}
+                                        clean_group={true}
+                                        setgroupid={(e) => setGroupTradeId(e)}
+                                    />
                                 ))
                             ) : (
                                 "Нету открытых групп"
@@ -621,12 +617,6 @@ const Main = () => {
                         </div>
                     </div>
                 </div>
-                {groupTradeId && (
-                    <InsideGroupModal
-                        handleChange={() => setGroupTradeId("")}
-                        info={groupTradeId}
-                    />
-                )}
                 {copyTradeId && (
                     <CopyTradeModal
                         handleChange={() => setCopyTradeId("")}

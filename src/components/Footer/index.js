@@ -116,7 +116,7 @@ const Footer = () => {
                         поддерживаем USDC в качестве маржи.
                     </span>
                 </div>
-                <nav className="footer__company_desc__list">
+                <nav className="footer__company_desc__list" id="list">
                     {headerRoutes.firstUl.map((e) => (
                         <NavLink key={e.url} to={e.url}>
                             {e.title}

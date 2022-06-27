@@ -85,18 +85,6 @@ const TradeGroup = () => {
                     <SpinnerLoad />
                 )}
             </div>
-            {groupId && (
-                <InsideGroupModal
-                    handleChange={() => setGroupId("")}
-                    info={groupId}
-                />
-            )}
-            {leaveId && (
-                <LeaveGroup
-                    info={leaveId}
-                    handleChange={() => setLeaveId("")}
-                />
-            )}
             {message
                 ? Object.values(message).map((e) => (
                       <MessageBox message={e[0]} error={true} />

@@ -50,8 +50,6 @@ const CopyTradeModal = ({ handleChange, info }) => {
         console.log(length);
     };
 
-    console.log(check);
-
     return (
         <>
             {!modalTab && (

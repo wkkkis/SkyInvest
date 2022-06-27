@@ -92,7 +92,11 @@ const DropMenu = ({ user }) => {
                         />
                     ) : null}
                     {headerRoutes.map(({ url, title }) => (
-                        <NavLink key={url + "_key"} to={url}>
+                        <NavLink
+                            onClick={toggleMenu}
+                            key={url + "_key"}
+                            to={url}
+                        >
                             <img src={arrow} alt="arrow" />
                             <img src={plus} alt="plus" />
 

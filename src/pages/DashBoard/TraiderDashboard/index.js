@@ -26,6 +26,7 @@ import {
     getInvestorGroups,
     getTraiderGroups,
 } from "../../../store/group/group.api";
+import { getTraderDashboard } from "../../../store/user/user.api";
 
 const mockData = {
     userinfo: [
@@ -41,7 +42,9 @@ const mockData = {
 };
 
 const TraiderDashBoard = React.memo(() => {
-    const { user, isTraider } = useSelector((state) => state.user);
+    const { user, isTraider, traider_data } = useSelector(
+        (state) => state.user
+    );
     const { message, groups, complete } = useSelector((state) => state.group);
 
     const dispatch = useDispatch();
@@ -49,10 +52,11 @@ const TraiderDashBoard = React.memo(() => {
     useEffect(() => {
         if (user) {
             dispatch(getTraiderGroups());
+            dispatch(getTraderDashboard());
         }
-    }, [user]);
+    }, [isTraider]);
 
-    console.log(groups);
+    console.log(traider_data);
 
     return user ? (
         <div className="main">
@@ -103,16 +107,24 @@ const TraiderDashBoard = React.memo(() => {
                     <div className="main__dashboard_content__actives__profit">
                         <InfoBlock
                             label="Поступления в группы"
-                            value={`${user.roi_level} %`}
+                            value={`${traider_data?.admission_to_groups} %`}
                             vWeigth="700"
-                            color="green"
+                            color={
+                                traider_data?.admission_to_groups <= 0
+                                    ? "red"
+                                    : "green"
+                            }
                             opactityLabel
                         />
                         <InfoBlock
                             label="Доход групп"
-                            value={`${user.profit} %`}
+                            value={`${traider_data?.income_of_groups} %`}
                             vWeigth="700"
-                            color="green"
+                            color={
+                                traider_data?.income_of_groups <= 0
+                                    ? "red"
+                                    : "green"
+                            }
                             opactityLabel
                         />
                     </div>
@@ -120,30 +132,44 @@ const TraiderDashBoard = React.memo(() => {
                 <div className="main__dashboard_content__payments">
                     <InfoBlock
                         label="Поступления в группы"
-                        value={`${user.roi_level} %`}
+                        value={`${traider_data?.admission_to_groups} %`}
                         vWeigth="700"
-                        color="green"
+                        color={
+                            traider_data?.admission_to_groups <= 0
+                                ? "red"
+                                : "green"
+                        }
                         opactityLabel
                     />
                     <InfoBlock
                         label="Доход групп"
-                        value={`${user.profit} %`}
+                        value={`${traider_data?.income_of_groups} %`}
                         vWeigth="700"
-                        color="green"
+                        color={
+                            traider_data?.income_of_groups <= 0
+                                ? "red"
+                                : "green"
+                        }
                         opactityLabel
                     />
                     <InfoBlock
                         label="Людей в группах"
-                        value={`${user.profit} %`}
+                        value={`${traider_data?.people_in_groups} %`}
                         vWeigth="700"
-                        color="green"
+                        color={
+                            traider_data?.people_in_groups <= 0
+                                ? "red"
+                                : "green"
+                        }
                         opactityLabel
                     />
                     <InfoBlock
                         label="Людей копирование"
-                        value={`${user.profit} %`}
+                        value={`${traider_data?.people_copying} %`}
                         vWeigth="700"
-                        color="green"
+                        color={
+                            traider_data?.people_copying <= 0 ? "red" : "green"
+                        }
                         opactityLabel
                     />
                 </div>
@@ -187,9 +213,13 @@ const TraiderDashBoard = React.memo(() => {
                                     : null}
                             </div>
                         </div>
-                        <div className="main__dashboard_content__btns">
-                            <Button theme="aftersubmit">Показать еще</Button>
-                        </div>
+                        {groups.length > 4 && (
+                            <div className="main__dashboard_content__btns">
+                                <Button theme="aftersubmit">
+                                    Показать еще
+                                </Button>
+                            </div>
+                        )}
                     </>
                 ) : null}
             </div>
