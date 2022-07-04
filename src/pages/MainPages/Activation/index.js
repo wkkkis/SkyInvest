@@ -35,10 +35,6 @@ const Activation = () => {
         }
     };
 
-    if (isAuth) {
-        navigate(-1);
-    }
-
     useEffect(() => {
         if (searchParams.get("token") && searchParams.get("id")) {
             setToken(searchParams.get("token"));

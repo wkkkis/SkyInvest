@@ -80,6 +80,8 @@
 
                     cursor: pointer;
 
+                    white-space: nowrap;
+
                     box-sizing: border-box;
                     box-shadow: inset 0px -1px 0px #CCD4D8;
                     transition: all 0.5s ease;
@@ -696,6 +698,19 @@
 
             &__copyinfo {
                 flex-direction: column;
+            }
+
+            &__tabs {
+                display: flex;
+                flex-direction: column;
+                gap: 16px;
+               
+                &__links {
+    
+                    li {
+                        padding: 16px 8px;
+                    }
+                }
             }
 
             .user_tab {

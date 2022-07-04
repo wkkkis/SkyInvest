@@ -101,6 +101,8 @@
     .historylayout {
         flex-direction: column;
 
+        margin-top: 16px;
+
         .history_sidebar {
             width: 100%;
         }
@@ -112,6 +114,13 @@
                 
                 &__title {
                     display: none;
+                }
+
+                &__filter {
+
+                    &__date {
+                        width: 28%;
+                    }
                 }
             }
         }

@@ -11,6 +11,14 @@
 
 .main {
 
+    &__title {
+
+        &__logo {
+            width: 50px;
+            height: 50px;
+        }
+    }
+
     &__content {
 
         &__faq {
@@ -124,11 +132,7 @@
     
                         &__desk {
                             width: 100%;
-                            height: 100%;
-    
-                            max-height: 440px;
-    
-                            overflow-y: scroll;
+                            height: calc(100% - 42px);
     
                             font-size: 14px;
                             font-weight: 400;
@@ -137,6 +141,7 @@
                             
                             p {
                                 padding: 16px 0;
+                                overflow-y: scroll;
                             }
     
                             span {
@@ -272,8 +277,6 @@
                                         width: 100%;
                                         height: 100%;
             
-                                        max-height: 440px;
-            
                                         overflow-y: scroll;
             
                                         font-size: 14px;
@@ -306,6 +309,9 @@
                         }
 
                         .faq_btn_block {
+                            display: flex;
+                            flex-direction: column;
+                            gap: 16px;
 
                             .faq_block_main {
                                 display: none;

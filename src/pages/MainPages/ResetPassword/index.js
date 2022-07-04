@@ -16,7 +16,7 @@ import { resetPassword } from "../../../store/auth/auth.api";
 const ResetPassword = () => {
     const [completed, setCompleted] = useState(false);
     const dispatch = useDispatch();
-    const { messages } = useSelector((state) => state.user);
+    const { messages, loaded } = useSelector((state) => state.user);
     const fetchReset = (data) => {
         dispatch(resetPassword(data));
     };
@@ -36,7 +36,7 @@ const ResetPassword = () => {
     return (
         <div className="main_auth">
             <div className="main_auth__content">
-                <ResetPasswordForm fetchData={fetchReset} />
+                <ResetPasswordForm fetchData={fetchReset} loaded={loaded} />
                 <img src={back} alt="" />
             </div>
             {completed ? (

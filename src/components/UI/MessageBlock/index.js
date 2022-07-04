@@ -6,7 +6,12 @@ import { dateFormatter } from "@utils/stringHelper";
 //Styles
 import "./MessageBlock.scss";
 
-const MessageBlock = ({ e, payment = false, cash = false }) => {
+const MessageBlock = ({
+    e,
+    payment = false,
+    cash = false,
+    withTime = false,
+}) => {
     return (
         <div className="messageblock">
             <div className="messageblock__header">
@@ -51,13 +56,16 @@ const MessageBlock = ({ e, payment = false, cash = false }) => {
                 <div className="messageblock__footer__date">
                     <span>Дата:</span>
                     <span className="opacity">
-                        {dateFormatter(new Date(e?.date_joined || e?.created))}
+                        {dateFormatter(
+                            new Date(e?.date_joined || e?.created),
+                            withTime
+                        )}
                     </span>
                 </div>
                 <div className="messageblock__footer__sum">
                     <span>Сумма:</span>
                     <span className="opacity">
-                        {e?.invested_sum || e?.amount}
+                        {e?.invested_sum || e?.amount} USDT
                     </span>
                 </div>
             </div>

@@ -64,7 +64,9 @@ const About = () => {
     return (
         <div className="main about">
             <div className="main__title">
-                <img src={about} alt="about" />
+                <div className="main__title__logo">
+                    <img src={about} alt="about" />
+                </div>
                 <div className="main__title__text">
                     <p>Подробности о нашей</p>
                     <span>о компании </span>
@@ -98,7 +100,9 @@ const About = () => {
             </div>
 
             <div className="main__title">
-                <img src={onSum} alt="about" />
+                <div className="main__title__logo">
+                    <img src={onSum} alt="about" />
+                </div>
                 <div className="main__title__text">
                     <p>Компания</p>
                     <span>в цифрах </span>
@@ -120,71 +124,78 @@ const About = () => {
                 </div>
             </div>
 
-            <div className="main__title">
-                <img src={causes} alt="about" />
-                <div className="main__title__text">
-                    <p>9 причин</p>
-                    <span>работать с нами </span>
-                </div>
-            </div>
-
-            <div className="main__about__causes">
-                {mockData.map((el, idx) => (
-                    <div key={idx} className="main__about__causes__item">
-                        <div className="main__about__causes__item__title">
-                            <div>
-                                <span>{idx + 1}</span>
-                            </div>
-                            <span>{el}</span>
-                        </div>
-                        <p>
-                            При самостоятельной продаже, покупке или сдаче
-                            придется тратить на это много времени и совсем не
-                            обязательно брать отпуск, чтобы решить ваш
-                            квартирный вопрос
-                        </p>
-                    </div>
-                ))}
-            </div>
-
-            <div className="main__content__premium">
+            <div className="main__about__sum_content">
                 <div className="main__title">
-                    <img src={premium} alt="instruct" />
+                    <div className="main__title__logo">
+                        <img src={causes} alt="about" />
+                    </div>
                     <div className="main__title__text">
-                        <p>Какие у нас</p>
-                        <span>преимущества </span>
+                        <p>9 причин</p>
+                        <span>работать с нами </span>
                     </div>
                 </div>
-                <div className="main__content__premium__desc">
-                    <p>
-                        Sky Invest занимается брокерской/дилерской деятельностью
-                        на более 150 рынках по всему миру. В качестве брокера
-                        Sky Invest предоставляет институционным и
-                        профессиональным трейдерам прямой доступ к ("онлайн")
-                        услугам по клирингу и исполнению сделок с широким
-                        спектром инструментов (включая акции, опционы, фьючерсы,
-                        валюту, облигации, золото, крипто* и фонды по всему
-                        миру). Interactive Brokers Group и ее дочерние
-                        предприятия осуществляют более 2,499,000 сделок в день.
-                    </p>
-                </div>
-                <div className="main__content__premium__content">
-                    {premiumObj.map((e) => (
-                        <div
-                            key={e.title}
-                            className="main__content__premium__content__card"
-                        >
-                            <img src={e.img} alt={e.title} />
-                            <span>{e.title}</span>
+
+                <div className="main__about__causes">
+                    {mockData.map((el, idx) => (
+                        <div key={idx} className="main__about__causes__item">
+                            <div className="main__about__causes__item__title">
+                                <div>
+                                    <span>{idx + 1}</span>
+                                </div>
+                                <span>{el}</span>
+                            </div>
                             <p>
-                                Копитрейдинг в один клик объединяющий более 10
-                                тыс. трейдеров Единый контракт позволяет
-                                размещать сделки без дополнительной конвертации
-                                Единственные на рынке поддерживаем USDC в
-                                качестве маржи.
+                                При самостоятельной продаже, покупке или сдаче
+                                придется тратить на это много времени и совсем
+                                не обязательно брать отпуск, чтобы решить ваш
+                                квартирный вопрос
                             </p>
                         </div>
                     ))}
+                </div>
+
+                <div className="main__content__premium">
+                    <div className="main__title">
+                        <div className="main__title__logo">
+                            <img src={premium} alt="instruct" />
+                        </div>
+                        <div className="main__title__text">
+                            <p>Какие у нас</p>
+                            <span>преимущества </span>
+                        </div>
+                    </div>
+                    <div className="main__content__premium__desc">
+                        <p>
+                            Sky Invest занимается брокерской/дилерской
+                            деятельностью на более 150 рынках по всему миру. В
+                            качестве брокера Sky Invest предоставляет
+                            институционным и профессиональным трейдерам прямой
+                            доступ к ("онлайн") услугам по клирингу и исполнению
+                            сделок с широким спектром инструментов (включая
+                            акции, опционы, фьючерсы, валюту, облигации, золото,
+                            крипто* и фонды по всему миру). Interactive Brokers
+                            Group и ее дочерние предприятия осуществляют более
+                            2,499,000 сделок в день.
+                        </p>
+                    </div>
+                    <div className="main__content__premium__content">
+                        {premiumObj.map((e) => (
+                            <div
+                                key={e.title}
+                                className="main__content__premium__content__card"
+                            >
+                                <img src={e.img} alt={e.title} />
+                                <span>{e.title}</span>
+                                <p>
+                                    Копитрейдинг в один клик объединяющий более
+                                    10 тыс. трейдеров Единый контракт позволяет
+                                    размещать сделки без дополнительной
+                                    конвертации Единственные на рынке
+                                    поддерживаем USDC в качестве маржи.
+                                </p>
+                            </div>
+                        ))}
+                    </div>
                 </div>
             </div>
 

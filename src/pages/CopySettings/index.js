@@ -107,7 +107,7 @@ const CopySettings = () => {
             <div className="main__copysettings_content">
                 <div className="main__copysettings_content__setting">
                     <Button theme="beforesubmit">Активировать копитрейд</Button>
-                    <Field classNames="clear_input" type="clear" />
+                    {/* <Field classNames="clear_input" type="clear" /> */}
                     <Field label="Процент" type="number" />
 
                     <div className="main__copysettings_content__setting__pare">

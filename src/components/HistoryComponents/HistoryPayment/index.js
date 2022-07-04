@@ -138,7 +138,13 @@ const Payment = () => {
                 </div>
                 <div className="history_page__messages_info__content">
                     {data && data.length
-                        ? data.map((e) => <MessageBlock e={e} payment={true} />)
+                        ? data.map((e) => (
+                              <MessageBlock
+                                  e={e}
+                                  payment={true}
+                                  withTime={true}
+                              />
+                          ))
                         : null}
                 </div>
             </div>

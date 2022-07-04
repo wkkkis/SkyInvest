@@ -32,9 +32,8 @@ const AgreeModal = React.memo(({ handleChange }) => {
                         onChange={(e) => setCheck(e.target.checked)}
                         id="register_confirm_agree"
                         group="register_confirm_agree"
-                        label={`Я принимаю условия`}
+                        label={`Я принимаю условия соглашения`}
                     />
-                    <a href="#">соглашения</a>
                 </div>
                 <div className="modal__block__btns">
                     <Button

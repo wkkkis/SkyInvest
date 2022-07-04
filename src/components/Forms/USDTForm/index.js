@@ -87,7 +87,7 @@ const USDTForm = () => {
             >
                 {complateText && (
                     <Field
-                        label="Tx Id"
+                        label="TXID"
                         type="money"
                         {...register("usdt", {
                             required: true,
@@ -101,7 +101,7 @@ const USDTForm = () => {
                 {usdt_for_pay && (
                     <>
                         <span>
-                            Отправьте желаемую сумму в USDT на нащ кошелек
+                            Отправьте желаемую сумму в USDT на наш кошелек
                         </span>
                         <span className="usdt_key">{usdt_for_pay.address}</span>
                     </>

@@ -69,7 +69,7 @@ export const create2FA = () => async (dispatch) => {
             dispatch(actions.setQr(response.data));
         }
     } catch (e) {
-        dispatch(actions.message("create_2fa"));
+        dispatch(actions.message(e.response.data));
     }
 };
 
@@ -81,7 +81,7 @@ export const update2FA = (data) => async (dispatch) => {
             dispatch(get2FAInfo());
         }
     } catch (e) {
-        dispatch(actions.message("update_2fa"));
+        dispatch(actions.message(e.response.data));
     }
 };
 
@@ -93,7 +93,7 @@ export const verify2FA = (code) => async (dispatch) => {
             dispatch(get2FAInfo());
         }
     } catch (e) {
-        dispatch(actions.message("verify_2fa"));
+        dispatch(actions.message(e.response.data));
     }
 };
 
@@ -105,7 +105,7 @@ export const delete2FA = (twofa) => async (dispatch) => {
             dispatch(get2FAInfo());
         }
     } catch (e) {
-        dispatch(actions.message("delete_2fa"));
+        dispatch(actions.message(e.response.data));
     }
 };
 
@@ -122,7 +122,7 @@ export const get2FAInfo = () => async (dispatch) => {
             dispatch(actions.setSecu(false));
         }
     } catch (e) {
-        dispatch(actions.message("info_error"));
+        dispatch(actions.message(e.response.data));
     }
 };
 

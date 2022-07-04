@@ -31,6 +31,12 @@ const InsideGroupModal = ({ handleChange, info }) => {
     const { group, load } = useSelector((state) => state.group);
     const { isAuth } = useSelector((state) => state.auth);
 
+    const [data, setData] = useState(group);
+
+    useEffect(() => {
+        setData(group);
+    }, [group]);
+
     const hadnleClick = (toggle) => {
         if (toggle) {
             handleChange(0);
@@ -66,29 +72,29 @@ const InsideGroupModal = ({ handleChange, info }) => {
             {!modalTab && (
                 <div className="modal">
                     <div className="modal__block">
-                        {group ? (
+                        {data ? (
                             <>
                                 <div className="modal__block__title">
-                                    <span>{group.title}</span>
+                                    <span>{data.title}</span>
                                 </div>
                                 <div className="modal__block__desc opacity">
-                                    <span>{group.description}</span>
+                                    <span>{data.description}</span>
                                 </div>
                                 <div className="modal__block__line"></div>
                                 <CardInfo
-                                    id={group.id}
+                                    id={data.id}
                                     className="modal__block__profit"
-                                    name={`${group.first_name} ${group.last_name}`}
-                                    email={group.email}
+                                    name={`${data.first_name} ${data.last_name}`}
+                                    email={data.email}
                                     onClick={handleClick}
-                                    rating={`${group.investors.length}/${group.group_size}`}
+                                    rating={`${data.investors.length}/${data.group_size}`}
                                     logo="https://cdn.dribbble.com/users/24078/screenshots/15522433/media/e92e58ec9d338a234945ae3d3ffd5be3.jpg?compress=1&resize=400x300"
                                 />
                                 <div className="modal__block__line"></div>
                                 <span className="w400 f12">
                                     {Math.round(
                                         (Date.now() -
-                                            new Date(group?.end_date)) /
+                                            new Date(data?.end_date)) /
                                             (1000 * 60 * 60 * 24)
                                     )
                                         .toString()
@@ -97,21 +103,21 @@ const InsideGroupModal = ({ handleChange, info }) => {
                                 </span>
                                 <ProgressBar
                                     completed={
-                                        (group.amount_collected /
-                                            group.need_sum) *
+                                        (data.amount_collected /
+                                            data.need_sum) *
                                         100
                                     }
-                                    from={group.amount_collected}
-                                    to={group.need_sum}
-                                    start={group.start_date}
-                                    end={group.end_date}
+                                    from={data.amount_collected}
+                                    to={data.need_sum}
+                                    start={data.start_date}
+                                    end={data.end_date}
                                 />
                                 <span className="w700 f12">
                                     ВАША СУММА ВСТУПЛЕНИЯ
                                 </span>
                                 <RangeSlider
-                                    min={group?.min_entry_sum}
-                                    max={group?.max_entry_sum}
+                                    min={data?.min_entry_sum}
+                                    max={data?.max_entry_sum}
                                     onChange={(e) => rangeChange(e)}
                                 />
                                 <div className="modal__block__confirm">
@@ -136,25 +142,28 @@ const InsideGroupModal = ({ handleChange, info }) => {
                                     <Button
                                         className="modal__block__btns__button"
                                         theme="aftersubmit"
-                                        onClick={() => hadnleClick(false)}
+                                        onClick={() => {
+                                            hadnleClick(false);
+                                            setData(null);
+                                        }}
                                     >
                                         Отмена
                                     </Button>
                                     <Button
                                         className="modal__block__btns__button"
                                         theme={
-                                            group.status === "recruited"
+                                            data.status === "recruited"
                                                 ? "beforesubmit"
                                                 : "aftersubmit"
                                         }
                                         onClick={() => {
-                                            join(group.id);
+                                            join(data.id);
                                             hadnleClick(true);
                                         }}
                                     >
                                         {load ? (
                                             <SpinnerLoad />
-                                        ) : group.status === "recruited" ? (
+                                        ) : data.status === "recruited" ? (
                                             "Вступить"
                                         ) : (
                                             "Выйти из группы"

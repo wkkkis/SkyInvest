@@ -129,11 +129,11 @@ export const logOut = () => async (dispatch) => {
 };
 
 export const resetPassword = (email) => async (dispatch) => {
-    dispatch(authActions.message("visa_false"));
+    dispatch(authActions.message(""));
     dispatch(authActions.setLoad(true));
     try {
         let response = await authService.reset_password(email);
-        dispatch(authActions.message(response.data.message));
+        dispatch(authActions.message("reset_success"));
     } catch (e) {
         dispatch(authActions.setLoad(false));
         if (e.response.data.message) {

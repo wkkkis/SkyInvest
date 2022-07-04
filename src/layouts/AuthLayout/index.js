@@ -36,7 +36,7 @@ const AuthLayout = ({ children, ...props }) => {
     return (
         <div className="authlayout">
             <Header />
-            {messages
+            {messages && messages !== "reset_success"
                 ? Object.values(messages).map((e) => (
                       <MessageBox message={e} error={true} />
                   ))

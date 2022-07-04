@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 //Icons
-import faq from "@assets/img/faq.svg";
+import faqIcon from "@assets/img/faq.svg";
 
 //Components
 import Button from "@components/Button";
@@ -68,7 +68,9 @@ const FAQ = () => {
         <div className="main faq_page">
             <div className="main__content__faq">
                 <div className="main__title">
-                    <img src={faq} alt="instruct" />
+                    <div className="main__title__logo">
+                        <img src={faqIcon} alt="instruct" />
+                    </div>
                     <div className="main__title__text">
                         <p>Самые часто задаваемые</p>
                         <span>вопросы и ответы </span>
@@ -120,24 +122,43 @@ const FAQ = () => {
                                       </svg>
                                   </Button>
                                   <div className="faq_block_main">
-                                      {faqAnswer && faqAnswer.length
-                                          ? faqAnswer.map((e) => {
+                                      {faqQues && faqQues.length
+                                          ? faqQues.map((e) => {
                                                 if (e.id === faqTab) {
-                                                    return e.value;
+                                                    return (
+                                                        <div className="faq_block">
+                                                            <div className="faq_block__title">
+                                                                <span>
+                                                                    {e.value}
+                                                                </span>
+                                                            </div>
+                                                            <div className="faq_block__desk">
+                                                                <p>{e.label}</p>
+                                                            </div>
+                                                        </div>
+                                                    );
                                                 }
                                             })
                                           : null}
-                                      {e?.label}
                                   </div>
                               </div>
                           ))
                         : null}
                 </div>
                 <div className="main__content__faq__content__block">
-                    {faqAnswer && faqAnswer.length
-                        ? faqAnswer.map((e) => {
+                    {faqQues && faqQues.length
+                        ? faqQues.map((e) => {
                               if (e.id === faqTab) {
-                                  return e.value;
+                                  return (
+                                      <div className="faq_block">
+                                          <div className="faq_block__title">
+                                              <span>{e.value}</span>
+                                          </div>
+                                          <div className="faq_block__desk">
+                                              <p>{e.label}</p>
+                                          </div>
+                                      </div>
+                                  );
                               }
                           })
                         : null}

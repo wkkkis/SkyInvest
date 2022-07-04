@@ -12,6 +12,11 @@
         grid-template-columns: repeat(3, minmax(200px, 1fr));
         grid-gap: 16px;
 
+        &__title {
+            word-break: break-all;
+            font-weight: 500;
+        }
+
         .cardinfo  {
             width: 100%;
             flex-grow: 1;
@@ -23,27 +28,31 @@
                 font-weight: 700;
             }
 
+            .active {
+                width: 100%;
+                        
+                p {
+                    width: 100%;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    transition: all 0.5s ease;
+                }
+            }
+        
+            .false {
+        
+                p {
+                    word-wrap: break-word;
+                }
+            }
+
             &__desc {
                 opacity: 0.5;
                 font-weight: 400;
                 font-size: 14px;
             }
 
-            .active {
-                
-                p {
-                    overflow: hidden;
-                    text-overflow: ellipsis;
-                    transition: all 0.5s ease;
-                }
-            }
-
-            .false {
-
-                p {
-                    word-wrap: break-word;
-                }
-            }
+           
 
             &__content {
                 display: flex;

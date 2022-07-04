@@ -69,12 +69,6 @@ const HistoryLayout = ({ children, setGetTitle, ...props }) => {
         rightRender();
     }, [location.search]);
 
-    useEffect(() => {
-        window.addEventListener("resize", (e) => {
-            rightRender();
-        });
-    }, []);
-
     const rightRender = () => {
         renderBlock(searchParams.get("type"));
         if (document.body.offsetWidth >= 700) {

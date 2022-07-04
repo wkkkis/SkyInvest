@@ -3,6 +3,7 @@
     &__contacts__content {
         display: grid;
         grid-template-columns: calc(35% - 38.5px) calc(65% - 38.5px);
+        grid-template-rows: 300px;
         grid-gap: 77px;
 
         margin-top: 32px;
@@ -56,6 +57,7 @@
         &__contacts__content {
             display: flex;
             flex-direction: column;
+            gap: 30px;
 
             margin: 0;
 

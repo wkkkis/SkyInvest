@@ -72,6 +72,18 @@ const Verify = () => {
                 setDateTwoShow(false);
             }, 0.5);
         });
+        document.addEventListener("click", (e) => {
+            if (e && e.target.localName !== "input") {
+                e.path.forEach((el) => {
+                    if (
+                        el.className &&
+                        !el.className.includes("react-calendar")
+                    ) {
+                        setDateTwoShow(false);
+                    }
+                });
+            }
+        });
     }, [dateTwoShow]);
 
     useEffect(() => {

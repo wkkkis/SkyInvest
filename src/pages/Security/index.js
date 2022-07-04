@@ -157,7 +157,7 @@ const Security = () => {
             )}
             {messages
                 ? Object.values(messages).map((e) => (
-                      <MessageBox message={e[0]} error={true} />
+                      <MessageBox message={e} error={true} />
                   ))
                 : null}
         </div>

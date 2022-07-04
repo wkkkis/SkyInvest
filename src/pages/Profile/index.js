@@ -41,11 +41,11 @@ const Profile = () => {
     };
 
     return (
-        <div className="main history_header profile">
+        <div className="main profile_header profile">
             <div className="main__header">
                 <div className="main__header__title">
                     <div
-                        className="history_header__back"
+                        className="profile_header__back"
                         onClick={changeBack}
                     ></div>
                     <svg

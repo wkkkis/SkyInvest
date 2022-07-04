@@ -12,6 +12,9 @@ import SpinnerLoad from "../../SpinnerLoad";
 import LeaveGroup from "../../Modals/LeaveGroup";
 import InsideGroupModal from "../../Modals/InsideGroupModal";
 
+//Styles
+import "./InvestorGroup.scss";
+
 const InvestorGroup = ({ e, clean_group, setgroupid, className }) => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -39,10 +42,14 @@ const InvestorGroup = ({ e, clean_group, setgroupid, className }) => {
             onClick={handleClick}
             logo="https://cdn.dribbble.com/users/24078/screenshots/15522433/media/e92e58ec9d338a234945ae3d3ffd5be3.jpg?compress=1&resize=400x300"
         >
-            <div className={`${className}__title`}>
+            <div className={`${className}__title investorgroup__title`}>
                 <span>{e.title}</span>
             </div>
-            <div className={`${className}__desc ${readMore && "active"}`}>
+            <div
+                className={`${className}__desc investorgroup__desc ${
+                    readMore && "active"
+                }`}
+            >
                 <p>{e.description}</p>
             </div>
             {e?.description?.length > 30 ? (
@@ -61,7 +68,7 @@ const InvestorGroup = ({ e, clean_group, setgroupid, className }) => {
             </div>
             <Button
                 onClick={() => {
-                    if (e.status_for_user) {
+                    if (e.status_for_user && e.status !== "completed") {
                         setLeaveToggle(true);
                     } else {
                         if (e.status === "recruited") {
@@ -71,28 +78,22 @@ const InvestorGroup = ({ e, clean_group, setgroupid, className }) => {
                 }}
                 disabled={e.status === "end"}
                 theme={
-                    e.status_for_user
-                        ? e.status === "completed"
-                            ? "disabled"
-                            : e.status === "recruited"
-                            ? "beforesubmit"
-                            : e.status === "was"
-                            ? "aftersubmit"
-                            : e.status === "completed"
-                            ? "disabled"
-                            : ""
-                        : "aftersubmit"
+                    e.status_for_user && e.status !== "completed"
+                        ? "aftersubmit"
+                        : e.status === "completed"
+                        ? "disabled"
+                        : e.status === "recruited"
+                        ? "beforesubmit"
+                        : null
                 }
             >
-                {e.status_for_user
-                    ? e.status === "completed"
-                        ? "Группа завершена"
-                        : e.status === "recruited"
-                        ? "Вступить в группу"
-                        : e.status === "was"
-                        ? "Выйти из группы"
-                        : ""
-                    : "Выйти из группы"}
+                {e.status_for_user && e.status !== "completed"
+                    ? "Выйти из группы"
+                    : e.status === "completed"
+                    ? "Группа завершена"
+                    : e.status === "recruited"
+                    ? "Вступить в группу"
+                    : null}
             </Button>
 
             {InsideToggle ? (

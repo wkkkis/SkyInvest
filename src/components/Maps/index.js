@@ -1,21 +1,5 @@
 import React from "react";
-
-//Maps
-import { GoogleMap, withScriptjs, withGoogleMap } from "react-google-maps";
-
-const Map = () => {
-    return (
-        <GoogleMap
-            defaultZoom={12}
-            defaultCenter={{
-                lat: 42.8719304,
-                lng: 74.6114867,
-            }}
-        />
-    );
-};
-
-const WrappedMap = withScriptjs(withGoogleMap(Map));
+import { Map, YMaps } from "react-yandex-maps";
 
 const MapContainer = () => {
     return (
@@ -27,14 +11,13 @@ const MapContainer = () => {
                 borderRadius: 10,
             }}
         >
-            <WrappedMap
-                googleMapURL={
-                    "https://maps.googleapis.com/maps/api/js?v=3.exp6libraries=geometry,drawing,places"
-                }
-                loadingElement={<div style={{ height: "100%" }} />}
-                containerElement={<div style={{ height: "100%" }} />}
-                mapElement={<div style={{ height: "100%" }} />}
-            />
+            <YMaps>
+                <Map
+                    width="100%"
+                    height="100%"
+                    defaultState={{ center: [55.75, 37.57], zoom: 9 }}
+                />
+            </YMaps>
         </div>
     );
 };

@@ -113,7 +113,7 @@
 
         display: flex;
         flex-direction: column;
-        gap: 90px;
+        gap: 30px;
 
         &__instruct {
             display: flex;
@@ -162,8 +162,6 @@
                         display: flex;
                         flex-direction: column;
                         gap: 10px;
-
-                        height: 350px;
         
                         padding: 16px;
                         padding-bottom: 32px;
@@ -288,7 +286,9 @@
 
                 &__pagination {
                     width: 100%;
-                    
+
+                    margin-top: 8px;
+
                     display: flex;
                     justify-content: center;
                 }
@@ -844,8 +844,6 @@
             
                                         max-height: 440px;
             
-                                        overflow-y: scroll;
-            
                                         font-size: 14px;
                                         font-weight: 400;
             
@@ -853,6 +851,7 @@
                                         
                                         p {
                                             padding: 16px 0;
+                                            overflow-y: scroll;
                                         }
             
                                         span {
@@ -876,6 +875,9 @@
                         }
 
                         .faq_btn_block {
+                            display: flex;
+                            flex-direction: column;
+                            gap: 16px;
 
                             .faq_block_main {
                                 display: none;
@@ -894,6 +896,8 @@
         padding: 16px;
 
         &__intro {
+            width: calc(100% - 32px);
+            margin: 50px auto;
             
             .intro-item {
                 padding: 180px 16px;
@@ -902,6 +906,17 @@
 
         &__content {
             padding: 16px;
+
+            &__faq, &__groups, &__traider, &__premium {
+                gap: 8px;
+                
+                &__desc {
+                    padding: 16px;
+                    box-sizing: border-box;
+                    border-radius: 8px;
+                    background: #FBFBFB;
+                }
+            }
 
             &__groups {
 

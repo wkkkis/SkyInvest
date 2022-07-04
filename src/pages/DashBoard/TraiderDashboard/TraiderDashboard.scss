@@ -27,8 +27,12 @@
                         display: flex;
                         flex-direction: column;
                         gap: 16px;
-                    }
 
+                        &__title {
+                            word-break: break-all;
+                        }
+                    }
+                    
                     .active {
                 
                         p {
@@ -68,22 +72,31 @@
         &__dashboard_content {
     
             &__payments {
-                flex-direction: column;
+                flex-wrap: wrap;
+
+                .infoblock {
+                    width: 40%;
+                    flex-grow: 1;
+
+                    text-align: center;
+                }
             }
 
             &__actives {
 
                 &__profit {
-                    flex-direction: column;
 
+                    .infoblock {
+                        width: 50%;
+                    }
                 }
             }
 
             &__userinfo {
-                flex-direction: column;
-
+                flex-wrap: wrap;
+                
                 .infoblock {
-                    width: 100% !important;
+                    word-break: break-all;
                 }
             }
     

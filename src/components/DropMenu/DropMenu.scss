@@ -45,6 +45,15 @@
               }
           }
 
+          .button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+
+            padding: 13px;
+          }
+
           &__theme {
               display: flex;
               justify-content: center;

@@ -16,6 +16,14 @@
 
     &__about {
 
+        &__sum_content {
+            margin-top: -170px;
+
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
         &__desc_block {
             display: grid;
             grid-template-columns: 40% 60%;
@@ -164,10 +172,6 @@
                 }
             }
         }
-    }
-
-    .footer {
-        margin-top: 50px;
     }
 }
 

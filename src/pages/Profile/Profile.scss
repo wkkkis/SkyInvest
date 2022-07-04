@@ -2,6 +2,30 @@
     gap: 0 !important;
 }
 
+.profile_header {
+
+    &__back {
+        display: none;
+
+        background-image: url("../../assets/img/arrowLeft.svg");
+        background-repeat: no-repeat;
+        background-size: cover;
+
+        width: 24px;
+        height: 21px;
+    }
+}
+
+@media screen and (max-width: 1118px) {
+    
+    .profile_header {
+
+        &__back {
+            display: flex;
+        }
+    }
+}
+
 @media screen and (max-width: 700px) {
     
     .main {

@@ -22,9 +22,8 @@ import "../Forms.scss";
 //Router
 import { router } from "@utils/router";
 
-const ResetPasswordForm = ({ fetchData }) => {
+const ResetPasswordForm = ({ fetchData, loaded }) => {
     const navigate = useNavigate();
-    const [loaded, setLoaded] = useState(true);
     const {
         register,
         handleSubmit,
@@ -37,11 +36,7 @@ const ResetPasswordForm = ({ fetchData }) => {
     };
 
     const onSubmitHandler = async (data) => {
-        setLoaded(false);
-
         fetchData(data);
-
-        setLoaded(true);
     };
 
     const showEmailError = () => {
@@ -102,7 +97,7 @@ const ResetPasswordForm = ({ fetchData }) => {
                     type="submit"
                 >
                     <img src={key} alt="key" />
-                    {!loaded ? <SpinnerLoad /> : "ВОССТАНОВИТЬ ПАРОЛЬ"}
+                    {loaded ? <SpinnerLoad /> : "ВОССТАНОВИТЬ ПАРОЛЬ"}
                 </Button>
             </form>
         </div>

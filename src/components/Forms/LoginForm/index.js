@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router";
+import { Link } from "react-router-dom";
 
 //Form
 import { useForm } from "react-hook-form";
@@ -21,7 +22,6 @@ import "../Forms.scss";
 
 //Router
 import router from "@utils/router";
-import { Link } from "react-router-dom";
 
 const LoginForm = ({ fetchData, error, loaded }) => {
     const navigate = useNavigate();
@@ -123,13 +123,9 @@ const LoginForm = ({ fetchData, error, loaded }) => {
                     <img src={key} alt="key" />
                     {loaded ? <SpinnerLoad /> : "АВТОРИЗОВАТЬСЯ"}
                 </Button>
-                <Button
-                    className="form__button"
-                    theme={"aftersubmit"}
-                    onClick={() => navigate(router.signin)}
-                >
+                <Link to={router.signin} className="aftersubmit form__button">
                     Зарегистрироваться
-                </Button>
+                </Link>
             </form>
         </div>
     );

@@ -206,8 +206,9 @@
                 .main {
 
                     &__header {
-                        margin-bottom: 0;
-                        padding: 0 0 24px 0;
+                        margin-bottom: 24px;
+                        padding: 0;
+                        border: none;
                     }
                 }
             }

@@ -18,10 +18,11 @@ import {
     getProfileInfo,
     userActions,
 } from "../../store/user/user.api";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import EstimateModal from "../../components/Modals/EstimateModal";
 import SpinnerLoad from "../../components/SpinnerLoad";
 import MessageBox from "../../components/MessageBox";
+import router from "../../utils/router";
 
 const User = () => {
     const [copyTradeId, setCopyTradeId] = useState();
@@ -30,12 +31,14 @@ const User = () => {
     const [renderBlock, setRenderBlock] = useState();
     const [estimate, setEstimate] = useState(false);
 
+    const { isAuth } = useSelector((state) => state.auth);
     const { user, isTraider, profile, complete, messages } = useSelector(
         (state) => state.user
     );
     const { groups } = useSelector((state) => state.group);
 
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const params = useParams();
 
     useEffect(() => {
@@ -72,8 +75,10 @@ const User = () => {
     }, [tab]);
 
     const estimateChange = (data) => {
-        if (data) {
+        if (data && isAuth) {
             dispatch(changeRate(params.id, data));
+        } else {
+            navigate(router.login);
         }
         setEstimate(false);
     };
@@ -229,7 +234,7 @@ const User = () => {
             )}
             {messages
                 ? Object.values(messages).map((e) => (
-                      <MessageBox message={e[0]} error={true} />
+                      <MessageBox message={e} error={true} />
                   ))
                 : null}
             {complete ? <MessageBox message={complete} error={false} /> : null}
