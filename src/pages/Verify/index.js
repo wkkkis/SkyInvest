@@ -66,25 +66,19 @@ const Verify = () => {
     };
 
     useEffect(() => {
-        let d = document.querySelector(".react-calendar__month-view__days");
-        d?.addEventListener("click", (e) => {
-            setTimeout(() => {
-                setDateTwoShow(false);
-            }, 0.5);
-        });
-        document.addEventListener("click", (e) => {
-            if (e && e.target.localName !== "input") {
-                e.path.forEach((el) => {
-                    if (
-                        el.className &&
-                        !el.className.includes("react-calendar")
-                    ) {
-                        setDateTwoShow(false);
-                    }
-                });
-            }
-        });
-    }, [dateTwoShow]);
+        let d = document.querySelector(
+            ".react-calendar__month-view__days__day"
+        );
+        if (d) {
+            setDateTwoShow(false);
+        }
+        // d?.addEventListener("click", (e) => {
+        //     console.log(e);
+        //     setTimeout(() => {
+        //         setDateTwoShow(false);
+        //     }, 0.5);
+        // });
+    }, [dateOne]);
 
     useEffect(() => {
         dispatch(getVerificationStatus());
@@ -168,6 +162,7 @@ const Verify = () => {
             <div className="main__header">
                 <div className="main__header__title">
                     <Link
+                        className="main__header__title__back-container"
                         to={
                             isTraider
                                 ? router.traider_page

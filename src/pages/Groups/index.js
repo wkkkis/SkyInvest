@@ -90,11 +90,16 @@ const Groups = ({ title }) => {
         }
     }, [complete]);
 
+    useEffect(() => {
+        dispatch(groupActions.setGroup(null));
+    }, []);
+
     return (
         <div className="main">
             <div className="main__header">
                 <div className="main__header__title">
                     <Link
+                        className="main__header__title__back-container"
                         to={
                             isTraider
                                 ? router.traider_page

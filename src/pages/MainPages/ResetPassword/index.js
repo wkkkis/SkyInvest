@@ -42,8 +42,7 @@ const ResetPassword = () => {
             {completed ? (
                 <ActivationModal
                     title="Сслыка для изменения пароля отправлена вам на почту!"
-                    desc="Нажмите на кнопку продолжить чтобы войти в личный
-                кабинет"
+                    desc="Мы вышлем вам ссылку для того, чтобы вы могли восстановить свой пароль."
                     handleChange={activatedHandle}
                 />
             ) : null}

@@ -80,6 +80,7 @@ const CopySettings = () => {
             <div className="main__header">
                 <div className="main__header__title">
                     <Link
+                        className="main__header__title__back-container"
                         to={
                             isTraider
                                 ? router.traider_page

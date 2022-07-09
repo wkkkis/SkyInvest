@@ -137,7 +137,7 @@ export const getBalance = () => async (dispatch) => {
     try {
         const token = localStorage.getItem("token");
         let response = await userService.getBalance(token);
-        dispatch(userActions.setBalance(response.data));
+        dispatch(userActions.setBalance(response.data.balance));
     } catch (e) {
         dispatch(userActions.message(e.response.data));
     }

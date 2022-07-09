@@ -15,7 +15,11 @@ import balance from "@assets/img/balance.svg";
 //Styles
 import "./Modal.scss";
 import { useDispatch, useSelector } from "react-redux";
-import { getGroupInfo, joinToGroup } from "../../store/group/group.api";
+import {
+    getGroupInfo,
+    groupActions,
+    joinToGroup,
+} from "../../store/group/group.api";
 import SpinnerLoad from "../SpinnerLoad";
 import { useNavigate } from "react-router";
 import router from "../../utils/router";
@@ -58,6 +62,7 @@ const InsideGroupModal = ({ handleChange, info }) => {
     const join = (id) => {
         if (isAuth) {
             dispatch(joinToGroup(id, sum));
+            dispatch(groupActions.setGroup(null));
         } else {
             navigate(router.login);
         }
@@ -66,6 +71,8 @@ const InsideGroupModal = ({ handleChange, info }) => {
     const handleClick = () => {
         navigate(`${router.profile}/${group?.trader}`);
     };
+
+    console.log(group);
 
     return (
         <>
@@ -93,7 +100,7 @@ const InsideGroupModal = ({ handleChange, info }) => {
                                 <div className="modal__block__line"></div>
                                 <span className="w400 f12">
                                     {Math.round(
-                                        (Date.now() -
+                                        (new Date(data?.start_date) -
                                             new Date(data?.end_date)) /
                                             (1000 * 60 * 60 * 24)
                                     )
@@ -116,8 +123,8 @@ const InsideGroupModal = ({ handleChange, info }) => {
                                     ВАША СУММА ВСТУПЛЕНИЯ
                                 </span>
                                 <RangeSlider
-                                    min={data?.min_entry_sum}
-                                    max={data?.max_entry_sum}
+                                    min={data.min_entry_sum}
+                                    max={data.max_entry_sum}
                                     onChange={(e) => rangeChange(e)}
                                 />
                                 <div className="modal__block__confirm">

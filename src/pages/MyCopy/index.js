@@ -62,7 +62,10 @@ const MyCopy = () => {
         <div className="main">
             <div className="main__header">
                 <div className="main__header__title">
-                    <Link to={router.investor_page}>
+                    <Link
+                        to={router.investor_page}
+                        className="main__header__title__back-container"
+                    >
                         <div className="main__header__title__back"></div>
                     </Link>
                     <svg

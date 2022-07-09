@@ -19,6 +19,20 @@
 
         &__card {
 
+            &__title {
+
+                span {
+                    word-break: break-all;
+                }
+            }
+
+            &__desc {
+
+                p {
+                    word-break: break-all;
+                }
+            }
+
             &__content {
                 display: flex;
                 flex-direction: column;

@@ -88,7 +88,6 @@ const USDTForm = () => {
                 {complateText && (
                     <Field
                         label="TXID"
-                        type="money"
                         {...register("usdt", {
                             required: true,
                             minLength: 2,

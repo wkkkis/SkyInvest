@@ -76,8 +76,8 @@ const DropMenu = ({ user }) => {
                               top: "-600px",
                               left: "0",
                               opacity: 0,
-                              transitionDelay: "0.3s",
-                              transitionDuration: "0.2s",
+                              transitionDelay: "0.1s",
+                              transitionDuration: "0.1s",
                           }
                 }
                 transition={{ type: "spring", duration: 0.05 }}

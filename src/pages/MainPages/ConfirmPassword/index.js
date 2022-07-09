@@ -24,7 +24,7 @@ const ConfirmPassword = () => {
     const [uid, setUid] = useState();
     const [searchParams, setSearchParams] = useSearchParams();
 
-    const { messages } = useSelector((state) => state.user);
+    const { messages, complete } = useSelector((state) => state.auth);
 
     useEffect(() => {
         if (searchParams.get("token") && searchParams.get("id")) {
@@ -34,10 +34,10 @@ const ConfirmPassword = () => {
     }, []);
 
     useEffect(() => {
-        if (messages === "confirm_password_success") {
+        if (complete === "confirm_password_success") {
             setCompleted(true);
         }
-    }, [messages]);
+    }, [complete]);
 
     const activatedHandle = (toggle) => {
         if (toggle) {

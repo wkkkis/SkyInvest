@@ -75,10 +75,12 @@ const User = () => {
     }, [tab]);
 
     const estimateChange = (data) => {
-        if (data && isAuth) {
-            dispatch(changeRate(params.id, data));
-        } else {
-            navigate(router.login);
+        if (data) {
+            if (isAuth) {
+                dispatch(changeRate(params.id, data));
+            } else {
+                navigate(router.login);
+            }
         }
         setEstimate(false);
     };

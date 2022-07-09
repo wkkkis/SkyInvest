@@ -43,9 +43,11 @@ const History = () => {
             <div className="main__header history_header">
                 <div className="main__header__title">
                     <div
-                        className="history_header__back"
+                        className="main__header__title__back-container"
                         onClick={changeBack}
-                    ></div>
+                    >
+                        <div className="main__header__title__back"></div>
+                    </div>
                     <svg
                         width="14"
                         height="15"

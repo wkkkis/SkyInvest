@@ -133,76 +133,80 @@ const Main = () => {
 
     return (
         <div className="main main_page">
-            <Slider>
-                <div className="main__intro" key="10">
-                    <div className="intro-item">
-                        <div className="main__intro__welcome">
-                            <span>Добро пожаловать в</span>
-                            <img src={logo} alt="logo" />
-                        </div>
-                        <div className="main__intro__content">
-                            <img src={moment} alt="moment" />
-
-                            <div className="main__intro__content__desc">
-                                <p>
-                                    Стратегии доверительного управления
-                                    денежными средствами позволяют гибко
-                                    реагировать на изменения рынка и дают больше
-                                    возможностей повысить доходность вложений.
-                                </p>
-                                <p>
-                                    Воспользуйтесь услугой доверительного
-                                    управления активами, если не готовы тратить
-                                    много времени на инвестирование, хотите
-                                    снизить риски и добиться большей отдачи от
-                                    вложений.
-                                </p>
+            <div className="intro_container">
+                <Slider>
+                    <div className="main__intro" key="10">
+                        <div className="intro-item">
+                            <div className="main__intro__welcome">
+                                <span>Добро пожаловать в</span>
+                                <img src={logo} alt="logo" />
                             </div>
+                            <div className="main__intro__content">
+                                <img src={moment} alt="moment" />
 
-                            <Button
-                                theme="beforesubmit"
-                                onClick={() => navigate(router.dashboard)}
-                            >
-                                приступить к инвестированию
-                            </Button>
+                                <div className="main__intro__content__desc">
+                                    <p>
+                                        Стратегии доверительного управления
+                                        денежными средствами позволяют гибко
+                                        реагировать на изменения рынка и дают
+                                        больше возможностей повысить доходность
+                                        вложений.
+                                    </p>
+                                    <p>
+                                        Воспользуйтесь услугой доверительного
+                                        управления активами, если не готовы
+                                        тратить много времени на инвестирование,
+                                        хотите снизить риски и добиться большей
+                                        отдачи от вложений.
+                                    </p>
+                                </div>
+
+                                <Button
+                                    theme="beforesubmit"
+                                    onClick={() => navigate(router.dashboard)}
+                                >
+                                    приступить к инвестированию
+                                </Button>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div className="main__intro" key="15">
-                    <div className="intro-item">
-                        <div className="main__intro__welcome">
-                            <span>Добро пожаловать в</span>
-                            <img src={logo} alt="logo" />
-                        </div>
-                        <div className="main__intro__content">
-                            <img src={moment} alt="moment" />
-
-                            <div className="main__intro__content__desc">
-                                <p>
-                                    Стратегии доверительного управления
-                                    денежными средствами позволяют гибко
-                                    реагировать на изменения рынка и дают больше
-                                    возможностей повысить доходность вложений.
-                                </p>
-                                <p>
-                                    Воспользуйтесь услугой доверительного
-                                    управления активами, если не готовы тратить
-                                    много времени на инвестирование, хотите
-                                    снизить риски и добиться большей отдачи от
-                                    вложений.
-                                </p>
+                    <div className="main__intro" key="15">
+                        <div className="intro-item">
+                            <div className="main__intro__welcome">
+                                <span>Добро пожаловать в</span>
+                                <img src={logo} alt="logo" />
                             </div>
+                            <div className="main__intro__content">
+                                <img src={moment} alt="moment" />
 
-                            <Button
-                                theme="beforesubmit"
-                                onClick={() => navigate(router.dashboard)}
-                            >
-                                приступить к инвестированию
-                            </Button>
+                                <div className="main__intro__content__desc">
+                                    <p>
+                                        Стратегии доверительного управления
+                                        денежными средствами позволяют гибко
+                                        реагировать на изменения рынка и дают
+                                        больше возможностей повысить доходность
+                                        вложений.
+                                    </p>
+                                    <p>
+                                        Воспользуйтесь услугой доверительного
+                                        управления активами, если не готовы
+                                        тратить много времени на инвестирование,
+                                        хотите снизить риски и добиться большей
+                                        отдачи от вложений.
+                                    </p>
+                                </div>
+
+                                <Button
+                                    theme="beforesubmit"
+                                    onClick={() => navigate(router.dashboard)}
+                                >
+                                    приступить к инвестированию
+                                </Button>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </Slider>
+                </Slider>
+            </div>
 
             <div className="main__content">
                 <div className="main__content__instruct">

@@ -14,6 +14,7 @@ import InsideGroupModal from "../../Modals/InsideGroupModal";
 
 //Styles
 import "./InvestorGroup.scss";
+import { groupActions } from "../../../store/history/history.api";
 
 const InvestorGroup = ({ e, clean_group, setgroupid, className }) => {
     const navigate = useNavigate();
@@ -98,7 +99,9 @@ const InvestorGroup = ({ e, clean_group, setgroupid, className }) => {
 
             {InsideToggle ? (
                 <InsideGroupModal
-                    handleChange={() => setInsideToggle(false)}
+                    handleChange={() => {
+                        setInsideToggle(false);
+                    }}
                     info={e.id}
                 />
             ) : null}

@@ -29,6 +29,24 @@ const CreateGroupSidebar = ({ isOpen, toggle }) => {
     const [select, setSelect] = useState("");
     const { message } = useSelector((state) => state.group);
     const { complete } = useSelector((state) => state.user);
+    const [error, setError] = useState({
+        title: "pending",
+        description: "pending",
+        group_size: "pending",
+        percent_from_income: "pending",
+        need_sum: "pending",
+        min_entry_sum: "pending",
+        max_entry_sum: "pending",
+        birth_day: "pending",
+    });
+
+    const validate = (name, value) => {
+        setError((prevState) => ({
+            ...prevState,
+            [name]: value ? value : false,
+        }));
+    };
+
     const {
         register,
         handleSubmit,
@@ -66,16 +84,50 @@ const CreateGroupSidebar = ({ isOpen, toggle }) => {
         setDateOneShow(true);
     };
 
+    const submitValidate = () => {
+        Object.entries(error).forEach((e) => {
+            setError((prevState) => ({
+                ...prevState,
+                [e[0]]: e[1] !== "pending" ? e[1] : false,
+            }));
+        });
+    };
+
     const onSubmitHandler = async (data) => {
         setLoaded(true);
 
         if (select && dateOne && dateTwo) {
-            const obj = {
-                ...data,
-                start_date: new Date(dateOne).toISOString(),
-                end_date: new Date(dateTwo).toISOString(),
-            };
-            dispatch(createGroup(obj));
+            if (
+                parseInt(data.need_sum) >= parseInt(data.max_entry_sum) &&
+                parseInt(data.need_sum) >= parseInt(data.min_entry_sum) &&
+                100 >= parseInt(data.group_size)
+            ) {
+                const obj = {
+                    ...data,
+                    start_date: new Date(dateOne).toISOString(),
+                    end_date: new Date(dateTwo).toISOString(),
+                };
+                dispatch(createGroup(obj));
+            } else {
+                if (parseInt(data.need_sum) <= parseInt(data.max_entry_sum)) {
+                    setError((prevState) => ({
+                        ...prevState,
+                        max_entry_sum: "limit",
+                    }));
+                }
+                if (parseInt(data.need_sum) <= parseInt(data.min_entry_sum)) {
+                    setError((prevState) => ({
+                        ...prevState,
+                        min_entry_sum: "limit",
+                    }));
+                }
+                if (100 <= parseInt(data.group_size)) {
+                    setError((prevState) => ({
+                        ...prevState,
+                        group_size: "limit",
+                    }));
+                }
+            }
         }
 
         setLoaded(false);
@@ -124,14 +176,18 @@ const CreateGroupSidebar = ({ isOpen, toggle }) => {
                         </Select>
                     </div>
                     <Field
+                        area={true}
                         label="Название группы"
                         {...register("title", {
                             required: true,
                             minLength: 2,
-                            maxLength: 150,
+                            maxLength: 50,
                         })}
-                        onChange={onChangeHandler}
-                        error={errors.title && "Заполните поле"}
+                        onChange={(e) => {
+                            onChangeHandler(e);
+                            validate("title", e.target.value);
+                        }}
+                        error={!error.title && "Заполните поле"}
                     />
                     <Field
                         area={true}
@@ -141,8 +197,11 @@ const CreateGroupSidebar = ({ isOpen, toggle }) => {
                             minLength: 2,
                             maxLength: 500,
                         })}
-                        onChange={onChangeHandler}
-                        error={errors.description && "Заполните поле"}
+                        onChange={(e) => {
+                            onChangeHandler(e);
+                            validate("description", e.target.value);
+                        }}
+                        error={!error.description && "Заполните поле"}
                     />
                     <Field
                         label="Количество людей в группе"
@@ -152,8 +211,17 @@ const CreateGroupSidebar = ({ isOpen, toggle }) => {
                             maxLength: 2,
                         })}
                         type="user_count"
-                        onChange={onChangeHandler}
-                        error={errors.group_size && "Заполните поле"}
+                        onChange={(e) => {
+                            onChangeHandler(e);
+                            validate("group_size", e.target.value);
+                        }}
+                        error={
+                            error.group_size === "limit"
+                                ? "Максимальное количество инвесторов не должно превышать 100"
+                                : error.max_entry_sum
+                                ? ""
+                                : "Заполните поле"
+                        }
                     />
                     <Field
                         label="Процент начисления"
@@ -163,8 +231,11 @@ const CreateGroupSidebar = ({ isOpen, toggle }) => {
                             maxLength: 2,
                         })}
                         type="number"
-                        onChange={onChangeHandler}
-                        error={errors.group_size && "Заполните поле"}
+                        onChange={(e) => {
+                            onChangeHandler(e);
+                            validate("percent_from_income", e.target.value);
+                        }}
+                        error={!error.percent_from_income && "Заполните поле"}
                     />
                     <Field
                         label="Необходимая сумма"
@@ -174,8 +245,11 @@ const CreateGroupSidebar = ({ isOpen, toggle }) => {
                             maxLength: 5,
                         })}
                         type="money"
-                        onChange={onChangeHandler}
-                        error={errors.need_sum && "Заполните поле"}
+                        onChange={(e) => {
+                            onChangeHandler(e);
+                            validate("need_sum", e.target.value);
+                        }}
+                        error={!error.need_sum && "Заполните поле"}
                     />
                     <div className="create_group__sidebar__content__sum">
                         <Field
@@ -186,8 +260,17 @@ const CreateGroupSidebar = ({ isOpen, toggle }) => {
                                 maxLength: 5,
                             })}
                             type="money"
-                            onChange={onChangeHandler}
-                            error={errors.min_entry_sum && "Заполните поле"}
+                            onChange={(e) => {
+                                onChangeHandler(e);
+                                validate("min_entry_sum", e.target.value);
+                            }}
+                            error={
+                                error.min_entry_sum === "limit"
+                                    ? "Лимит превышен"
+                                    : error.max_entry_sum
+                                    ? ""
+                                    : "Заполните поле"
+                            }
                         />
                         <Field
                             label="Максимальная сумма входа"
@@ -197,8 +280,17 @@ const CreateGroupSidebar = ({ isOpen, toggle }) => {
                                 maxLength: 5,
                             })}
                             type="money"
-                            onChange={onChangeHandler}
-                            error={errors.max_entry_sum && "Заполните поле"}
+                            onChange={(e) => {
+                                onChangeHandler(e);
+                                validate("max_entry_sum", e.target.value);
+                            }}
+                            error={
+                                error.max_entry_sum === "limit"
+                                    ? "Лимит превышен"
+                                    : error.max_entry_sum
+                                    ? ""
+                                    : "Заполните поле"
+                            }
                         />
                     </div>
                     <div className="birthday">
@@ -222,7 +314,6 @@ const CreateGroupSidebar = ({ isOpen, toggle }) => {
                                 className="calendar_one"
                                 onChange={(e) => {
                                     setDateOne(e);
-                                    console.log(e);
                                 }}
                                 value={dateOne}
                             />
@@ -258,6 +349,7 @@ const CreateGroupSidebar = ({ isOpen, toggle }) => {
                         theme="beforesubmit"
                         type="submit"
                         disabled={loaded}
+                        onClick={submitValidate}
                     >
                         {!loaded ? "Создать группу" : <SpinnerLoad />}
                     </Button>

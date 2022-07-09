@@ -135,14 +135,7 @@ export const resetPassword = (email) => async (dispatch) => {
         let response = await authService.reset_password(email);
         dispatch(authActions.message("reset_success"));
     } catch (e) {
-        dispatch(authActions.setLoad(false));
-        if (e.response.data.message) {
-            dispatch(
-                authActions.message({ message: [e.response.data.message] })
-            );
-        } else {
-            dispatch(authActions.message(e.response.data));
-        }
+        dispatch(authActions.message(e.response.data));
     }
     dispatch(authActions.setLoad(false));
 };
@@ -152,19 +145,10 @@ export const confirmPassword = (data) => async (dispatch) => {
     try {
         dispatch(authActions.setLoad(true));
         let response = await authService.confirm_password(data);
-        if (response) {
-            dispatch(authActions.message(response.data.message));
-        }
+        dispatch(authActions.complete("confirm_password_success"));
         dispatch(authActions.setLoad(false));
     } catch (e) {
-        dispatch(authActions.setLoad(false));
-        if (e.response.data.message) {
-            dispatch(
-                authActions.message({ message: [e.response.data.message] })
-            );
-        } else {
-            dispatch(authActions.message(e.response.data));
-        }
+        dispatch(authActions.message(e.response.data));
     }
 };
 

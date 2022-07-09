@@ -180,7 +180,7 @@
         
                         p {
                             font-weight: 400;
-                            font-size: 12px;
+                            font-size: 14px;
                             line-height: 17px;
         
                             opacity: 0.8;
@@ -262,7 +262,7 @@
             }
 
             &__desc {
-                font-size: 12px;
+                font-size: 14px;
                 opacity: 0.8;
             }
 
@@ -446,7 +446,7 @@
             }
 
             &__desc {
-                font-size: 12px;
+                font-size: 14px;
                 opacity: 0.8;
             }
 
@@ -532,7 +532,7 @@
             }
 
             &__desc {
-                font-size: 12px;
+                font-size: 14px;
                 opacity: 0.8;
             }
 
@@ -617,7 +617,7 @@
             }
 
             &__desc {
-                font-size: 12px;
+                font-size: 14px;
                 opacity: 0.8;
             }
 
@@ -890,50 +890,6 @@
     }
 }
 
-@media screen and (max-width: 500px) {
-
-    .main {
-        padding: 16px;
-
-        &__intro {
-            width: calc(100% - 32px);
-            margin: 50px auto;
-            
-            .intro-item {
-                padding: 180px 16px;
-            }
-        }
-
-        &__content {
-            padding: 16px;
-
-            &__faq, &__groups, &__traider, &__premium {
-                gap: 8px;
-                
-                &__desc {
-                    padding: 16px;
-                    box-sizing: border-box;
-                    border-radius: 8px;
-                    background: #FBFBFB;
-                }
-            }
-
-            &__groups {
-
-                &__content {
-                    display: grid;
-                    grid-template-columns: repeat(1, minmax(200px, 1fr));
-                    grid-gap: 16px;
-
-                    &__card {
-                        width: 100% !important;
-                    }
-                }
-            }
-        }
-    }
-}
-
 @media screen and (max-width: 650px) {
 
     .main {
@@ -1000,6 +956,59 @@
 
                 &__content {
                     flex-direction: column;
+
+                    &__card {
+                        width: 100% !important;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 500px) {
+
+    .main {
+        padding: 16px;
+
+        .intro_container {
+
+            .slider__dots {
+                left: 16px;
+                bottom: 100px;
+            }
+        }
+
+        &__intro {
+            width: calc(100% - 32px);
+            margin: 16px auto;
+            
+            .intro-item {
+                padding: 180px 16px;
+            }
+        }
+
+        &__content {
+            padding: 16px;
+
+            &__faq, &__groups, &__traider, &__premium {
+                gap: 8px;
+                
+                &__desc {
+                    padding: 16px;
+                    box-sizing: border-box;
+                    border-radius: 8px;
+                    background: #FBFBFB;
+                    margin-top: -8px;
+                }
+            }
+
+            &__groups {
+
+                &__content {
+                    display: grid;
+                    grid-template-columns: repeat(1, minmax(200px, 1fr));
+                    grid-gap: 16px;
 
                     &__card {
                         width: 100% !important;

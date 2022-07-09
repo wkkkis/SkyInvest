@@ -4,9 +4,14 @@ import React, { useCallback, useEffect, useState, useRef } from "react";
 import "./RangeSlider.scss";
 
 const RangeSlider = ({ min, max, onChange }) => {
-    const [minVal, setMinVal] = useState(min);
-    const [maxVal, setMaxVal] = useState(max);
+    const [minVal, setMinVal] = useState(0);
+    const [maxVal, setMaxVal] = useState(0);
     const minValRef = useRef(min);
+
+    useEffect(() => {
+        setMaxVal(max);
+        setMinVal(min);
+    }, [min, max]);
 
     useEffect(() => {
         onChange(minVal);

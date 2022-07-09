@@ -5,10 +5,13 @@ import ReactPaginate from "react-paginate";
 import { useDispatch, useSelector } from "react-redux";
 import { getOpenTrades } from "../../store/group/group.api";
 import MessageBox from "../../components/MessageBox";
+import Pagination from "react-responsive-pagination";
 
 const UserSecondTab = ({ id }) => {
     const [itemOffset, setItemOffset] = useState(0);
     const [filter, setFilter] = useState("days");
+    let totalCount = 17;
+    const [currentPage, setCurrentPage] = useState(0);
 
     const dispatch = useDispatch();
 
@@ -187,15 +190,13 @@ const UserSecondTab = ({ id }) => {
                 ))}
             </div>
             <div className="user_tab__paginate">
-                <ReactPaginate
-                    className="react-paginate"
-                    breakLabel="..."
+                <Pagination
+                    disabledItemClassName="disabled-link"
+                    total={totalCount}
+                    current={currentPage}
+                    onPageChange={(page) => setCurrentPage(page)}
                     nextLabel=">"
-                    onPageChange={handlePageClick}
-                    pageRangeDisplayed={4}
-                    pageCount={50}
                     previousLabel="<"
-                    renderOnZeroPageCount={null}
                 />
             </div>
             {message

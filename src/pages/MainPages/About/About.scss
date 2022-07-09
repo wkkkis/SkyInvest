@@ -17,7 +17,7 @@
     &__about {
 
         &__sum_content {
-            margin-top: -170px;
+            margin-top: -100px;
 
             display: flex;
             flex-direction: column;
@@ -53,7 +53,7 @@
                 }
 
                 p {
-                    font-size: 12px;
+                    font-size: 14px;
 
                     opacity: 0.5;
                 }
@@ -167,7 +167,7 @@
                 }
 
                 p {
-                    font-size: 12px;
+                    font-size: 14px;
                     opacity: 0.5;
                 }
             }
@@ -207,6 +207,10 @@
     .main {
 
         &__about {
+
+            &__sum_content {
+                margin-top: -130px;
+            }
 
             &__desc_block {
                 display: flex;

@@ -86,6 +86,7 @@ const LoginForm = ({ fetchData, error, loaded }) => {
                     label="Email"
                     {...register("email", { required: true, maxLength: 50 })}
                     onChange={onChangeHandler}
+                    type="email"
                 />
                 {errors.email && (
                     <span className="form__error">{showEmailError()}</span>

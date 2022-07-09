@@ -39,6 +39,25 @@
             }
         }
 
+        .active {
+            width: 100%;
+                    
+            p {
+                width: 100%;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                transition: all 0.5s ease;
+            }
+        }
+    
+        .false {
+    
+            p {
+                word-wrap: break-word;
+            }
+        }
+
         &__card {
             width: 100%;
 

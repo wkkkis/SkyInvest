@@ -56,13 +56,14 @@ const TraiderDashBoard = React.memo(() => {
         }
     }, [isTraider]);
 
-    console.log(traider_data);
-
     return user ? (
         <div className="main">
             <div className="main__header">
                 <div className="main__header__title">
-                    <Link to={router.traider_page}>
+                    <Link
+                        to={router.traider_page}
+                        className="main__header__title__back-container"
+                    >
                         <div className="main__header__title__back"></div>
                     </Link>
                     <svg

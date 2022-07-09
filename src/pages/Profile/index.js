@@ -45,9 +45,11 @@ const Profile = () => {
             <div className="main__header">
                 <div className="main__header__title">
                     <div
-                        className="profile_header__back"
+                        className="main__header__title__back-container"
                         onClick={changeBack}
-                    ></div>
+                    >
+                        <div className="profile_header__back"></div>
+                    </div>
                     <svg
                         width="14"
                         height="15"

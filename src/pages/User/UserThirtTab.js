@@ -4,10 +4,13 @@ import Button from "@components/Button";
 import ReactPaginate from "react-paginate";
 import { useDispatch } from "react-redux";
 import { getTraderHistpry } from "../../store/group/group.api";
+import Pagination from "react-responsive-pagination";
 
 const UserThirdTab = ({ id }) => {
     const [itemOffset, setItemOffset] = useState(0);
     const [filter, setFilter] = useState("days");
+    let totalCount = 17;
+    const [currentPage, setCurrentPage] = useState(0);
 
     const dispatch = useDispatch();
 
@@ -178,15 +181,13 @@ const UserThirdTab = ({ id }) => {
                 ))}
             </div>
             <div className="user_tab__paginate">
-                <ReactPaginate
-                    className="react-paginate"
-                    breakLabel="..."
+                <Pagination
+                    disabledItemClassName="disabled-link"
+                    total={totalCount}
+                    current={currentPage}
+                    onPageChange={(page) => setCurrentPage(page)}
                     nextLabel=">"
-                    onPageChange={handlePageClick}
-                    pageRangeDisplayed={4}
-                    pageCount={50}
                     previousLabel="<"
-                    renderOnZeroPageCount={null}
                 />
             </div>
         </div>

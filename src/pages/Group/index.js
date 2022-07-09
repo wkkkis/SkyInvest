@@ -15,7 +15,7 @@ import InvestorGroup from "../../components/InvestorComponents/InvestorGroup";
 import UserInfoBlock from "../../components/UI/UserInfoBlock";
 import { getGroup } from "../../store/group/group.api";
 import SpinnerLoad from "../../components/SpinnerLoad";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { Link } from "react-router-dom";
 import router from "../../utils/router";
 import { dateFormatter, numberWithSpaces } from "../../utils/stringHelper";
@@ -25,6 +25,8 @@ const Group = ({ title, desc, ...props }) => {
     const { group } = useSelector((state) => state.group);
     const params = useParams();
 
+    const navigate = useNavigate();
+
     useEffect(() => {
         dispatch(getGroup(params.id));
     }, []);
@@ -33,7 +35,10 @@ const Group = ({ title, desc, ...props }) => {
         <div className="main">
             <div className="main__header">
                 <div className="main__header__title">
-                    <Link to={router.groups}>
+                    <Link
+                        to={router.groups}
+                        className="main__header__title__back-container"
+                    >
                         <div className="main__header__title__back"></div>
                     </Link>
                     <svg
@@ -80,7 +85,12 @@ const Group = ({ title, desc, ...props }) => {
                         <span>
                             Группа заполнена, начните торговать на Binance
                         </span>
-                        <Button theme="whitebg">Вывести на Binance</Button>
+                        <Button
+                            theme="whitebg"
+                            onClick={() => navigate(router.cash)}
+                        >
+                            Вывести на Binance
+                        </Button>
                     </div>
                 )}
                 <div className="main__group_content__card__list">

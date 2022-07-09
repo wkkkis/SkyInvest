@@ -11,40 +11,35 @@ import router from "@utils/router";
 // pages
 
 //Investor
-const DashBoard = React.lazy(() => import("@pages/DashBoard"));
-const Profile = React.lazy(() => import("@pages/Profile"));
-const Groups = React.lazy(() => import("@pages/Groups"));
-const Group = React.lazy(() => import("@pages/Group"));
-const Cash = React.lazy(() => import("@pages/Cash"));
-const History = React.lazy(() => import("@pages/History"));
-const MyCopy = React.lazy(() => import("@pages/MyCopy"));
-const Security = React.lazy(() => import("@pages/Security"));
-const Investor = React.lazy(() => import("@pages/Investor"));
-const Payments = React.lazy(() => import("@pages/Payments"));
-
-const CopySettings = React.lazy(() => import("@pages/CopySettings"));
-const Traider = React.lazy(() => import("../pages/Traider"));
-const Verify = React.lazy(() => import("../pages/Verify"));
-const User = React.lazy(() => import("../pages/User"));
+import DashBoard from "@pages/DashBoard";
+import Profile from "@pages/Profile";
+import Groups from "@pages/Groups";
+import Group from "@pages/Group";
+import Cash from "@pages/Cash";
+import History from "@pages/History";
+import Payments from "@pages/Payments";
+import MyCopy from "@pages/MyCopy";
+import Security from "@pages/Security";
+import Investor from "@pages/Investor";
+import CopySettings from "@pages/CopySettings";
+import Traider from "@pages/Traider";
+import Verify from "@pages/Verify";
+import User from "@pages/User";
 
 //Auth
-const Login = React.lazy(() => import("@pages/MainPages/Login"));
-const Signin = React.lazy(() => import("@pages/MainPages/Signin"));
-const ResetPassword = React.lazy(() =>
-    import("@pages/MainPages/ResetPassword")
-);
-const ConfirmPassword = React.lazy(() =>
-    import("@pages/MainPages/ConfirmPassword")
-);
-const Activation = React.lazy(() => import("@pages/MainPages/Activation"));
+import Login from "@pages/MainPages/Login";
+import Signin from "@pages/MainPages/Signin";
+import ResetPassword from "@pages/MainPages/ResetPassword";
+import ConfirmPassword from "@pages/MainPages/ConfirmPassword";
+import Activation from "@pages/MainPages/Activation";
 
 //Main
-const Main = React.lazy(() => import("@pages/MainPages/Main"));
-const About = React.lazy(() => import("@pages/MainPages/About"));
-const TradeGroup = React.lazy(() => import("@pages/MainPages/TradeGroup"));
-const CopyTrade = React.lazy(() => import("@pages/MainPages/CopyTrade"));
-const FAQ = React.lazy(() => import("@pages/MainPages/FAQ"));
-const Contacts = React.lazy(() => import("@pages/MainPages/Contacts"));
+import Main from "@pages/MainPages/Main";
+import About from "@pages/MainPages/About";
+import TradeGroup from "@pages/MainPages/TradeGroup";
+import CopyTrade from "@pages/MainPages/CopyTrade";
+import FAQ from "@pages/MainPages/FAQ";
+import Contacts from "@pages/MainPages/Contacts";
 
 export const allRoutes = {
     investor: [

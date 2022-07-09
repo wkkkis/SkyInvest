@@ -38,6 +38,8 @@ const Field = ({
             return "text";
         } else if (type === "number") {
             return "number";
+        } else if (type === "email") {
+            return "email";
         } else {
             return "text";
         }

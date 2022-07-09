@@ -267,14 +267,21 @@ const UserFirstTab = ({ id }) => {
                 <div className="user_tab__open_groups__content">
                     {groups?.open?.length
                         ? groups?.open?.length
-                            ? groups?.open.map((e) => (
-                                  <InvestorGroup
-                                      className="open_group_item"
-                                      e={e}
-                                      setleavegroupid={(e) => setLeaveId(e)}
-                                      setgroupid={(e) => setGroupId(e)}
-                                  />
-                              ))
+                            ? groups?.open
+                                  .sort(function (a, b) {
+                                      return (
+                                          new Date(b.start_date) -
+                                          new Date(a.start_date)
+                                      );
+                                  })
+                                  .map((e) => (
+                                      <InvestorGroup
+                                          className="open_group_item"
+                                          e={e}
+                                          setleavegroupid={(e) => setLeaveId(e)}
+                                          setgroupid={(e) => setGroupId(e)}
+                                      />
+                                  ))
                             : ""
                         : "Не найдено"}
                 </div>
@@ -316,13 +323,22 @@ const UserFirstTab = ({ id }) => {
                         <div className="user_tab__close_groups__content">
                             {groups ? (
                                 groups?.close?.length ? (
-                                    data?.close.map((e) => (
-                                        <CloseGroup
-                                            className="close_groups_item"
-                                            e={e}
-                                            setgroupid={(e) => setCloseId(e)}
-                                        />
-                                    ))
+                                    data?.close
+                                        .sort(function (a, b) {
+                                            return (
+                                                new Date(b.start_date) -
+                                                new Date(a.start_date)
+                                            );
+                                        })
+                                        .map((e) => (
+                                            <CloseGroup
+                                                className="close_groups_item"
+                                                e={e}
+                                                setgroupid={(e) =>
+                                                    setCloseId(e)
+                                                }
+                                            />
+                                        ))
                                 ) : null
                             ) : (
                                 <SpinnerLoad />

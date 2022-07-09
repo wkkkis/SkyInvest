@@ -18,7 +18,7 @@ const AuthLayout = ({ children, ...props }) => {
     const { rename } = usePageTitle();
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const { user } = useSelector((state) => state.user);
+    const { user, isTraider } = useSelector((state) => state.user);
     const { isAuth, messages, complete } = useSelector((state) => state.auth);
 
     useEffect(() => {
@@ -28,7 +28,15 @@ const AuthLayout = ({ children, ...props }) => {
     useEffect(() => {
         setTimeout(() => {
             if (isAuth || user) {
-                navigate(router.dashboard);
+                if (window.innerWidth < 600) {
+                    if (isTraider) {
+                        navigate(router.traider_page);
+                    } else {
+                        navigate(router.investor_page);
+                    }
+                } else {
+                    navigate(router.dashboard);
+                }
             }
         }, 0.5);
     }, [isAuth, user]);
