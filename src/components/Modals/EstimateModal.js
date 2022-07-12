@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 //Icons
 import star from "@assets/img/star.svg";
@@ -23,7 +23,7 @@ const StartClick = () => {
     );
 };
 
-const EstimateModal = ({ handleChange, info }) => {
+const EstimateModal = ({ handleChange, info, estimate }) => {
     const [starArr, setToggle] = useState(info);
 
     const hadnleClick = (toggle) => {
@@ -33,6 +33,14 @@ const EstimateModal = ({ handleChange, info }) => {
             handleChange(false);
         }
     };
+
+    useEffect(() => {
+        document.addEventListener("click", (e) => {
+            if (e.target.className === "modal") {
+                handleChange(false);
+            }
+        });
+    }, []);
 
     return (
         <div className="modal">

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 //Components
 import Button from "@components/Button";
@@ -47,8 +47,16 @@ const CopyTradeModal = ({ handleChange, info }) => {
     };
 
     const rangeChange = (length) => {
-        console.log(length);
+        // console.log(length);
     };
+
+    useEffect(() => {
+        document.addEventListener("click", (e) => {
+            if (e.target.className === "modal") {
+                handleChange(false);
+            }
+        });
+    }, []);
 
     return (
         <>

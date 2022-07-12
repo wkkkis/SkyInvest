@@ -21,7 +21,6 @@ const ProfilePassword = () => {
         handleSubmit,
         formState: { errors },
         setValue,
-        reset,
     } = useForm();
 
     const { loaded } = useSelector((state) => state.user);
@@ -32,7 +31,6 @@ const ProfilePassword = () => {
 
     const onSubmitHandler = async (data) => {
         dispatch(changePassword(data));
-        reset();
     };
 
     const showFioError = () => {
@@ -62,7 +60,7 @@ const ProfilePassword = () => {
     };
 
     const showPhoneError = () => {
-        switch (errors.return_new_password && errors.return_new_password.type) {
+        switch (errors.new_password2 && errors.new_password2.type) {
             case "minLength":
                 return "Введите больше";
             case "maxLength":

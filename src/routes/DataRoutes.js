@@ -40,6 +40,7 @@ import TradeGroup from "@pages/MainPages/TradeGroup";
 import CopyTrade from "@pages/MainPages/CopyTrade";
 import FAQ from "@pages/MainPages/FAQ";
 import Contacts from "@pages/MainPages/Contacts";
+import Agree from "@pages/MainPages/Agree";
 
 export const allRoutes = {
     investor: [
@@ -202,6 +203,12 @@ export const allRoutes = {
             component: User,
             layout: "main",
             title: "Пользователь",
+        },
+        {
+            url: router.agree_page,
+            component: Agree,
+            layout: "main",
+            title: "Соглашение",
         },
     ],
 };

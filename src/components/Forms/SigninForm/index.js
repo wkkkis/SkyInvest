@@ -39,7 +39,7 @@ const SigninForm = ({ fetchData }) => {
         errorData: { fields, error },
         ...validator
     } = useValidator();
-    const { messages, loaded } = useSelector((state) => state.user);
+    const { messages, loaded } = useSelector((state) => state.auth);
 
     const {
         register,
@@ -165,10 +165,13 @@ const SigninForm = ({ fetchData }) => {
                     name="phone"
                     label="Телефон"
                     type="number"
+                    value={phone}
                     classNames={`${fields.phone && "error"}`}
                     onChange={(e) => {
                         validator.isPhoneValid(e.target.value);
-                        setPhone(e.target.value);
+                        if (e.target.value.length <= 12) {
+                            setPhone(e.target.value);
+                        }
                     }}
                 />
                 {fields.phone && <span className="form__error">{error}</span>}

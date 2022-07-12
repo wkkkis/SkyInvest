@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { useNavigate } from "react-router";
 
@@ -51,10 +51,12 @@ const Header = () => {
     const navigate = useNavigate();
     const { user } = useSelector((state) => state.user);
 
+    const [isOpen, setOpen] = useState(false);
+
     return (
         <div className="header">
             <div className="header__logo">
-                <Link to={router.main}>
+                <Link to={router.main} onClick={() => setOpen(false)}>
                     <img src={logo} alt="" />
                 </Link>
             </div>
@@ -99,7 +101,7 @@ const Header = () => {
                 )}
             </div>
 
-            <DropMenu user={user} />
+            <DropMenu user={user} setOpen={setOpen} isOpen={isOpen} />
         </div>
     );
 };

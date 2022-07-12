@@ -98,9 +98,11 @@ const CreateGroupSidebar = ({ isOpen, toggle }) => {
 
         if (select && dateOne && dateTwo) {
             if (
-                parseInt(data.need_sum) >= parseInt(data.max_entry_sum) &&
-                parseInt(data.need_sum) >= parseInt(data.min_entry_sum) &&
-                100 >= parseInt(data.group_size)
+                parseInt(data.need_sum) > parseInt(data.max_entry_sum) &&
+                parseInt(data.need_sum) > parseInt(data.min_entry_sum) &&
+                parseInt(data.group_size) <= 50 &&
+                20 <= parseInt(data.group_size) &&
+                50 <= parseInt(data.need_sum)
             ) {
                 const obj = {
                     ...data,
@@ -109,22 +111,31 @@ const CreateGroupSidebar = ({ isOpen, toggle }) => {
                 };
                 dispatch(createGroup(obj));
             } else {
-                if (parseInt(data.need_sum) <= parseInt(data.max_entry_sum)) {
+                if (parseInt(data.need_sum) < parseInt(data.max_entry_sum)) {
                     setError((prevState) => ({
                         ...prevState,
                         max_entry_sum: "limit",
                     }));
                 }
-                if (parseInt(data.need_sum) <= parseInt(data.min_entry_sum)) {
+                if (parseInt(data.need_sum) < parseInt(data.min_entry_sum)) {
                     setError((prevState) => ({
                         ...prevState,
                         min_entry_sum: "limit",
                     }));
                 }
-                if (100 <= parseInt(data.group_size)) {
+                if (
+                    parseInt(data.group_size) < 20 ||
+                    parseInt(data.group_size) > 50
+                ) {
                     setError((prevState) => ({
                         ...prevState,
                         group_size: "limit",
+                    }));
+                }
+                if (50 >= parseInt(data.need_sum)) {
+                    setError((prevState) => ({
+                        ...prevState,
+                        need_sum: "limit",
                     }));
                 }
             }
@@ -207,8 +218,6 @@ const CreateGroupSidebar = ({ isOpen, toggle }) => {
                         label="Количество людей в группе"
                         {...register("group_size", {
                             required: true,
-                            minLength: 1,
-                            maxLength: 2,
                         })}
                         type="user_count"
                         onChange={(e) => {
@@ -217,8 +226,8 @@ const CreateGroupSidebar = ({ isOpen, toggle }) => {
                         }}
                         error={
                             error.group_size === "limit"
-                                ? "Максимальное количество инвесторов не должно превышать 100"
-                                : error.max_entry_sum
+                                ? "Максимальное количество инвесторов не должно превышать 50 и быть больше 20"
+                                : error.group_size
                                 ? ""
                                 : "Заполните поле"
                         }
@@ -241,7 +250,7 @@ const CreateGroupSidebar = ({ isOpen, toggle }) => {
                         label="Необходимая сумма"
                         {...register("need_sum", {
                             required: true,
-                            minLength: 1,
+                            minLength: 2,
                             maxLength: 5,
                         })}
                         type="money"
@@ -249,7 +258,13 @@ const CreateGroupSidebar = ({ isOpen, toggle }) => {
                             onChangeHandler(e);
                             validate("need_sum", e.target.value);
                         }}
-                        error={!error.need_sum && "Заполните поле"}
+                        error={
+                            error.need_sum === "limit"
+                                ? "Минимальная сумма 50"
+                                : error.need_sum
+                                ? ""
+                                : "Заполните поле"
+                        }
                     />
                     <div className="create_group__sidebar__content__sum">
                         <Field
@@ -267,7 +282,7 @@ const CreateGroupSidebar = ({ isOpen, toggle }) => {
                             error={
                                 error.min_entry_sum === "limit"
                                     ? "Лимит превышен"
-                                    : error.max_entry_sum
+                                    : error.min_entry_sum
                                     ? ""
                                     : "Заполните поле"
                             }

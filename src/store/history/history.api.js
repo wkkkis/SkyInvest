@@ -15,7 +15,7 @@ const historyReducer = (state = initialState, action) => {
                 ...state,
                 history: action.payload,
             };
-        case "SET_LOAD":
+        case "SET_LOAD_HISTORY":
             return {
                 ...state,
                 load: action.payload,
@@ -41,7 +41,7 @@ export const groupActions = {
         payload: data,
     }),
     setload: (data) => ({
-        type: "SET_LOAD",
+        type: "SET_LOAD_HISTORY",
         payload: data,
     }),
     message: (message) => ({ type: "SET_MESSAGE", payload: message }),
@@ -61,14 +61,10 @@ export const getHistoryJoinGroup =
                 end
             );
             dispatch(groupActions.setHistory(response.data));
+            dispatch(groupActions.setload(false));
         } catch (e) {
-            if (e.response.data.message) {
-                dispatch(
-                    groupActions.message({ message: [e.response.data.message] })
-                );
-            } else {
-                dispatch(groupActions.message(e.response.data));
-            }
+            dispatch(groupActions.message(e.response.data));
+            dispatch(groupActions.setload(false));
         }
         dispatch(groupActions.setload(false));
     };
@@ -82,14 +78,10 @@ export const getHistoryPayments =
             const token = localStorage.getItem("token");
             let response = await historyService.getPayments(token, start, end);
             dispatch(groupActions.setHistory(response.data));
+            dispatch(groupActions.setload(false));
         } catch (e) {
-            if (e.response.data.message) {
-                dispatch(
-                    groupActions.message({ message: [e.response.data.message] })
-                );
-            } else {
-                dispatch(groupActions.message(e.response.data));
-            }
+            dispatch(groupActions.message(e.response.data));
+            dispatch(groupActions.setload(false));
         }
         dispatch(groupActions.setload(false));
     };
@@ -103,15 +95,10 @@ export const getHistoryCash =
             const token = localStorage.getItem("token");
             let response = await historyService.getWithdraws(token, start, end);
             dispatch(groupActions.setHistory(response.data));
+            dispatch(groupActions.setload(false));
         } catch (e) {
-            if (e.response.data.message) {
-                dispatch(
-                    groupActions.message({ message: [e.response.data.message] })
-                );
-            } else {
-                dispatch(groupActions.message(e.response.data));
-            }
-            throw Error;
+            dispatch(groupActions.message(e.response.data));
+            dispatch(groupActions.setload(false));
         }
         dispatch(groupActions.setload(false));
     };

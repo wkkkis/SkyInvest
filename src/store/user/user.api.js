@@ -57,7 +57,7 @@ const userReducer = (state = initialState, action) => {
                 ...state,
                 verification: action.payload,
             };
-        case "SET_LOAD":
+        case "SET_LOAD_USER":
             return {
                 ...state,
                 loaded: action.payload,
@@ -98,7 +98,7 @@ export const userActions = {
         payload: data,
     }),
     setLoad: (toggle) => ({
-        type: "SET_LOAD",
+        type: "SET_LOAD_USER",
         payload: toggle,
     }),
     message: (message) => ({ type: "SET_MESSAGE", payload: message }),
@@ -113,7 +113,9 @@ export const binanceApiActive = (data) => async (dispatch) => {
         const token = localStorage.getItem("token");
         let response = await userService.trader_apply(token, data);
         dispatch(userActions.complete(response.data.message));
+        dispatch(userActions.setLoad(false));
     } catch (e) {
+        dispatch(userActions.setLoad(false));
         dispatch(userActions.message(e.response.data));
     }
     dispatch(userActions.setLoad(false));
@@ -126,8 +128,10 @@ export const me = () => async (dispatch) => {
         let response = await userService.me(token);
         dispatch(authActions.setIsAuth(true));
         dispatch(userActions.setDataUser(response.data));
+        dispatch(userActions.setLoad(false));
     } catch (e) {
         dispatch(userActions.message(e.response.data));
+        dispatch(userActions.setLoad(false));
     }
     dispatch(userActions.setLoad(false));
 };
@@ -138,8 +142,10 @@ export const getBalance = () => async (dispatch) => {
         const token = localStorage.getItem("token");
         let response = await userService.getBalance(token);
         dispatch(userActions.setBalance(response.data.balance));
+        dispatch(userActions.setLoad(false));
     } catch (e) {
         dispatch(userActions.message(e.response.data));
+        dispatch(userActions.setLoad(false));
     }
     dispatch(userActions.setLoad(false));
 };
@@ -162,8 +168,10 @@ export const getTraderDashboard = () => async (dispatch) => {
         let response = await userService.traderDashboard(token);
         dispatch(userActions.setDataUser(response.data.user));
         dispatch(userActions.setTraiderData(response.data));
+        dispatch(userActions.setLoad(false));
     } catch (e) {
         dispatch(userActions.message(e.response.data));
+        dispatch(userActions.setLoad(false));
     }
     dispatch(userActions.setLoad(false));
 };
@@ -188,8 +196,10 @@ export const verificationFetch = (data) => async (dispatch) => {
         if (response.status === 201) {
             dispatch(getVerificationStatus());
         }
+        dispatch(userActions.setLoad(false));
     } catch (e) {
         dispatch(userActions.message(e.response.data));
+        dispatch(userActions.setLoad(false));
     }
     dispatch(userActions.setLoad(false));
 };
@@ -201,8 +211,10 @@ export const getVerificationStatus = () => async (dispatch) => {
         const token = localStorage.getItem("token");
         let response = await userService.getVerificationStatus(token);
         dispatch(userActions.verification(response.data));
+        dispatch(userActions.setLoad(false));
     } catch (e) {
         dispatch(userActions.message(e.response.data));
+        dispatch(userActions.setLoad(false));
     }
     dispatch(userActions.setLoad(false));
 };
@@ -214,8 +226,10 @@ export const imageVerification = (data) => async (dispatch) => {
         const token = localStorage.getItem("token");
         let response = await userService.imageVerification(data, token);
         dispatch(userActions.complete(response.data.message));
+        dispatch(userActions.setLoad(false));
     } catch (e) {
         dispatch(userActions.message(e.response.data));
+        dispatch(userActions.setLoad(false));
     }
     dispatch(userActions.setLoad(false));
 };
@@ -227,9 +241,11 @@ export const editUser = (data) => async (dispatch) => {
         const token = localStorage.getItem("token");
         let response = await userService.editUser(data, token);
         dispatch(userActions.complete(response.data.message));
+        dispatch(userActions.setLoad(false));
         dispatch(me());
     } catch (e) {
         dispatch(userActions.message(e.response.data));
+        dispatch(userActions.setLoad(false));
     }
     dispatch(userActions.setLoad(false));
 };
@@ -241,8 +257,10 @@ export const changePassword = (data) => async (dispatch) => {
         const token = localStorage.getItem("token");
         let response = await userService.changePassword(data, token);
         dispatch(userActions.complete(response.data.message));
+        dispatch(userActions.setLoad(false));
     } catch (e) {
         dispatch(userActions.message(e.response.data));
+        dispatch(userActions.setLoad(false));
     }
     dispatch(userActions.setLoad(false));
 };
@@ -255,8 +273,10 @@ export const changeRate = (id, data) => async (dispatch) => {
         let response = await userService.changeRate(id, data, token);
         dispatch(userActions.complete(response.data.message));
         dispatch(getProfileInfo(id));
+        dispatch(userActions.setLoad(false));
     } catch (e) {
         dispatch(userActions.message(e.response.data));
+        dispatch(userActions.setLoad(false));
     }
     dispatch(userActions.setLoad(false));
 };

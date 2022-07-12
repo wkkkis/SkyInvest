@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 //Components
 import Button from "@components/Button";
@@ -38,6 +38,14 @@ const FreePlaceModal = ({ handleChange }) => {
         console.log(email);
         handleChange(true);
     };
+
+    useEffect(() => {
+        document.addEventListener("click", (e) => {
+            if (e.target.className === "modal") {
+                handleChange(false);
+            }
+        });
+    }, []);
 
     return (
         <form

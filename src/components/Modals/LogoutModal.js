@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 //Components
 import Button from "@components/Button";
@@ -18,6 +18,14 @@ const LogoutModal = ({ handleChange, load }) => {
         }
         handleChange(toggle);
     };
+
+    useEffect(() => {
+        document.addEventListener("click", (e) => {
+            if (e.target.className === "modal") {
+                handleChange(false);
+            }
+        });
+    }, []);
 
     return (
         <div className="modal">

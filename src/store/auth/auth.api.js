@@ -25,7 +25,7 @@ const authReducer = (state = initialState, action) => {
                 ...state,
                 isAuth: action.payload,
             };
-        case "SET_LOAD":
+        case "SET_LOAD_AUTH":
             return {
                 ...state,
                 loaded: action.payload,
@@ -41,7 +41,7 @@ export const authActions = {
         payload: toggle,
     }),
     setLoad: (toggle) => ({
-        type: "SET_LOAD",
+        type: "SET_LOAD_AUTH",
         payload: toggle,
     }),
     message: (message) => ({ type: "SET_MESSAGE", payload: message }),
@@ -55,14 +55,10 @@ export const login = (data) => async (dispatch) => {
         let response = await authService.login(data);
         dispatch(authActions.setIsAuth(true));
         localStorage.setItem("token", response.data.auth_token);
+        dispatch(authActions.setLoad(false));
     } catch (e) {
-        if (e.response.data.message) {
-            dispatch(
-                authActions.message({ message: [e.response.data.message] })
-            );
-        } else {
-            dispatch(authActions.message(e.response.data));
-        }
+        dispatch(authActions.message(e.response.data));
+        dispatch(authActions.setLoad(false));
     }
     dispatch(authActions.setLoad(false));
 };
@@ -73,14 +69,10 @@ export const activation = (data) => async (dispatch) => {
     try {
         let response = await authService.activation(data);
         dispatch(authActions.complete("complete_activation"));
+        dispatch(authActions.setLoad(false));
     } catch (e) {
-        if (e.response.data.message) {
-            dispatch(
-                authActions.message({ message: [e.response.data.message] })
-            );
-        } else {
-            dispatch(authActions.message(e.response.data));
-        }
+        dispatch(authActions.message(e.response.data));
+        dispatch(authActions.setLoad(false));
     }
     dispatch(authActions.setLoad(false));
 };
@@ -95,13 +87,7 @@ export const regiter = (data) => async (dispatch) => {
         }
     } catch (e) {
         dispatch(authActions.setLoad(false));
-        if (e.response.data.message) {
-            dispatch(
-                authActions.message({ message: [e.response.data.message] })
-            );
-        } else {
-            dispatch(authActions.message(e.response.data));
-        }
+        dispatch(authActions.message(e.response.data));
     }
     dispatch(authActions.setLoad(false));
 };
@@ -117,13 +103,7 @@ export const logOut = () => async (dispatch) => {
         dispatch(authActions.setIsAuth(false));
     } catch (e) {
         dispatch(authActions.setLoad(false));
-        if (e.response.data.message) {
-            dispatch(
-                authActions.message({ message: [e.response.data.message] })
-            );
-        } else {
-            dispatch(authActions.message(e.response.data));
-        }
+        dispatch(authActions.message(e.response.data));
     }
     dispatch(authActions.setLoad(false));
 };
@@ -134,8 +114,10 @@ export const resetPassword = (email) => async (dispatch) => {
     try {
         let response = await authService.reset_password(email);
         dispatch(authActions.message("reset_success"));
+        dispatch(authActions.setLoad(false));
     } catch (e) {
         dispatch(authActions.message(e.response.data));
+        dispatch(authActions.setLoad(false));
     }
     dispatch(authActions.setLoad(false));
 };
@@ -149,6 +131,7 @@ export const confirmPassword = (data) => async (dispatch) => {
         dispatch(authActions.setLoad(false));
     } catch (e) {
         dispatch(authActions.message(e.response.data));
+        dispatch(authActions.setLoad(false));
     }
 };
 

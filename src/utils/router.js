@@ -19,6 +19,7 @@ const router = {
     profile_edit: "/profile?type=user-info",
     profile_password: "/profile?type=password",
     login: "/login",
+    agree_page: "/agree",
     signin: "/signin",
     reset_password: "/reset-password",
     confirm_password: "/confirm-password",

@@ -32,7 +32,7 @@ const payReducer = (state = initialState, action) => {
                 ...state,
                 usdt_for_pay: action.payload,
             };
-        case "SET_LOAD":
+        case "SET_LOAD_PAY":
             return {
                 ...state,
                 loaded: action.payload,
@@ -61,7 +61,7 @@ export const payActions = {
         payload: data,
     }),
     setLoad: (data) => ({
-        type: "SET_LOAD",
+        type: "SET_LOAD_PAY",
         payload: data,
     }),
     message: (message) => ({ type: "SET_MESSAGE", payload: message }),
@@ -97,8 +97,10 @@ export const cashUsd = (data) => async (dispatch) => {
         dispatch(payActions.setVisaKey(response.data));
         dispatch(payActions.complete(response.data.message));
         dispatch(me());
+        dispatch(payActions.setLoad(false));
     } catch (e) {
         dispatch(payActions.message(e.response.data));
+        dispatch(payActions.setLoad(false));
     }
     dispatch(payActions.setLoad(false));
 };
@@ -110,8 +112,10 @@ export const ustdPayment = () => async (dispatch) => {
         const token = localStorage.getItem("token");
         let response = await payService.usdtForPay(token);
         dispatch(payActions.setUsdtKey(response.data));
+        dispatch(payActions.setLoad(false));
     } catch (e) {
         dispatch(payActions.message(e.response.data));
+        dispatch(payActions.setLoad(false));
     }
     dispatch(payActions.setLoad(false));
 };
@@ -125,8 +129,10 @@ export const ustdConfirm = () => async (dispatch) => {
         if (response.status === 201) {
             dispatch(payActions.usdtActive("usdt_active"));
         }
+        dispatch(payActions.setLoad(false));
     } catch (e) {
         dispatch(payActions.message(e.response.data));
+        dispatch(payActions.setLoad(false));
     }
     dispatch(payActions.setLoad(false));
 };
@@ -138,8 +144,10 @@ export const ustdDeposit = (data) => async (dispatch) => {
         const token = localStorage.getItem("token");
         let response = await payService.usdtForDeposit(data, token);
         dispatch(payActions.setUsdtKey(response.data));
+        dispatch(payActions.setLoad(false));
     } catch (e) {
         dispatch(payActions.message(e.response.data));
+        dispatch(payActions.setLoad(false));
     }
     dispatch(payActions.setLoad(false));
 };

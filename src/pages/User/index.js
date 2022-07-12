@@ -231,6 +231,7 @@ const User = () => {
             {estimate && (
                 <EstimateModal
                     handleChange={(e) => estimateChange(e)}
+                    estimate={estimate}
                     info={profile?.rate}
                 />
             )}

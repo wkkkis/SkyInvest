@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 //Components
 import Button from "@components/Button";
@@ -37,11 +37,19 @@ const CloseGroupModal = ({ handleChange, info }) => {
 
     const hadnleClick = (toggle) => {
         if (toggle) {
-            console.log(toggle);
+            handleChange(toggle);
         } else {
             handleChange(0);
         }
     };
+
+    useEffect(() => {
+        document.addEventListener("click", (e) => {
+            if (e.target.className === "modal") {
+                handleChange(false);
+            }
+        });
+    }, []);
 
     return (
         <div className="modal">

@@ -41,7 +41,7 @@ const ResetPassword = () => {
             </div>
             {completed ? (
                 <ActivationModal
-                    title="Сслыка для изменения пароля отправлена вам на почту!"
+                    title="Ссылка для изменения пароля отправлена вам на почту!"
                     desc="Мы вышлем вам ссылку для того, чтобы вы могли восстановить свой пароль."
                     handleChange={activatedHandle}
                 />

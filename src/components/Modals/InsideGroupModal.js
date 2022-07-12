@@ -53,7 +53,7 @@ const InsideGroupModal = ({ handleChange, info }) => {
         if (info) {
             dispatch(getGroupInfo(info));
         }
-    }, [info]);
+    }, []);
 
     const rangeChange = (length) => {
         setSum(length);
@@ -63,6 +63,7 @@ const InsideGroupModal = ({ handleChange, info }) => {
         if (isAuth) {
             dispatch(joinToGroup(id, sum));
             dispatch(groupActions.setGroup(null));
+            setData(null);
         } else {
             navigate(router.login);
         }
@@ -72,7 +73,13 @@ const InsideGroupModal = ({ handleChange, info }) => {
         navigate(`${router.profile}/${group?.trader}`);
     };
 
-    console.log(group);
+    useEffect(() => {
+        document.addEventListener("click", (e) => {
+            if (e.target.className === "modal") {
+                handleChange(false);
+            }
+        });
+    }, []);
 
     return (
         <>
@@ -152,6 +159,9 @@ const InsideGroupModal = ({ handleChange, info }) => {
                                         onClick={() => {
                                             hadnleClick(false);
                                             setData(null);
+                                            dispatch(
+                                                groupActions.setGroup(null)
+                                            );
                                         }}
                                     >
                                         Отмена
@@ -163,6 +173,7 @@ const InsideGroupModal = ({ handleChange, info }) => {
                                                 ? "beforesubmit"
                                                 : "aftersubmit"
                                         }
+                                        disabled={!check}
                                         onClick={() => {
                                             join(data.id);
                                             hadnleClick(true);

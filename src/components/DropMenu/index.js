@@ -45,8 +45,7 @@ const headerRoutes = [
     },
 ];
 
-const DropMenu = ({ user }) => {
-    const [isOpen, setOpen] = useState(false);
+const DropMenu = ({ user, isOpen, setOpen }) => {
     const navigate = useNavigate();
 
     const toggleMenu = () => {
@@ -88,7 +87,14 @@ const DropMenu = ({ user }) => {
                             order={true}
                             email={user.email}
                             name={`${user.first_name} ${user.last_name}`}
-                            onClick={() => navigate(router.dashboard)}
+                            onClick={() => {
+                                navigate(
+                                    user.is_trader
+                                        ? router.traider_page
+                                        : router.investor_page
+                                );
+                                setOpen(!isOpen);
+                            }}
                             logo="https://cdn.dribbble.com/users/24078/screenshots/15522433/media/e92e58ec9d338a234945ae3d3ffd5be3.jpg?compress=1&resize=400x300"
                         />
                     ) : (

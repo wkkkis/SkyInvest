@@ -27,9 +27,9 @@ const AuthLayout = ({ children, ...props }) => {
 
     useEffect(() => {
         setTimeout(() => {
-            if (isAuth || user) {
+            if (isAuth && user) {
                 if (window.innerWidth < 600) {
-                    if (isTraider) {
+                    if (user.is_trader) {
                         navigate(router.traider_page);
                     } else {
                         navigate(router.investor_page);

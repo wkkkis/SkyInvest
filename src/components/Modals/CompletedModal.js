@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 //Components
 import Button from "@components/Button";
@@ -11,6 +11,14 @@ const CompletedModal = ({ handleChange }) => {
     const hadnleClick = () => {
         handleChange();
     };
+
+    useEffect(() => {
+        document.addEventListener("click", (e) => {
+            if (e.target.className === "modal") {
+                hadnleClick(false);
+            }
+        });
+    }, []);
 
     return (
         <div className="modal">

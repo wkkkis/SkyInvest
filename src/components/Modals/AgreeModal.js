@@ -6,6 +6,8 @@ import Checkbox from "../Checkbox";
 
 //Styles
 import "./Modal.scss";
+import { Link } from "react-router-dom";
+import router from "../../utils/router";
 
 const AgreeModal = React.memo(({ handleChange }) => {
     const [check, setCheck] = useState(false);
@@ -32,8 +34,9 @@ const AgreeModal = React.memo(({ handleChange }) => {
                         onChange={(e) => setCheck(e.target.checked)}
                         id="register_confirm_agree"
                         group="register_confirm_agree"
-                        label={`Я принимаю условия соглашения`}
+                        label={`Я принимаю условия`}
                     />
+                    <Link to={router.agree_page}>соглашения</Link>
                 </div>
                 <div className="modal__block__btns">
                     <Button

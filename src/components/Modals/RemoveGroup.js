@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 //Components
 import Button from "@components/Button";
@@ -11,6 +11,14 @@ const RemoveGroup = ({ handleChange }) => {
     const hadnleClick = (toggle) => {
         handleChange(toggle);
     };
+
+    useEffect(() => {
+        document.addEventListener("click", (e) => {
+            if (e.target.className === "modal") {
+                handleChange("cancel");
+            }
+        });
+    }, []);
 
     return (
         <div className="modal">
