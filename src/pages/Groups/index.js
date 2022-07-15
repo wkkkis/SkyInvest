@@ -153,12 +153,7 @@ const Groups = ({ title }) => {
                     groups.length ? (
                         isTraider ? (
                             groups
-                                .sort(function (a, b) {
-                                    return (
-                                        new Date(b.start_date) -
-                                        new Date(a.start_date)
-                                    );
-                                })
+                                .reverse()
                                 .map((e) => (
                                     <TraiderGroup
                                         e={e}
@@ -167,12 +162,7 @@ const Groups = ({ title }) => {
                                 ))
                         ) : (
                             groups
-                                .sort(function (a, b) {
-                                    return (
-                                        new Date(b.start_date) -
-                                        new Date(a.start_date)
-                                    );
-                                })
+                                .reverse()
                                 .map((e) => (
                                     <InvestorGroup
                                         e={e}

@@ -22,6 +22,7 @@ import { useValidator } from "../../../hooks/useValidator";
 import Radio from "../../Radio";
 import { useSelector } from "react-redux";
 import AgreeModal from "../../Modals/AgreeModal";
+import router from "../../../utils/router";
 
 const SigninForm = ({ fetchData }) => {
     const navigate = useNavigate();
@@ -213,7 +214,9 @@ const SigninForm = ({ fetchData }) => {
                         group="register_confirm"
                         label={`Я принимаю условия`}
                     />
-                    <a href="#">соглашения</a>
+                    <a href={router.agree_page} target="_blank">
+                        соглашения
+                    </a>
                 </div>
                 <Button
                     disabled={validator.hasInvalidFields() || loaded}

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 //Components
 import CardInfo from "@components/CardInfo";
@@ -74,6 +74,17 @@ const Pare = ({ id }) => {
 
 const CopySettings = () => {
     const { isTraider } = useSelector((state) => state.user);
+    const [mobile, setMobile] = useState(false);
+    const [peopleList, setPeopleList] = useState(false);
+
+    useEffect(() => {
+        if (window.innerWidth < 600) {
+            setMobile(true);
+        } else {
+            setMobile(false);
+            setPeopleList(true);
+        }
+    }, []);
 
     return (
         <div className="main">
@@ -108,6 +119,14 @@ const CopySettings = () => {
             <div className="main__copysettings_content">
                 <div className="main__copysettings_content__setting">
                     <Button theme="beforesubmit">Активировать копитрейд</Button>
+                    {mobile && (
+                        <Button
+                            onClick={() => setPeopleList(!peopleList)}
+                            theme="aftersubmit"
+                        >
+                            Список людей
+                        </Button>
+                    )}
                     {/* <Field classNames="clear_input" type="clear" /> */}
                     <Field label="Процент" type="number" />
 
@@ -117,22 +136,32 @@ const CopySettings = () => {
                         ))}
                     </div>
                 </div>
-                <div className="main__copysettings_content__user_list">
-                    <div className="main__copysettings_content__user_list__title">
-                        <span>Список людей</span>
+                {peopleList ? (
+                    <div
+                        className={`main__copysettings_content__user_list ${
+                            mobile ? "mobile" : ""
+                        }`}
+                    >
+                        <div className="main__copysettings_content__user_list__title">
+                            <div
+                                className="main__header__title__back"
+                                onClick={() => setPeopleList(!peopleList)}
+                            ></div>
+                            <span>Список людей</span>
+                        </div>
+                        <div className="main__copysettings_content__user_list__content">
+                            {Array.from({ length: 20 }).map((e) => (
+                                <div className="main__copysettings_content__user_list__content__item">
+                                    <UserInfoBlock
+                                        name="User Name"
+                                        email="username@mail.com"
+                                        logo="https://cdn.dribbble.com/users/24078/screenshots/15522433/media/e92e58ec9d338a234945ae3d3ffd5be3.jpg?compress=1&resize=400x300"
+                                    />
+                                </div>
+                            ))}
+                        </div>
                     </div>
-                    <div className="main__copysettings_content__user_list__content">
-                        {Array.from({ length: 20 }).map((e) => (
-                            <div className="main__copysettings_content__user_list__content__item">
-                                <UserInfoBlock
-                                    name="User Name"
-                                    email="username@mail.com"
-                                    logo="https://cdn.dribbble.com/users/24078/screenshots/15522433/media/e92e58ec9d338a234945ae3d3ffd5be3.jpg?compress=1&resize=400x300"
-                                />
-                            </div>
-                        ))}
-                    </div>
-                </div>
+                ) : null}
             </div>
         </div>
     );

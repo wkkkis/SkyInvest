@@ -35,7 +35,6 @@ const FreePlaceModal = ({ handleChange }) => {
             return;
         }
 
-        console.log(email);
         handleChange(true);
     };
 

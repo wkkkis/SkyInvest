@@ -26,7 +26,7 @@ const secuReducer = (state = initialState, action) => {
                 ...state,
                 pay: action.payload,
             };
-        case "SET_MESSAGE":
+        case "SET_MESSAGE_SECU":
             return {
                 ...state,
                 messages: action.payload,
@@ -41,7 +41,7 @@ const secuReducer = (state = initialState, action) => {
     }
 };
 
-export const actions = {
+export const secuAactions = {
     setQr: (data) => ({
         type: "SET_QR",
         payload: data,
@@ -58,7 +58,7 @@ export const actions = {
         type: "CHANGE_PAY",
         payload: toggle,
     }),
-    message: (message) => ({ type: "SET_MESSAGE", payload: message }),
+    message: (message) => ({ type: "SET_MESSAGE_SECU", payload: message }),
 };
 
 export const create2FA = () => async (dispatch) => {
@@ -66,10 +66,10 @@ export const create2FA = () => async (dispatch) => {
         const token = localStorage.getItem("token");
         let response = await secuService.create2fa(token);
         if (response.data) {
-            dispatch(actions.setQr(response.data));
+            dispatch(secuAactions.setQr(response.data));
         }
     } catch (e) {
-        dispatch(actions.message(e.response.data));
+        dispatch(secuAactions.message(e.response.data));
     }
 };
 
@@ -81,7 +81,7 @@ export const update2FA = (data) => async (dispatch) => {
             dispatch(get2FAInfo());
         }
     } catch (e) {
-        dispatch(actions.message(e.response.data));
+        dispatch(secuAactions.message(e.response.data));
     }
 };
 
@@ -93,7 +93,7 @@ export const verify2FA = (code) => async (dispatch) => {
             dispatch(get2FAInfo());
         }
     } catch (e) {
-        dispatch(actions.message(e.response.data));
+        dispatch(secuAactions.message(e.response.data));
     }
 };
 
@@ -105,7 +105,7 @@ export const delete2FA = (twofa) => async (dispatch) => {
             dispatch(get2FAInfo());
         }
     } catch (e) {
-        dispatch(actions.message(e.response.data));
+        dispatch(secuAactions.message(e.response.data));
     }
 };
 
@@ -114,15 +114,15 @@ export const get2FAInfo = () => async (dispatch) => {
         const token = localStorage.getItem("token");
         let response = await secuService.info2fa(token);
         const { otp_for_login, otp_for_withdraw } = response.data;
-        dispatch(actions.changeAuth(otp_for_login));
-        dispatch(actions.changePay(otp_for_withdraw));
+        dispatch(secuAactions.changeAuth(otp_for_login));
+        dispatch(secuAactions.changePay(otp_for_withdraw));
         if (otp_for_login || otp_for_withdraw) {
-            dispatch(actions.setSecu(true));
+            dispatch(secuAactions.setSecu(true));
         } else {
-            dispatch(actions.setSecu(false));
+            dispatch(secuAactions.setSecu(false));
         }
     } catch (e) {
-        dispatch(actions.message(e.response.data));
+        dispatch(secuAactions.message(e.response.data));
     }
 };
 

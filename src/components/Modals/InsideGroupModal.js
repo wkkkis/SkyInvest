@@ -27,7 +27,6 @@ import AgreeModal from "./AgreeModal";
 
 const InsideGroupModal = ({ handleChange, info }) => {
     const [sum, setSum] = useState(0);
-    const [modalTab, setModalTab] = useState(false);
     const [check, setCheck] = useState(false);
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -83,126 +82,108 @@ const InsideGroupModal = ({ handleChange, info }) => {
 
     return (
         <>
-            {!modalTab && (
-                <div className="modal">
-                    <div className="modal__block">
-                        {data ? (
-                            <>
-                                <div className="modal__block__title">
-                                    <span>{data.title}</span>
-                                </div>
-                                <div className="modal__block__desc opacity">
-                                    <span>{data.description}</span>
-                                </div>
-                                <div className="modal__block__line"></div>
-                                <CardInfo
-                                    id={data.id}
-                                    className="modal__block__profit"
-                                    name={`${data.first_name} ${data.last_name}`}
-                                    email={data.email}
-                                    onClick={handleClick}
-                                    rating={`${data.investors.length}/${data.group_size}`}
-                                    logo="https://cdn.dribbble.com/users/24078/screenshots/15522433/media/e92e58ec9d338a234945ae3d3ffd5be3.jpg?compress=1&resize=400x300"
+            <div className="modal">
+                <div className="modal__block">
+                    {data ? (
+                        <>
+                            <div className="modal__block__title">
+                                <span>{data.title}</span>
+                            </div>
+                            <div className="modal__block__desc opacity">
+                                <span>{data.description}</span>
+                            </div>
+                            <div className="modal__block__line"></div>
+                            <CardInfo
+                                id={data.id}
+                                className="modal__block__profit"
+                                name={`${data.first_name} ${data.last_name}`}
+                                email={data.email}
+                                onClick={handleClick}
+                                rating={`${data.investors.length}/${data.group_size}`}
+                                logo="https://cdn.dribbble.com/users/24078/screenshots/15522433/media/e92e58ec9d338a234945ae3d3ffd5be3.jpg?compress=1&resize=400x300"
+                            />
+                            <div className="modal__block__line"></div>
+                            <span className="w400 f12">
+                                {Math.round(
+                                    (new Date(data?.start_date) -
+                                        new Date(data?.end_date)) /
+                                        (1000 * 60 * 60 * 24)
+                                )
+                                    .toString()
+                                    .replace("-", "")}{" "}
+                                дней
+                            </span>
+                            <ProgressBar
+                                completed={
+                                    (data.amount_collected / data.need_sum) *
+                                    100
+                                }
+                                from={data.amount_collected}
+                                to={data.need_sum}
+                                start={data.start_date}
+                                end={data.end_date}
+                            />
+                            <span className="w700 f12">
+                                ВАША СУММА ВСТУПЛЕНИЯ
+                            </span>
+                            <RangeSlider
+                                min={data.min_entry_sum}
+                                max={data.max_entry_sum}
+                                onChange={(e) => rangeChange(e)}
+                            />
+                            <div className="modal__block__confirm">
+                                <Checkbox
+                                    id={info}
+                                    checked={check}
+                                    onChange={(e) => setCheck(e.target.checked)}
+                                    label="Я принимаю условия"
                                 />
-                                <div className="modal__block__line"></div>
-                                <span className="w400 f12">
-                                    {Math.round(
-                                        (new Date(data?.start_date) -
-                                            new Date(data?.end_date)) /
-                                            (1000 * 60 * 60 * 24)
-                                    )
-                                        .toString()
-                                        .replace("-", "")}{" "}
-                                    дней
+                                <span>
+                                    <a href={router.agree_page} target="_blank">
+                                        соглашения
+                                    </a>
                                 </span>
-                                <ProgressBar
-                                    completed={
-                                        (data.amount_collected /
-                                            data.need_sum) *
-                                        100
+                            </div>
+                            <div className="modal__block__btns">
+                                <Button
+                                    className="modal__block__btns__button"
+                                    theme="aftersubmit"
+                                    onClick={() => {
+                                        hadnleClick(false);
+                                        setData(null);
+                                        dispatch(groupActions.setGroup(null));
+                                    }}
+                                >
+                                    Отмена
+                                </Button>
+                                <Button
+                                    className="modal__block__btns__button"
+                                    theme={
+                                        data.status === "recruited"
+                                            ? "beforesubmit"
+                                            : "aftersubmit"
                                     }
-                                    from={data.amount_collected}
-                                    to={data.need_sum}
-                                    start={data.start_date}
-                                    end={data.end_date}
-                                />
-                                <span className="w700 f12">
-                                    ВАША СУММА ВСТУПЛЕНИЯ
-                                </span>
-                                <RangeSlider
-                                    min={data.min_entry_sum}
-                                    max={data.max_entry_sum}
-                                    onChange={(e) => rangeChange(e)}
-                                />
-                                <div className="modal__block__confirm">
-                                    <Checkbox
-                                        id={info}
-                                        checked={check}
-                                        onChange={(e) =>
-                                            setCheck(e.target.checked)
-                                        }
-                                        label="Я принимаю условия"
-                                    />
-                                    <span>
-                                        <a
-                                            href="#"
-                                            onClick={() => setModalTab(true)}
-                                        >
-                                            соглашения
-                                        </a>
-                                    </span>
-                                </div>
-                                <div className="modal__block__btns">
-                                    <Button
-                                        className="modal__block__btns__button"
-                                        theme="aftersubmit"
-                                        onClick={() => {
-                                            hadnleClick(false);
-                                            setData(null);
-                                            dispatch(
-                                                groupActions.setGroup(null)
-                                            );
-                                        }}
-                                    >
-                                        Отмена
-                                    </Button>
-                                    <Button
-                                        className="modal__block__btns__button"
-                                        theme={
-                                            data.status === "recruited"
-                                                ? "beforesubmit"
-                                                : "aftersubmit"
-                                        }
-                                        disabled={!check}
-                                        onClick={() => {
-                                            join(data.id);
-                                            hadnleClick(true);
-                                        }}
-                                    >
-                                        {load ? (
-                                            <SpinnerLoad />
-                                        ) : data.status === "recruited" ? (
-                                            "Вступить"
-                                        ) : (
-                                            "Выйти из группы"
-                                        )}
-                                    </Button>
-                                </div>
-                            </>
-                        ) : (
-                            <SpinnerLoad />
-                        )}
-                    </div>
+                                    disabled={!check}
+                                    onClick={() => {
+                                        join(data.id);
+                                        hadnleClick(true);
+                                    }}
+                                >
+                                    {load ? (
+                                        <SpinnerLoad />
+                                    ) : data.status === "recruited" ? (
+                                        "Вступить"
+                                    ) : (
+                                        "Выйти из группы"
+                                    )}
+                                </Button>
+                            </div>
+                        </>
+                    ) : (
+                        <SpinnerLoad />
+                    )}
                 </div>
-            )}
-            {modalTab && (
-                <AgreeModal
-                    handleChange={(toggle) => {
-                        setCheck(toggle);
-                        setModalTab(false);
-                    }}
-                />
-            )}
+            </div>
         </>
     );
 };

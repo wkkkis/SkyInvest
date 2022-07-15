@@ -47,11 +47,12 @@ const Login = () => {
                 <LoginForm fetchData={fetchLoginData} loaded={loaded} />
                 <img src={back} alt="" />
             </div>
-            {messages?.message?.length &&
-                messages?.message[0][0] ===
-                    "Введите код Google authenticator" && (
-                    <TwoFACode handleChange={handleOtp} />
-                )}
+            {messages &&
+                Object.values(messages)[0].map((e) => {
+                    if (e === "Введите код Google authenticator") {
+                        return <TwoFACode handleChange={handleOtp} />;
+                    }
+                })}
             <Footer />
         </div>
     );

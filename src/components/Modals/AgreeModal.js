@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 
 //Components
 import Button from "@components/Button";
@@ -14,6 +14,14 @@ const AgreeModal = React.memo(({ handleChange }) => {
     const hadnleClick = (toggle) => {
         handleChange(toggle);
     };
+
+    useEffect(() => {
+        document.addEventListener("click", (e) => {
+            if (e.target.className === "modal") {
+                handleChange(false);
+            }
+        });
+    }, []);
 
     return (
         <div className="modal">
@@ -36,7 +44,9 @@ const AgreeModal = React.memo(({ handleChange }) => {
                         group="register_confirm_agree"
                         label={`Я принимаю условия`}
                     />
-                    <Link to={router.agree_page}>соглашения</Link>
+                    <a href={router.agree_page} target="_blank">
+                        соглашения
+                    </a>
                 </div>
                 <div className="modal__block__btns">
                     <Button

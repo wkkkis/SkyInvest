@@ -101,7 +101,6 @@ const CreateGroupSidebar = ({ isOpen, toggle }) => {
                 parseInt(data.need_sum) > parseInt(data.max_entry_sum) &&
                 parseInt(data.need_sum) > parseInt(data.min_entry_sum) &&
                 parseInt(data.group_size) <= 50 &&
-                20 <= parseInt(data.group_size) &&
                 50 <= parseInt(data.need_sum)
             ) {
                 const obj = {
@@ -123,10 +122,7 @@ const CreateGroupSidebar = ({ isOpen, toggle }) => {
                         min_entry_sum: "limit",
                     }));
                 }
-                if (
-                    parseInt(data.group_size) < 20 ||
-                    parseInt(data.group_size) > 50
-                ) {
+                if (parseInt(data.group_size) > 50) {
                     setError((prevState) => ({
                         ...prevState,
                         group_size: "limit",
@@ -226,7 +222,7 @@ const CreateGroupSidebar = ({ isOpen, toggle }) => {
                         }}
                         error={
                             error.group_size === "limit"
-                                ? "Максимальное количество инвесторов не должно превышать 50 и быть больше 20"
+                                ? "Максимальное количество инвесторов не должно превышать 50"
                                 : error.group_size
                                 ? ""
                                 : "Заполните поле"

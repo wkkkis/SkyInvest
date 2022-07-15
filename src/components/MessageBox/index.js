@@ -6,6 +6,7 @@ import {
     groupActions,
     messageClean,
 } from "../../store/group/group.api";
+import { secuAactions } from "../../store/security/secu.api";
 import { userActions } from "../../store/user/user.api";
 
 //Styles
@@ -21,17 +22,19 @@ const MessageBox = ({ message, error }) => {
         dispatch(userActions.message(""));
         dispatch(authActions.complete(""));
         dispatch(authActions.message(""));
+        dispatch(secuAactions.message(""));
     };
 
     useEffect(() => {
         setTimeout(() => {
-            if (message[0][0] !== "Введите код Google authenticator") {
+            if (message[0] !== "Введите код Google authenticator") {
                 dispatch(groupActions.message(""));
                 dispatch(groupActions.complete(""));
                 dispatch(userActions.complete(""));
                 dispatch(userActions.message(""));
                 dispatch(authActions.complete(""));
                 dispatch(authActions.message(""));
+                dispatch(secuAactions.message(""));
             }
         }, 3000);
     }, []);
