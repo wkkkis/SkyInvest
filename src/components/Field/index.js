@@ -17,6 +17,7 @@ const Field = ({
     defaultValue = "",
     error = "",
     type,
+    autoFocus,
     area = false,
     ...props
 }) => {
@@ -40,6 +41,8 @@ const Field = ({
             return "number";
         } else if (type === "email") {
             return "email";
+        } else if (type === "usd") {
+            return "number";
         } else {
             return "text";
         }
@@ -58,6 +61,7 @@ const Field = ({
                     onClick={onClick}
                     onFocus={onFocus}
                     onChange={onChange}
+                    autoFocus={autoFocus}
                     value={value}
                     {...props}
                 />

@@ -84,6 +84,7 @@ const TwoAuthFactor = ({ handleChange, qr, code }) => {
                         minLength: 6,
                         maxLength: 6,
                     })}
+                    autoFocus={true}
                     onChange={onChangeHandler}
                 />
                 {errors.code && (

@@ -660,6 +660,10 @@
                 &__table {
                     display: none;
                 }
+
+                &__mobile_table {
+                    display: flex;
+                }
             }
         }
     }
@@ -713,10 +717,6 @@
             }
 
             .user_tab {
-
-                &__mobile_table {
-                    display: flex;
-                }
                 
                 &__results {
                     flex-direction: column;

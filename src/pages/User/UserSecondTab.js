@@ -19,9 +19,6 @@ const UserSecondTab = ({ id }) => {
 
     const handlePageClick = (event) => {
         const newOffset = event.selected;
-        console.log(
-            `User requested page number ${event.selected}, which is offset ${newOffset}`
-        );
         setItemOffset(newOffset);
     };
 

@@ -290,7 +290,7 @@ const UserFirstTab = ({ id }) => {
                 <div className="user_tab__open_groups__title">
                     <span>ЗАКРЫТЫЕ ГРУППЫ</span>
                 </div>
-                {groups?.close?.length ? (
+                {groups?.closed?.length ? (
                     <>
                         <div className="user_tab__close_groups__filters">
                             <div className="select_cont">
@@ -322,8 +322,8 @@ const UserFirstTab = ({ id }) => {
                         </div>
                         <div className="user_tab__close_groups__content">
                             {groups ? (
-                                groups?.close?.length ? (
-                                    data?.close
+                                groups?.closed?.length ? (
+                                    groups?.closed
                                         .sort(function (a, b) {
                                             return (
                                                 new Date(b.start_date) -

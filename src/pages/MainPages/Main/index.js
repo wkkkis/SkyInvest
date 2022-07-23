@@ -441,14 +441,16 @@ const Main = () => {
                         )}
                     </div>
                     <div className="main__content__traider__content__pagination">
-                        <Pagination
-                            disabledItemClassName="disabled-link"
-                            total={totalCount}
-                            current={currentPage}
-                            onPageChange={(page) => setCurrentPage(page)}
-                            nextLabel=">"
-                            previousLabel="<"
-                        />
+                        {groups.length > 20 && (
+                            <Pagination
+                                disabledItemClassName="disabled-link"
+                                total={totalCount}
+                                current={currentPage}
+                                onPageChange={(page) => setCurrentPage(page)}
+                                nextLabel=">"
+                                previousLabel="<"
+                            />
+                        )}
                     </div>
                 </div>
                 <div className="main__content__premium">

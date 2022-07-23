@@ -51,32 +51,17 @@ export const groupService = {
     },
     getUserDashboardGroups: async (id, token) => {
         return await instance.get(
-            `${INVESTOR_URL}trader/${id}/dashboard_groups/`,
-            {
-                headers: {
-                    Authorization: `Token ${token}`,
-                },
-            }
+            `${INVESTOR_URL}trader/${id}/dashboard_groups/`
         );
     },
     getOpenTrades: async (id, token) => {
         return await instance.get(
-            `${INVESTOR_URL}trader/${id}/get_open_trades/`,
-            {
-                headers: {
-                    Authorization: `Token ${token}`,
-                },
-            }
+            `${INVESTOR_URL}trader/${id}/get_open_trades/`
         );
     },
     getTradesHistory: async (id, token) => {
         return await instance.get(
-            `${INVESTOR_URL}trader/${id}/get_trades_history/`,
-            {
-                headers: {
-                    Authorization: `Token ${token}`,
-                },
-            }
+            `${INVESTOR_URL}trader/${id}/get_trades_history/`
         );
     },
     getTraiderGroups: async (token) => {
