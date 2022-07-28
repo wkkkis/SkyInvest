@@ -421,7 +421,7 @@ const Main = () => {
                     </div>
                     <div className="main__content__groups__content">
                         {groups ? (
-                            groups.length ? (
+                            groups?.length ? (
                                 groups.map((e, idx) => (
                                     <InvestorGroup
                                         className={
@@ -441,7 +441,7 @@ const Main = () => {
                         )}
                     </div>
                     <div className="main__content__traider__content__pagination">
-                        {groups.length > 20 && (
+                        {groups?.length > 20 && (
                             <Pagination
                                 disabledItemClassName="disabled-link"
                                 total={totalCount}
@@ -571,7 +571,7 @@ const Main = () => {
                 </div>
                 <div className="main__content__faq__content">
                     <div className="main__content__faq__content__links">
-                        {faqQues && faqQues.length
+                        {faqQues && faqQues?.length
                             ? faqQues.map((e, idx) => (
                                   <div
                                       key={e.id}
@@ -604,7 +604,7 @@ const Main = () => {
                                       </Button>
 
                                       <div className="faq_block_main">
-                                          {faqQues && faqQues.length
+                                          {faqQues && faqQues?.length
                                               ? faqQues.map((e) => {
                                                     if (e.id === faqTab) {
                                                         return (
@@ -634,7 +634,7 @@ const Main = () => {
                             : null}
                     </div>
                     <div className="main__content__faq__content__block">
-                        {faqQues && faqQues.length
+                        {faqQues && faqQues?.length
                             ? faqQues.map((e) => {
                                   if (e.id === faqTab) {
                                       return (

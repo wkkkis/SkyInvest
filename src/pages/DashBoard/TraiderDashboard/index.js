@@ -108,7 +108,13 @@ const TraiderDashBoard = React.memo(() => {
                     <div className="main__dashboard_content__actives__profit">
                         <InfoBlock
                             label="Поступления в группы"
-                            value={`${traider_data?.admission_to_groups} %`}
+                            value={
+                                traider_data?.admission_to_groups >= 0 ? (
+                                    `${traider_data?.admission_to_groups} %`
+                                ) : (
+                                    <SpinnerLoad />
+                                )
+                            }
                             vWeigth="700"
                             color={
                                 traider_data?.admission_to_groups <= 0
@@ -119,7 +125,13 @@ const TraiderDashBoard = React.memo(() => {
                         />
                         <InfoBlock
                             label="Доход групп"
-                            value={`${traider_data?.income_of_groups} %`}
+                            value={
+                                traider_data?.income_of_groups >= 0 ? (
+                                    `${traider_data?.income_of_groups} %`
+                                ) : (
+                                    <SpinnerLoad />
+                                )
+                            }
                             vWeigth="700"
                             color={
                                 traider_data?.income_of_groups <= 0
@@ -133,7 +145,13 @@ const TraiderDashBoard = React.memo(() => {
                 <div className="main__dashboard_content__payments">
                     <InfoBlock
                         label="Поступления в группы"
-                        value={`${traider_data?.admission_to_groups} %`}
+                        value={
+                            traider_data?.admission_to_groups >= 0 ? (
+                                `${traider_data?.admission_to_groups} %`
+                            ) : (
+                                <SpinnerLoad />
+                            )
+                        }
                         vWeigth="700"
                         color={
                             traider_data?.admission_to_groups <= 0
@@ -144,7 +162,13 @@ const TraiderDashBoard = React.memo(() => {
                     />
                     <InfoBlock
                         label="Доход групп"
-                        value={`${traider_data?.income_of_groups} %`}
+                        value={
+                            traider_data?.income_of_groups >= 0 ? (
+                                `${traider_data?.income_of_groups} %`
+                            ) : (
+                                <SpinnerLoad />
+                            )
+                        }
                         vWeigth="700"
                         color={
                             traider_data?.income_of_groups <= 0
@@ -155,7 +179,13 @@ const TraiderDashBoard = React.memo(() => {
                     />
                     <InfoBlock
                         label="Людей в группах"
-                        value={`${traider_data?.people_in_groups} %`}
+                        value={
+                            traider_data?.people_in_groups >= 0 ? (
+                                `${traider_data?.people_in_groups} %`
+                            ) : (
+                                <SpinnerLoad />
+                            )
+                        }
                         vWeigth="700"
                         color={
                             traider_data?.people_in_groups <= 0
@@ -166,7 +196,13 @@ const TraiderDashBoard = React.memo(() => {
                     />
                     <InfoBlock
                         label="Людей копирование"
-                        value={`${traider_data?.people_copying} %`}
+                        value={
+                            traider_data?.people_copying >= 0 ? (
+                                `${traider_data?.people_copying} %`
+                            ) : (
+                                <SpinnerLoad />
+                            )
+                        }
                         vWeigth="700"
                         color={
                             traider_data?.people_copying <= 0 ? "red" : "green"
